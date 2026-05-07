@@ -1,0 +1,1575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Orbit Rescue: Mission Control · Stories in Science</title>
+
+  <!-- ============================================================
+       ORBIT RESCUE: MISSION CONTROL
+       Stories in Science · Grade 5
+       Lesson Shell v2.0 — Light layout, mirrors Eco-Responders style
+       Ready for GitHub Pages as index.html
+       ============================================================ -->
+
+  <style>
+    /* ============================================================
+       CSS CUSTOM PROPERTIES
+       ============================================================ */
+    :root {
+      /* Backgrounds & surfaces */
+      --bg-page:     #eef2f7;
+      --bg-white:    #ffffff;
+      --bg-header:   #ffffff;
+
+      /* Mission accent — teal/space blue */
+      --accent:      #0f7ea8;
+      --accent-dark: #0a5c7a;
+      --accent-light:#e4f4fb;
+      --accent-mid:  #b3dff0;
+
+      /* Gold / amber for hero button & path labels */
+      --gold:        #f5a623;
+      --gold-light:  #fff6e0;
+
+      /* SINS badge */
+      --sins-orange: #e06a2c;
+
+      /* Text */
+      --text-dark:   #1a1a1a;
+      --text-body:   #333333;
+      --text-mid:    #555555;
+      --text-light:  #777777;
+      --text-muted:  #aaaaaa;
+
+      /* Borders */
+      --border:      #dce3ea;
+      --border-mid:  #c5d0da;
+
+      /* Status */
+      --green:       #2a7a4e;
+      --green-light: #e6f4ed;
+      --red:         #c0392b;
+      --red-light:   #fdecea;
+
+      /* Layout */
+      --header-h:    56px;
+      --path-h:      74px;
+
+      /* Typography */
+      --font-ui:     -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+      --font-body:   Georgia, 'Times New Roman', serif;
+
+      /* Radii & shadows */
+      --radius-sm:   6px;
+      --radius-md:   10px;
+      --radius-lg:   14px;
+      --shadow-sm:   0 1px 4px rgba(0,0,0,0.08);
+      --shadow-card: 0 2px 12px rgba(0,0,0,0.09);
+    }
+
+    /* ============================================================
+       RESET & BASE
+       ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-ui);
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--text-body);
+      background: var(--bg-page);
+      min-height: 100vh;
+    }
+
+    /* ============================================================
+       FIXED HEADER
+       ============================================================ */
+    #site-header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--header-h);
+      background: var(--bg-header);
+      border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      z-index: 1000;
+      gap: 10px;
+    }
+
+    /* Left branding */
+    .header-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+      min-width: 0;
+    }
+
+    .sins-badge {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--sins-orange);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .sins-badge-text {
+      font-size: 10px;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -0.5px;
+    }
+
+    .brand-text { display: flex; flex-direction: column; min-width: 0; }
+
+    .brand-eyebrow {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      line-height: 1;
+      margin-bottom: 2px;
+    }
+
+    .brand-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1.2;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Right nav */
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .resume-code-display {
+      font-size: 12px;
+      color: var(--text-mid);
+      white-space: nowrap;
+    }
+
+    .resume-code-display strong {
+      color: var(--text-dark);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+
+    .hdr-btn {
+      font-family: var(--font-ui);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--bg-white);
+      color: var(--text-mid);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s;
+      line-height: 1;
+    }
+
+    .hdr-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-light);
+    }
+
+    .hdr-btn-restart {
+      border-color: #e8b4ae;
+      color: var(--red);
+    }
+
+    .hdr-btn-restart:hover {
+      background: var(--red-light);
+      border-color: var(--red);
+    }
+
+    /* ============================================================
+       MISSION PATH BAR (fixed, below header)
+       ============================================================ */
+    #mission-path-bar {
+      position: fixed;
+      top: var(--header-h);
+      left: 0; right: 0;
+      background: var(--bg-white);
+      border-bottom: 1px solid var(--border);
+      padding: 8px 16px 10px;
+      z-index: 999;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .mission-path-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 7px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .mission-path-steps { display: flex; gap: 8px; }
+
+    .path-step {
+      flex: 1;
+      background: var(--bg-page);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 6px 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .path-step.active {
+      border-color: var(--accent-mid);
+      background: var(--accent-light);
+    }
+
+    .path-step.done {
+      border-color: #a8d5b5;
+      background: var(--green-light);
+    }
+
+    .step-num {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--border);
+      color: var(--text-light);
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .path-step.active .step-num { background: var(--accent); color: #fff; }
+    .path-step.done  .step-num  { background: var(--green);  color: #fff; }
+
+    .step-info { min-width: 0; }
+
+    .step-title {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 1px;
+    }
+
+    .path-step.active .step-title { color: var(--accent-dark); }
+
+    .step-status { font-size: 11px; color: var(--text-muted); }
+    .path-step.active .step-status { color: var(--text-mid); }
+    .path-step.done  .step-status  { color: var(--green); font-weight: 600; }
+
+    /* ============================================================
+       APP / PAGE WRAPPER
+       ============================================================ */
+    #app {
+      padding-top: calc(var(--header-h) + var(--path-h));
+      min-height: 100vh;
+    }
+
+    .page-section { display: none; }
+    .page-section.active { display: block; }
+
+    .content-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 28px 16px 80px;
+    }
+
+    /* ============================================================
+       OPENING PAGE — HERO CARD
+       ============================================================ */
+    .hero-card {
+      background: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent) 100%);
+      border-radius: var(--radius-lg);
+      padding: 36px 32px;
+      text-align: center;
+      color: #fff;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .hero-title {
+      font-size: clamp(22px, 5vw, 32px);
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+
+    .hero-intro {
+      font-family: var(--font-body);
+      font-size: 18px;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.92);
+      max-width: 560px;
+      margin: 0 auto 24px;
+    }
+
+    .hero-intro strong { color: #fff; font-weight: 700; }
+
+    .btn-start {
+      font-family: var(--font-ui);
+      font-size: 16px;
+      font-weight: 700;
+      padding: 13px 40px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      background: var(--gold);
+      color: #1a1a1a;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.2);
+      transition: all 0.2s;
+    }
+
+    .btn-start:hover {
+      background: #e09510;
+      transform: translateY(-1px);
+      box-shadow: 0 5px 18px rgba(0,0,0,0.25);
+    }
+
+    /* ============================================================
+       COLLAPSIBLE SECTIONS
+       ============================================================ */
+    .collapsible-section {
+      background: var(--bg-white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      margin-bottom: 10px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .collapsible-trigger {
+      width: 100%;
+      background: var(--bg-white);
+      border: none;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      color: var(--text-body);
+      font-family: var(--font-ui);
+      font-size: 14px;
+      font-weight: 600;
+      text-align: left;
+      transition: background 0.15s;
+    }
+
+    .collapsible-trigger:hover { background: var(--bg-page); }
+
+    .collapsible-arrow {
+      font-size: 11px;
+      color: var(--text-light);
+      transition: transform 0.25s ease;
+      flex-shrink: 0;
+    }
+
+    .collapsible-trigger.open .collapsible-arrow { transform: rotate(180deg); }
+
+    .collapsible-body {
+      display: none;
+      padding: 16px 18px 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    .collapsible-body.open { display: block; }
+
+    .placeholder-objectives {
+      font-family: var(--font-body);
+      font-size: 15px;
+      color: var(--text-mid);
+      line-height: 1.75;
+    }
+
+    .placeholder-objectives ul {
+      margin: 10px 0 0 20px;
+      line-height: 2.1;
+    }
+
+    /* Copyright footer */
+    .lesson-footer {
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      padding: 18px 0 0;
+    }
+
+    /* ============================================================
+       CONTENT SECTION — READING CARD (white, left accent border)
+       ============================================================ */
+    .reading-card {
+      background: var(--bg-white);
+      border-radius: var(--radius-md);
+      border-left: 5px solid var(--accent);
+      padding: 26px 26px 22px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .listen-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-family: var(--font-ui);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-mid);
+      background: var(--bg-page);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 5px 12px;
+      cursor: pointer;
+      margin-bottom: 14px;
+      transition: all 0.15s;
+    }
+
+    .listen-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    .reading-card-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--accent-dark);
+      margin-bottom: 14px;
+      line-height: 1.3;
+    }
+
+    .reading-card-body {
+      font-family: var(--font-body);
+      font-size: 18px;
+      color: var(--text-body);
+      line-height: 1.8;
+    }
+
+    .reading-card-body p { margin-bottom: 14px; }
+    .reading-card-body p:last-child { margin-bottom: 0; }
+
+    /* Standard content cards */
+    .content-card {
+      background: var(--bg-white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 22px 24px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .card-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+
+    .card-body {
+      font-family: var(--font-body);
+      font-size: 16px;
+      color: var(--text-mid);
+      line-height: 1.7;
+    }
+
+    .placeholder-fill {
+      height: 70px;
+      background: repeating-linear-gradient(
+        45deg,
+        var(--bg-page),
+        var(--bg-page) 8px,
+        var(--border) 8px,
+        var(--border) 9px
+      );
+      border: 1px dashed var(--border-mid);
+      border-radius: var(--radius-sm);
+      margin-top: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+
+    /* ============================================================
+       CHOICE BUTTONS
+       ============================================================ */
+    .choice-group {
+      background: var(--bg-white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 22px 24px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .choice-prompt {
+      font-family: var(--font-body);
+      font-size: 18px;
+      color: var(--text-body);
+      margin-bottom: 16px;
+      line-height: 1.75;
+    }
+
+    .choices-row { display: flex; flex-wrap: wrap; gap: 10px; }
+
+    .choice-btn {
+      font-family: var(--font-ui);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 9px 20px;
+      border-radius: 50px;
+      border: 2px solid var(--border);
+      background: var(--bg-page);
+      color: var(--text-mid);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .choice-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-light);
+    }
+
+    .choice-btn.selected {
+      border-color: var(--accent-dark);
+      color: #fff;
+      background: var(--accent);
+    }
+
+    .choice-saved-note {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--green);
+      margin-top: 10px;
+      display: none;
+    }
+
+    .choice-saved-note.visible { display: block; }
+
+    /* ============================================================
+       TEXT RESPONSE
+       ============================================================ */
+    .response-group {
+      background: var(--bg-white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 22px 24px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .response-prompt {
+      font-family: var(--font-body);
+      font-size: 18px;
+      color: var(--text-body);
+      margin-bottom: 14px;
+      line-height: 1.75;
+    }
+
+    .response-textarea {
+      width: 100%;
+      min-height: 120px;
+      background: var(--bg-page);
+      border: 1px solid var(--border-mid);
+      border-radius: var(--radius-sm);
+      color: var(--text-body);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.75;
+      padding: 12px 14px;
+      resize: vertical;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .response-textarea::placeholder { color: var(--text-muted); }
+    .response-textarea:focus { border-color: var(--accent); }
+
+    .response-save-note {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 6px;
+      transition: color 0.3s;
+    }
+
+    .response-save-note.saved { color: var(--green); font-weight: 600; }
+
+    /* ============================================================
+       NAV BAR
+       ============================================================ */
+    .nav-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 20px;
+      margin-top: 8px;
+    }
+
+    .btn-nav {
+      font-family: var(--font-ui);
+      font-size: 14px;
+      font-weight: 700;
+      padding: 11px 28px;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.18s;
+      border: 2px solid transparent;
+    }
+
+    .btn-back {
+      background: var(--bg-white);
+      border-color: var(--border);
+      color: var(--text-mid);
+    }
+
+    .btn-back:hover { border-color: var(--accent); color: var(--accent); }
+
+    .btn-continue {
+      background: var(--accent);
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 3px 10px rgba(15,126,168,0.3);
+    }
+
+    .btn-continue:hover { background: var(--accent-dark); transform: translateY(-1px); }
+
+    .section-progress {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* ============================================================
+       COMING SOON CARD
+       ============================================================ */
+    .coming-soon-card {
+      background: var(--bg-white);
+      border: 2px dashed var(--border-mid);
+      border-radius: var(--radius-lg);
+      padding: 60px 32px;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .coming-soon-icon  { font-size: 48px; margin-bottom: 16px; }
+
+    .coming-soon-heading {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 10px;
+    }
+
+    .coming-soon-body {
+      font-family: var(--font-body);
+      font-size: 16px;
+      color: var(--text-mid);
+      max-width: 420px;
+      margin: 0 auto;
+      line-height: 1.75;
+    }
+
+    /* ============================================================
+       MODALS
+       ============================================================ */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      backdrop-filter: blur(3px);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-overlay.open { display: flex; }
+
+    .modal-box {
+      background: var(--bg-white);
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 480px;
+      max-height: 88vh;
+      overflow-y: auto;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+      animation: modal-drop 0.22s ease;
+    }
+
+    @keyframes modal-drop {
+      from { opacity: 0; transform: translateY(-14px) scale(0.98); }
+      to   { opacity: 1; transform: translateY(0)    scale(1); }
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 22px 14px;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: var(--bg-white);
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    }
+
+    .modal-title { font-size: 17px; font-weight: 700; color: var(--text-dark); }
+
+    .modal-close-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 18px;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: var(--radius-sm);
+      line-height: 1;
+      transition: all 0.15s;
+    }
+
+    .modal-close-btn:hover { background: var(--bg-page); color: var(--red); }
+
+    .modal-body { padding: 20px 22px; }
+
+    .modal-text {
+      font-size: 15px;
+      color: var(--text-mid);
+      line-height: 1.7;
+      margin-bottom: 18px;
+    }
+
+    .modal-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-mid);
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .modal-input {
+      width: 100%;
+      background: var(--bg-page);
+      border: 1px solid var(--border-mid);
+      border-radius: var(--radius-sm);
+      color: var(--text-body);
+      font-family: var(--font-ui);
+      font-size: 15px;
+      padding: 10px 12px;
+      outline: none;
+      transition: border-color 0.15s;
+      margin-bottom: 14px;
+      letter-spacing: 0.04em;
+    }
+
+    .modal-input:focus { border-color: var(--accent); }
+
+    .modal-error {
+      font-size: 13px;
+      color: var(--red);
+      background: var(--red-light);
+      border: 1px solid #f5c6c2;
+      padding: 9px 12px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 14px;
+      display: none;
+    }
+
+    .modal-error.visible { display: block; }
+
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      padding: 14px 22px 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    .btn-modal-primary {
+      font-family: var(--font-ui);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 9px 22px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      background: var(--accent);
+      color: #fff;
+      transition: all 0.15s;
+    }
+
+    .btn-modal-primary:hover { background: var(--accent-dark); }
+
+    .btn-modal-secondary {
+      font-family: var(--font-ui);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 9px 22px;
+      border-radius: 50px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-mid);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-modal-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+    .btn-modal-danger {
+      font-family: var(--font-ui);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 9px 22px;
+      border-radius: 50px;
+      border: none;
+      background: var(--red);
+      color: #fff;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+
+    .btn-modal-danger:hover { opacity: 0.88; }
+
+    /* Glossary */
+    .glossary-term { padding: 12px 0; border-bottom: 1px solid var(--border); }
+    .glossary-term:last-child { border-bottom: none; }
+    .glossary-word { font-size: 15px; font-weight: 700; color: var(--accent-dark); margin-bottom: 3px; }
+    .glossary-def  { font-size: 14px; color: var(--text-mid); line-height: 1.6; }
+
+    /* ============================================================
+       TOAST
+       ============================================================ */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 20px;
+      background: var(--text-dark);
+      color: #fff;
+      font-family: var(--font-ui);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 10px 18px;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-card);
+      z-index: 3000;
+      transform: translateY(60px);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      pointer-events: none;
+    }
+
+    .toast.show { transform: translateY(0); opacity: 1; }
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width: 600px) {
+      .step-info { display: none; }
+      .path-step { flex: 0 0 auto; justify-content: center; }
+      .header-controls .hdr-btn { padding: 5px 8px; font-size: 11px; }
+      .resume-code-display { display: none; }
+      .hero-card { padding: 28px 20px; }
+      .reading-card { padding: 20px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       FIXED HEADER
+       ============================================================ -->
+  <header id="site-header">
+    <div class="header-brand">
+      <div class="sins-badge">
+        <span class="sins-badge-text">SINS</span>
+      </div>
+      <div class="brand-text">
+        <span class="brand-eyebrow">Stories in Science · Grade 5</span>
+        <span class="brand-title">Orbit Rescue: Mission Control</span>
+      </div>
+    </div>
+
+    <div class="header-controls">
+      <span class="resume-code-display">Code: <strong id="display-code">——</strong></span>
+      <button class="hdr-btn" onclick="openModal('modal-resume')">Resume</button>
+      <button class="hdr-btn" onclick="openModal('modal-export')">Export Journal</button>
+      <button class="hdr-btn" onclick="openModal('modal-glossary')">📖 Glossary</button>
+      <button class="hdr-btn hdr-btn-restart" onclick="openModal('modal-restart')">⟳ Restart Lesson</button>
+    </div>
+  </header>
+
+
+  <!-- ============================================================
+       MISSION PATH TRACKER
+       ============================================================ -->
+  <div id="mission-path-bar">
+    <div class="mission-path-label">🧭 Your Mission Path</div>
+    <div class="mission-path-steps">
+
+      <!-- ============================================================
+           PATH STEPS — edit the step titles here when the lesson is built
+           ============================================================ -->
+      <div class="path-step" id="step-1">
+        <div class="step-num">1</div>
+        <div class="step-info">
+          <div class="step-title">Investigation Start</div>
+          <div class="step-status" id="step-1-status">Awaiting your choice...</div>
+        </div>
+      </div>
+
+      <div class="path-step" id="step-2">
+        <div class="step-num">2</div>
+        <div class="step-info">
+          <div class="step-title">Evidence Focus</div>
+          <div class="step-status" id="step-2-status">Awaiting your choice...</div>
+        </div>
+      </div>
+
+      <div class="path-step" id="step-3">
+        <div class="step-num">3</div>
+        <div class="step-info">
+          <div class="step-title">Mission Conclusion</div>
+          <div class="step-status" id="step-3-status">Awaiting your choice...</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ============================================================
+       MAIN APP
+       ============================================================ -->
+  <main id="app">
+
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         PAGE 0 — OPENING / LANDING
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <section id="page-opening" class="page-section active">
+      <div class="content-wrap">
+
+        <!-- Hero card -->
+        <div class="hero-card">
+          <h1 class="hero-title">Orbit Rescue: Mission Control</h1>
+
+          <!-- ============================================================
+               INTRO TEXT — edit this paragraph to update the mission brief
+               ============================================================ -->
+          <p class="hero-intro">
+            You are part of a Mission Control science team helping investigate an object moving in orbit.
+            <strong>Your mission is to study the evidence, look for patterns, and use science ideas to explain what is happening.</strong>
+          </p>
+
+          <button class="btn-start" onclick="goToPage('page-placeholder')">
+            Start Mission →
+          </button>
+        </div>
+
+        <!-- Collapsible: Learning Objectives -->
+        <div class="collapsible-section">
+          <button class="collapsible-trigger" onclick="toggleCollapsible(this)" aria-expanded="false">
+            <span>Learning Objectives &amp; Instructional Alignment</span>
+            <span class="collapsible-arrow">▼</span>
+          </button>
+          <div class="collapsible-body">
+            <!-- ============================================================
+                 PLACEHOLDER — replace with real objectives when ready
+                 ============================================================ -->
+            <div class="placeholder-objectives">
+              <p><strong>Placeholder — Learning Objectives:</strong> This section will contain the lesson's learning objectives, NGSS performance expectations, science and engineering practices, crosscutting concepts, and instructional alignment notes.</p>
+              <ul>
+                <li>Students will be able to… [Objective 1]</li>
+                <li>Students will be able to… [Objective 2]</li>
+                <li>NGSS PE: [Insert performance expectation here]</li>
+                <li>SEP: [Science and engineering practice]</li>
+                <li>CCC: [Crosscutting concept]</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Collapsible: What to Expect -->
+        <div class="collapsible-section">
+          <button class="collapsible-trigger" onclick="toggleCollapsible(this)" aria-expanded="false">
+            <span>What to Expect</span>
+            <span class="collapsible-arrow">▼</span>
+          </button>
+          <div class="collapsible-body">
+            <div class="placeholder-objectives">
+              <p><em>Placeholder — add a brief "What to Expect" section here to help students know what the lesson involves before they begin.</em></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================================
+             COPYRIGHT — edit name and year here
+             ============================================================ -->
+        <div class="lesson-footer">
+          © 2026 [Your Name]. All rights reserved. This lesson is part of the Stories in Science (SINS) Framework developed by the author. Generative AI tools were used to support the development of this instructional material. This content may not be reproduced, distributed, modified, or used for commercial purposes without permission.
+        </div>
+
+      </div>
+    </section><!-- /page-opening -->
+
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         PAGE 1 — PLACEHOLDER SECTION
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <section id="page-placeholder" class="page-section">
+      <div class="content-wrap">
+
+        <!-- Reading card (white card, left accent border) -->
+        <div class="reading-card">
+          <button class="listen-btn" onclick="alert('Text-to-speech feature coming soon.')">
+            🔊 Listen
+          </button>
+
+          <!-- ============================================================
+               PLACEHOLDER BOX 1 — Replace with section title + reading text
+               ============================================================ -->
+          <div class="reading-card-title">[ Section Title Placeholder ]</div>
+
+          <div class="reading-card-body">
+            <p>
+              <strong>Placeholder Box 1 — Narrative / Reading Passage.</strong>
+              This is where your opening reading passage or science phenomenon description will go. Replace this paragraph with your real lesson content. Recommended reading-level font size (18px) is already set on this card.
+            </p>
+            <p>
+              This is a second paragraph placeholder. Add as many paragraphs as needed. Images, diagrams, and data tables can be placed below this card or inside it once the full lesson is ready.
+            </p>
+          </div>
+        </div>
+
+        <!-- ============================================================
+             PLACEHOLDER BOX 2 — Image or media card
+             ============================================================ -->
+        <div class="content-card">
+          <div class="card-label">Placeholder Box 2 — Image or Media</div>
+          <div class="card-title">Diagram or Image Title Goes Here</div>
+          <div class="card-body">Replace this card with an image, diagram, data table, video embed, or other visual. Add a caption when you build it out.</div>
+          <div class="placeholder-fill">[ Image · Diagram · Video · Data Table ]</div>
+        </div>
+
+        <!-- ============================================================
+             PLACEHOLDER BOX 3 — Choice buttons (tests localStorage)
+             ============================================================ -->
+        <div class="choice-group">
+          <div class="card-label">Placeholder Box 3 — Choice Buttons (Progress Save Test)</div>
+          <div class="choice-prompt">
+            <strong>Test Question:</strong> Which of the following best describes what is happening to the object in orbit? (Replace with your real science choice prompt when ready.)
+          </div>
+          <div class="choices-row" id="choice-group-1">
+            <button class="choice-btn" data-group="choice1" data-value="A" onclick="saveChoice('choice1','A',this)">A — It is speeding up</button>
+            <button class="choice-btn" data-group="choice1" data-value="B" onclick="saveChoice('choice1','B',this)">B — It is slowing down</button>
+            <button class="choice-btn" data-group="choice1" data-value="C" onclick="saveChoice('choice1','C',this)">C — It stays the same speed</button>
+            <button class="choice-btn" data-group="choice1" data-value="D" onclick="saveChoice('choice1','D',this)">D — Not enough information</button>
+          </div>
+          <div class="choice-saved-note" id="choice1-saved">✓ Choice saved</div>
+        </div>
+
+        <!-- ============================================================
+             PLACEHOLDER BOX 4 — Additional content
+             ============================================================ -->
+        <div class="content-card">
+          <div class="card-label">Placeholder Box 4 — Content Block</div>
+          <div class="card-title">Content Block Title Goes Here</div>
+          <div class="card-body">Replace this card with a second reading, a data set, additional phenomenon information, or guiding questions for students.</div>
+          <div class="placeholder-fill">[ Content / Image / Data Here ]</div>
+        </div>
+
+        <!-- ============================================================
+             PLACEHOLDER BOX 5 — Text response (tests localStorage)
+             ============================================================ -->
+        <div class="response-group">
+          <div class="card-label">Placeholder Box 5 — Text Response (Progress Save Test)</div>
+          <div class="response-prompt">
+            <strong>Test Prompt:</strong> In your own words, what do you notice about the object's path? (Replace with your real science writing prompt when ready.)
+          </div>
+          <textarea
+            class="response-textarea"
+            id="response-1"
+            placeholder="Type your answer here…"
+            oninput="saveResponse('response1', this.value)"
+          ></textarea>
+          <div class="response-save-note" id="response1-saved">
+            Responses are saved automatically as you type.
+          </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav-bar">
+          <button class="btn-nav btn-back" onclick="goToPage('page-opening')">← Back</button>
+          <span class="section-progress">Section 1 of ??</span>
+          <button class="btn-nav btn-continue" onclick="goToPage('page-placeholder2')">Continue →</button>
+        </div>
+
+      </div>
+    </section><!-- /page-placeholder -->
+
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         PAGE 2 — COMING SOON PLACEHOLDER
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <section id="page-placeholder2" class="page-section">
+      <div class="content-wrap">
+
+        <div class="coming-soon-card">
+          <div class="coming-soon-icon">🛰️</div>
+          <div class="coming-soon-heading">Next Section Coming Soon</div>
+          <p class="coming-soon-body">
+            This is where the next section of your lesson will go. Your progress and responses from the previous page have been saved.
+          </p>
+        </div>
+
+        <div class="nav-bar">
+          <button class="btn-nav btn-back" onclick="goToPage('page-placeholder')">← Back</button>
+          <span class="section-progress">Section 2 of ??</span>
+          <button class="btn-nav btn-continue" style="opacity:0.4;cursor:not-allowed;" disabled>Continue →</button>
+        </div>
+
+      </div>
+    </section><!-- /page-placeholder2 -->
+
+
+  </main>
+
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+
+  <!-- ============================================================
+       MODAL 1 — RESUME
+       ============================================================ -->
+  <div class="modal-overlay" id="modal-resume" onclick="overlayClose(event,'modal-resume')">
+    <div class="modal-box" role="dialog" aria-modal="true">
+      <div class="modal-header">
+        <div class="modal-title">🔑 Resume Your Mission</div>
+        <button class="modal-close-btn" onclick="closeModal('modal-resume')">✕</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-text">Enter your resume code below to pick up where you left off. Your code appeared in the top header when you started.</p>
+        <label class="modal-label" for="resume-code-input">Your Resume Code</label>
+        <input type="text" id="resume-code-input" class="modal-input" placeholder="e.g. ORB-4827-X" maxlength="20" autocomplete="off" spellcheck="false" />
+        <div class="modal-error" id="resume-error">⚠️ That code doesn't match any saved progress. Please check your code and try again.</div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-modal-secondary" onclick="closeModal('modal-resume')">Cancel</button>
+        <button class="btn-modal-primary" onclick="doResume()">Resume Mission</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ============================================================
+       MODAL 2 — EXPORT
+       ============================================================ -->
+  <div class="modal-overlay" id="modal-export" onclick="overlayClose(event,'modal-export')">
+    <div class="modal-box" role="dialog" aria-modal="true">
+      <div class="modal-header">
+        <div class="modal-title">📥 Export Your Mission Journal</div>
+        <button class="modal-close-btn" onclick="closeModal('modal-export')">✕</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-text">Download a copy of your journal. Your choices and written responses will be included in the file.</p>
+        <label class="modal-label" for="export-name-input">Your Name or Student ID (optional)</label>
+        <input type="text" id="export-name-input" class="modal-input" placeholder="e.g. Alex S." maxlength="80" />
+      </div>
+      <div class="modal-footer">
+        <button class="btn-modal-secondary" onclick="closeModal('modal-export')">Cancel</button>
+        <button class="btn-modal-primary" onclick="doExport()">Download Journal (.txt)</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ============================================================
+       MODAL 3 — GLOSSARY
+       ============================================================ -->
+  <div class="modal-overlay" id="modal-glossary" onclick="overlayClose(event,'modal-glossary')">
+    <div class="modal-box" role="dialog" aria-modal="true">
+      <div class="modal-header">
+        <div class="modal-title">📖 Mission Glossary</div>
+        <button class="modal-close-btn" onclick="closeModal('modal-glossary')">✕</button>
+      </div>
+      <div class="modal-body">
+        <!-- ============================================================
+             GLOSSARY TERMS — add or edit terms here
+             ============================================================ -->
+        <div class="glossary-term">
+          <div class="glossary-word">Orbit</div>
+          <div class="glossary-def"><em>Placeholder.</em> The curved path an object takes around another object in space due to gravity. Replace with your lesson-specific definition.</div>
+        </div>
+        <div class="glossary-term">
+          <div class="glossary-word">Gravity</div>
+          <div class="glossary-def"><em>Placeholder.</em> The force that pulls objects toward one another. Replace with your lesson-specific definition.</div>
+        </div>
+        <div class="glossary-term">
+          <div class="glossary-word">Inertia</div>
+          <div class="glossary-def"><em>Placeholder.</em> The tendency of an object to keep moving unless a force acts on it. Replace with your lesson-specific definition.</div>
+        </div>
+        <div class="glossary-term">
+          <div class="glossary-word">Mission Control</div>
+          <div class="glossary-def"><em>Placeholder.</em> The team on the ground that monitors and guides a spacecraft or satellite. Replace with your lesson-specific definition.</div>
+        </div>
+        <div class="glossary-term">
+          <div class="glossary-word">[ Term 5 — Placeholder ]</div>
+          <div class="glossary-def"><em>Add your fifth glossary term and definition here.</em></div>
+        </div>
+        <div class="glossary-term">
+          <div class="glossary-word">[ Term 6 — Placeholder ]</div>
+          <div class="glossary-def"><em>Add your sixth glossary term and definition here.</em></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-modal-primary" onclick="closeModal('modal-glossary')">Close</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ============================================================
+       MODAL 4 — RESTART
+       ============================================================ -->
+  <div class="modal-overlay" id="modal-restart" onclick="overlayClose(event,'modal-restart')">
+    <div class="modal-box" role="dialog" aria-modal="true">
+      <div class="modal-header">
+        <div class="modal-title">⚠️ Restart Lesson?</div>
+        <button class="modal-close-btn" onclick="closeModal('modal-restart')">✕</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-text">Are you sure you want to restart? <strong style="color:var(--red);">All of your current progress will be erased</strong>, including your choices and written responses. This cannot be undone.</p>
+        <p class="modal-text">To save your work first, click <em>Cancel</em> and use the <strong>Export Journal</strong> button instead.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-modal-secondary" onclick="closeModal('modal-restart')">No, I do not want to restart the lesson</button>
+        <button class="btn-modal-danger" onclick="doRestart()">Yes, Restart Lesson</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ============================================================
+       JAVASCRIPT
+       ============================================================ -->
+  <script>
+    /* ============================================================
+       LESSON-SPECIFIC STORAGE KEY
+       Each SINS lesson uses a unique key — progress never overwrites
+       data from another lesson.
+       ============================================================ */
+    const STORAGE_KEY = 'orbitRescueMissionControlProgress';
+
+    /* ============================================================
+       STATE
+       ============================================================ */
+    let state = {
+      resumeCode:  '',
+      currentPage: 'page-opening',
+      choices:     {},
+      responses:   {},
+      completed:   []
+    };
+
+    /* ============================================================
+       GENERATE RESUME CODE  e.g. ORB-4827-X
+       ============================================================ */
+    function generateCode() {
+      const letters = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
+      const nums    = () => Math.floor(1000 + Math.random() * 9000);
+      const letter  = letters[Math.floor(Math.random() * letters.length)];
+      return 'ORB-' + nums() + '-' + letter;
+    }
+
+    /* ============================================================
+       LOCALSTORAGE
+       ============================================================ */
+    function saveState() {
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+      catch(e) { console.warn('localStorage save failed:', e); }
+    }
+
+    function loadState() {
+      try { const r = localStorage.getItem(STORAGE_KEY); return r ? JSON.parse(r) : null; }
+      catch(e) { return null; }
+    }
+
+    function clearState() {
+      try { localStorage.removeItem(STORAGE_KEY); }
+      catch(e) {}
+    }
+
+    /* ============================================================
+       APPLY SAVED STATE TO UI
+       ============================================================ */
+    function applyStateToUI() {
+      document.getElementById('display-code').textContent = state.resumeCode;
+
+      Object.entries(state.choices).forEach(([group, value]) => {
+        document.querySelectorAll(`.choice-btn[data-group="${group}"]`)
+          .forEach(btn => btn.classList.toggle('selected', btn.dataset.value === value));
+        const note = document.getElementById(group + '-saved');
+        if (note) note.classList.add('visible');
+      });
+
+      Object.entries(state.responses).forEach(([id, text]) => {
+        const el   = document.getElementById(id.replace('response', 'response-'));
+        if (el) el.value = text;
+        const note = document.getElementById(id + '-saved');
+        if (note) { note.textContent = '✓ Response saved'; note.classList.add('saved'); }
+      });
+
+      showPage(state.currentPage);
+    }
+
+    /* ============================================================
+       PAGE NAVIGATION
+       ============================================================ */
+    function showPage(pageId) {
+      document.querySelectorAll('.page-section')
+        .forEach(s => s.classList.toggle('active', s.id === pageId));
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function goToPage(pageId) {
+      state.currentPage = pageId;
+      saveState();
+      showPage(pageId);
+    }
+
+    /* ============================================================
+       SAVE CHOICE
+       ============================================================ */
+    function saveChoice(group, value, btn) {
+      document.querySelectorAll(`.choice-btn[data-group="${group}"]`)
+        .forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      state.choices[group] = value;
+      saveState();
+      const note = document.getElementById(group + '-saved');
+      if (note) note.classList.add('visible');
+      showToast('Choice saved ✓');
+    }
+
+    /* ============================================================
+       SAVE RESPONSE (debounced)
+       ============================================================ */
+    let saveTimer = null;
+
+    function saveResponse(id, text) {
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(() => {
+        state.responses[id] = text;
+        saveState();
+        const note = document.getElementById(id + '-saved');
+        if (note) { note.textContent = '✓ Response saved'; note.classList.add('saved'); }
+      }, 600);
+    }
+
+    /* ============================================================
+       COLLAPSIBLE
+       ============================================================ */
+    function toggleCollapsible(trigger) {
+      const body = trigger.nextElementSibling;
+      const open = body.classList.contains('open');
+      body.classList.toggle('open', !open);
+      trigger.classList.toggle('open', !open);
+      trigger.setAttribute('aria-expanded', String(!open));
+    }
+
+    /* ============================================================
+       MODALS
+       ============================================================ */
+    function openModal(id) {
+      document.getElementById(id).classList.add('open');
+      const err = document.getElementById('resume-error');
+      if (err) err.classList.remove('visible');
+    }
+
+    function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+    function overlayClose(e, id) { if (e.target.id === id) closeModal(id); }
+
+    /* ============================================================
+       RESUME
+       ============================================================ */
+    function doResume() {
+      const input = document.getElementById('resume-code-input').value.trim().toUpperCase();
+      const saved = loadState();
+
+      if (!saved || !saved.resumeCode) { showResumeError(); return; }
+
+      const norm = s => s.replace(/[\s\-]/g,'').toUpperCase();
+      if (norm(input) !== norm(saved.resumeCode)) { showResumeError(); return; }
+
+      state = saved;
+      applyStateToUI();
+      closeModal('modal-resume');
+      document.getElementById('resume-code-input').value = '';
+      showToast('Mission progress restored ✓');
+    }
+
+    function showResumeError() {
+      document.getElementById('resume-error').classList.add('visible');
+    }
+
+    /* ============================================================
+       EXPORT JOURNAL
+       ============================================================ */
+    function doExport() {
+      const name = document.getElementById('export-name-input').value.trim();
+      const now  = new Date();
+      const ts   = now.toLocaleDateString('en-US', {
+        year:'numeric', month:'long', day:'numeric', hour:'2-digit', minute:'2-digit'
+      });
+
+      const pageLabels = {
+        'page-opening':     'Opening Page',
+        'page-placeholder': 'Section 1 (Placeholder)',
+        'page-placeholder2':'Section 2 (Placeholder)'
+      };
+
+      // Add more labels here as you add questions / response boxes
+      const choiceLabels   = { 'choice1': 'Placeholder Question (Box 3)' };
+      const responseLabels = { 'response1': 'Placeholder Response Prompt (Box 5)' };
+
+      let lines = [
+        '================================================',
+        '  MISSION JOURNAL EXPORT',
+        '================================================','',
+        'Lesson:       Orbit Rescue: Mission Control',
+        'Series:       Stories in Science · Grade 5','',
+      ];
+
+      if (name) lines.push('Student:      ' + name);
+      lines.push('Resume Code:  ' + state.resumeCode);
+      lines.push('Current Page: ' + (pageLabels[state.currentPage] || state.currentPage));
+      lines.push('Exported:     ' + ts);
+      lines.push('','------------------------------------------------','  CHOICES MADE','------------------------------------------------');
+
+      if (!Object.keys(state.choices).length) {
+        lines.push('No choices recorded yet.');
+      } else {
+        Object.entries(state.choices).forEach(([k,v]) =>
+          lines.push('  ' + (choiceLabels[k] || k) + ':  ' + v));
+      }
+
+      lines.push('','------------------------------------------------','  WRITTEN RESPONSES','------------------------------------------------');
+
+      if (!Object.keys(state.responses).length) {
+        lines.push('No written responses recorded yet.');
+      } else {
+        Object.entries(state.responses).forEach(([k,v]) => {
+          lines.push('', '  PROMPT: ' + (responseLabels[k] || k), '  RESPONSE:');
+          lines.push('  ' + (v||'[No response entered]').split('\n').join('\n  '));
+        });
+      }
+
+      lines.push('','================================================','  END OF JOURNAL','================================================');
+
+      const safeName = name ? name.replace(/[^a-z0-9]/gi,'_').substring(0,30)+'_' : '';
+      const safeDate = now.toISOString().slice(0,10);
+      const filename = `OrbitRescue_Journal_${safeName}${safeDate}.txt`;
+
+      const blob = new Blob([lines.join('\n')], {type:'text/plain;charset=utf-8'});
+      const url  = URL.createObjectURL(blob);
+      const a    = document.createElement('a');
+      a.href = url; a.download = filename;
+      document.body.appendChild(a); a.click();
+      document.body.removeChild(a); URL.revokeObjectURL(url);
+
+      closeModal('modal-export');
+      showToast('Journal downloaded ✓');
+    }
+
+    /* ============================================================
+       RESTART
+       ============================================================ */
+    function doRestart() {
+      clearState();
+      state = { resumeCode: generateCode(), currentPage: 'page-opening', choices: {}, responses: {}, completed: [] };
+      saveState();
+
+      document.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('selected'));
+      document.querySelectorAll('.choice-saved-note').forEach(el => el.classList.remove('visible'));
+      document.querySelectorAll('.response-textarea').forEach(el => el.value = '');
+      document.querySelectorAll('.response-save-note').forEach(el => {
+        el.classList.remove('saved');
+        el.textContent = 'Responses are saved automatically as you type.';
+      });
+
+      document.getElementById('display-code').textContent = state.resumeCode;
+      closeModal('modal-restart');
+      showPage('page-opening');
+      showToast('Lesson restarted — new code assigned');
+    }
+
+    /* ============================================================
+       TOAST
+       ============================================================ */
+    let toastTimer = null;
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => t.classList.remove('show'), 2600);
+    }
+
+    /* ============================================================
+       INIT
+       ============================================================ */
+    (function init() {
+      const saved = loadState();
+      if (saved && saved.resumeCode) {
+        state = saved;
+        applyStateToUI();
+      } else {
+        state.resumeCode = generateCode();
+        saveState();
+        document.getElementById('display-code').textContent = state.resumeCode;
+        showPage('page-opening');
+      }
+    })();
+  </script>
+
+</body>
+</html>
