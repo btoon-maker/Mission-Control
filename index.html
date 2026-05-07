@@ -940,7 +940,7 @@
        MISSION PATH TRACKER
        ============================================================ -->
   <div id="mission-path-bar">
-    <div class="mission-path-label">🧭 Your Mission Path</div>
+    <div class="mission-path-label">🧭 Your Investigation Path</div>
     <div class="mission-path-steps">
 
       <!-- ============================================================
@@ -993,13 +993,12 @@
           <!-- ============================================================
                INTRO TEXT — edit this paragraph to update the mission brief
                ============================================================ -->
-          <p class="hero-intro">
-            You are part of a Mission Control science team helping investigate an object moving in orbit.
-            <strong>Your mission is to study the evidence, look for patterns, and use science ideas to explain what is happening.</strong>
-          </p>
+          <p class="hero-intro">You are an intern, a part of a Mission Control science team, investigating a satellite moving in orbit around Earth.</p>
+          <p class="hero-intro">Mission Control has detected unexpected movement patterns, and scientists are trying to determine why the satellite is no longer following its predicted path.</p>
+          <p class="hero-intro"><strong>This summer, your role is to study the evidence, look for patterns, and use science ideas to explain what is happening.</strong></p>
 
           <button class="btn-start" onclick="goToPage('page-placeholder')">
-            Start Mission →
+            Enter Mission Control →
           </button>
         </div>
 
@@ -1065,16 +1064,14 @@
           <!-- ============================================================
                PLACEHOLDER BOX 1 — Replace with section title + reading text
                ============================================================ -->
-          <div class="reading-card-title">[ Section Title Placeholder ]</div>
+          <div class="reading-card-title">Orbit Rescue: Mission Control</div>
 
           <div class="reading-card-body">
-            <p>
-              <strong>Placeholder Box 1 — Narrative / Reading Passage.</strong>
-              This is where your opening reading passage or science phenomenon description will go. Replace this paragraph with your real lesson content. Recommended reading-level font size (18px) is already set on this card.
-            </p>
-            <p>
-              This is a second paragraph placeholder. Add as many paragraphs as needed. Images, diagrams, and data tables can be placed below this card or inside it once the full lesson is ready.
-            </p>
+            <p>This summer, you were selected to join the Mission Control internship program, working alongside scientists and satellite tracking specialists connected to Lowell Observatory.</p>
+            <p>Your internship mentor, <strong>Maya Chen</strong>, is part of the orbital tracking team that helps monitor research satellites moving around Earth.</p>
+            <p>As one of the Junior Orbital Response Specialists, your team will help analyze satellite observations, investigate movement patterns, and support ongoing space research.</p>
+            <p>Maya welcomes your team into Mission Control.</p>
+
           </div>
         </div>
 
@@ -1088,51 +1085,11 @@
           <div class="placeholder-fill">[ Image · Diagram · Video · Data Table ]</div>
         </div>
 
-        <!-- ============================================================
-             PLACEHOLDER BOX 3 — Choice buttons (tests localStorage)
-             ============================================================ -->
-        <div class="choice-group">
-          <div class="card-label">Placeholder Box 3 — Choice Buttons (Progress Save Test)</div>
-          <div class="choice-prompt">
-            <strong>Test Question:</strong> Which of the following best describes what is happening to the object in orbit? (Replace with your real science choice prompt when ready.)
-          </div>
-          <div class="choices-row" id="choice-group-1">
-            <button class="choice-btn" data-group="choice1" data-value="A" onclick="saveChoice('choice1','A',this)">A — It is speeding up</button>
-            <button class="choice-btn" data-group="choice1" data-value="B" onclick="saveChoice('choice1','B',this)">B — It is slowing down</button>
-            <button class="choice-btn" data-group="choice1" data-value="C" onclick="saveChoice('choice1','C',this)">C — It stays the same speed</button>
-            <button class="choice-btn" data-group="choice1" data-value="D" onclick="saveChoice('choice1','D',this)">D — Not enough information</button>
-          </div>
-          <div class="choice-saved-note" id="choice1-saved">✓ Choice saved</div>
-        </div>
+              <div class="reading-card-body">
+            <p>A research satellite orbiting Earth has started moving differently than expected.</p>
+            <p>Your team has been asked to investigate the evidence, analyze new observations, and help determine what is happening.</p>
 
-        <!-- ============================================================
-             PLACEHOLDER BOX 4 — Additional content
-             ============================================================ -->
-        <div class="content-card">
-          <div class="card-label">Placeholder Box 4 — Content Block</div>
-          <div class="card-title">Content Block Title Goes Here</div>
-          <div class="card-body">Replace this card with a second reading, a data set, additional phenomenon information, or guiding questions for students.</div>
-          <div class="placeholder-fill">[ Content / Image / Data Here ]</div>
-        </div>
-
-        <!-- ============================================================
-             PLACEHOLDER BOX 5 — Text response (tests localStorage)
-             ============================================================ -->
-        <div class="response-group">
-          <div class="card-label">Placeholder Box 5 — Text Response (Progress Save Test)</div>
-          <div class="response-prompt">
-            <strong>Test Prompt:</strong> In your own words, what do you notice about the object's path? (Replace with your real science writing prompt when ready.)
           </div>
-          <textarea
-            class="response-textarea"
-            id="response-1"
-            placeholder="Type your answer here…"
-            oninput="saveResponse('response1', this.value)"
-          ></textarea>
-          <div class="response-save-note" id="response1-saved">
-            Responses are saved automatically as you type.
-          </div>
-        </div>
 
         <!-- Navigation -->
         <div class="nav-bar">
