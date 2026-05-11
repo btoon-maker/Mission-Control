@@ -1575,6 +1575,86 @@
       margin-top: 8px;
     }
 
+
+    /* ============================================================
+       CHOICE CARD — Page 11 final mission decision
+       ============================================================ */
+    .choice-card {
+      background: #2e4a72;
+      border-radius: var(--radius-lg);
+      padding: 28px 28px 32px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow-card);
+      color: #ffffff;
+    }
+
+    .choice-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 10px;
+      font-family: var(--font-ui);
+    }
+
+    .choice-card p {
+      font-family: var(--font-body);
+      font-size: 16px;
+      color: rgba(255,255,255,0.88);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .choice-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .choice-option {
+      background: #f5891c;
+      border: 3px solid transparent;
+      border-radius: var(--radius-md);
+      padding: 20px 16px;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s ease;
+      font-family: var(--font-ui);
+      color: #ffffff;
+      min-height: 132px;
+    }
+
+    .choice-option:hover {
+      background: #e07a10;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+    }
+
+    .choice-option.selected {
+      border-color: #ffffff;
+      background: #e07a10;
+    }
+
+    .choice-option-title {
+      display: block;
+      font-size: 16px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+    .choice-option-text {
+      display: block;
+      font-size: 13px;
+      color: rgba(255,255,255,0.92);
+      line-height: 1.5;
+      font-weight: 600;
+    }
+
+    @media (max-width: 600px) {
+      .choice-grid { grid-template-columns: 1fr; }
+    }
+
   </style>
 </head>
 <body>
@@ -2453,39 +2533,275 @@
 
         <div class="nav-bar">
           <button class="btn-nav btn-back" onclick="goToPage('page-section8')">← Back</button>
-          <span class="section-progress">Section 9 of 9</span>
+          <span class="section-progress">Section 9 of 14</span>
           <button class="btn-nav btn-continue" onclick="goToPage('page-section10')">Continue →</button>
         </div>
       </div>
     </section><!-- /page-section9 -->
 
-
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-         PAGE 10 — SAFETY PLACEHOLDER
+         PAGE 10 — GRAVITY: EARTH'S PULL
          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <section id="page-section10" class="page-section">
       <div class="content-wrap">
+
         <div class="reading-card">
           <button class="listen-btn" onclick="alert('Text-to-speech feature coming soon.')">🔊 Listen</button>
-          <div class="reading-card-title">Page 10 Placeholder</div>
+
+          <div class="reading-card-title">Gravity: Earth’s Pull</div>
+
           <div class="reading-card-body">
-            <p>This placeholder keeps the Page 9 continue button working until Page 10 is built.</p>
+
+            <p>The intern teams continue reviewing the Mission Control model.</p>
+
+            <p>Aurora-3 keeps moving forward while its path continues curving around Earth.</p>
+
+            <div class="dialogue-quote">
+              “Your investigations revealed an important pattern,” Maya says.
+            </div>
+
+            <div class="dialogue-quote">
+              “Earth continuously pulls on objects nearby, even while those objects continue moving forward through space.”
+            </div>
+
+            <p>Maya points toward the curved orbit path displayed on the Mission Control screen.</p>
+
+            <div class="dialogue-quote">
+              “Scientists call this pull gravity.”
+            </div>
+
+            <div class="dialogue-quote">
+              “Gravity helps explain why Aurora-3’s path curves around Earth instead of continuing in a straight line.”
+            </div>
+
+            <p>The Mission Control model replays again across the display.</p>
+
           </div>
+        </div>
+
+        <div class="journal-card">
+
+          <div class="journal-title">
+            Mission Journal: Gravity Connection
+          </div>
+
+          <label for="journal-gravity-connection">
+            How does gravity help explain the orbit patterns you observed during the investigations?
+          </label>
+
+          <textarea
+            id="journal-gravity-connection"
+            data-journal="gravity-connection"
+            placeholder="Use evidence from the investigations and the model to explain your thinking..."
+            oninput="saveResponse('journal-gravity-connection', this.value)"
+          ></textarea>
+
+          <div id="journal-gravity-connection-saved" class="save-indicator">✓ Saved</div>
+
         </div>
 
         <div class="nav-bar">
           <button class="btn-nav btn-back" onclick="goToPage('page-section9')">← Back</button>
-          <span class="section-progress">Section 10</span>
-          <button class="btn-nav btn-continue" style="opacity:0.4;cursor:not-allowed;" disabled>Continue →</button>
+          <span class="section-progress">Section 10 of 14</span>
+          <button class="btn-nav btn-continue" onclick="goToPage('page-section11')">Continue →</button>
         </div>
+
       </div>
     </section><!-- /page-section10 -->
 
 
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         PAGE 11 — FINAL MISSION CHALLENGE
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <section id="page-section11" class="page-section">
+      <div class="content-wrap">
+
+        <div class="reading-card">
+          <button class="listen-btn" onclick="alert('Text-to-speech feature coming soon.')">🔊 Listen</button>
+
+          <div class="reading-card-title">Final Mission Challenge</div>
+
+          <div class="reading-card-body">
+
+            <p>The intern teams gather around the main Mission Control display one final time.</p>
+
+            <p>Maya smiles as new satellite tracking data begins loading across the screens.</p>
+
+            <div class="dialogue-quote">
+              “You used evidence to explain how gravity and forward motion affect satellite orbit paths,” Maya says.
+            </div>
+
+            <div class="dialogue-quote">
+              “But the internship challenge is not over yet.”
+            </div>
+
+            <div class="dialogue-quote">
+              “The scientists at Canyon Observatory have one final mission for your intern teams.”
+            </div>
+
+            <p>Two new satellite alerts appear on the Mission Control display.</p>
+
+            <div class="dialogue-quote">
+              “Now it is your turn to apply what you discovered today.”
+            </div>
+
+            <div class="dialogue-quote">
+              “Choose one satellite problem to investigate, develop a solution, and justify your recommendation to Mission Control before heading home today.”
+            </div>
+
+          </div>
+        </div>
+
+        <div class="choice-card">
+
+          <div class="choice-title">
+            Decision Point 3: Choose Your Final Mission
+          </div>
+
+          <p>
+            Select one Mission Control challenge to investigate.
+          </p>
+
+          <div class="choice-grid">
+
+            <button class="choice-option" data-group="dp3Choice" data-value="SpeedSatellite" onclick="saveDP3Choice('dp3Choice', 'SpeedSatellite', this)">
+
+              <span class="choice-option-title">
+                Speed Satellite Problem
+              </span>
+
+              <span class="choice-option-text">
+                Mission Control has detected unusual changes in a satellite’s orbit path.
+              </span>
+
+            </button>
+
+            <button class="choice-option" data-group="dp3Choice" data-value="DistanceSatellite" onclick="saveDP3Choice('dp3Choice', 'DistanceSatellite', this)">
+
+              <span class="choice-option-title">
+                Distance Satellite Problem
+              </span>
+
+              <span class="choice-option-text">
+                Mission Control has detected a satellite drifting into an unexpected orbit path.
+              </span>
+
+            </button>
+
+          </div>
+
+        </div>
+
+        <div class="nav-bar">
+          <button class="btn-nav btn-back" onclick="goToPage('page-section10')">← Back</button>
+          <span class="section-progress">Section 11 of 14</span>
+          <div style="width:120px;"></div>
+        </div>
+
+      </div>
+    </section><!-- /page-section11 -->
 
 
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         PAGE 12A — SPEED SATELLITE PROBLEM PLACEHOLDER
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <section id="speed-satellite-problem" class="page-section">
+      <div class="content-wrap">
 
-  </main><!-- /app -->
+        <div class="reading-card">
+          <button class="listen-btn" onclick="alert('Text-to-speech feature coming soon.')">🔊 Listen</button>
+          <div class="reading-card-title">Speed Satellite Problem</div>
+          <div class="reading-card-body">
+            <p>Placeholder for Page 12a.</p>
+            <p>This page will contain the final mission path for the Speed Satellite Problem.</p>
+          </div>
+        </div>
+
+        <div class="nav-bar">
+          <button class="btn-nav btn-back" onclick="goToPage('page-section11')">← Back</button>
+          <span class="section-progress">Section 12a of 14</span>
+          <button class="btn-nav btn-continue" onclick="goToPage('page-section13')">Continue →</button>
+        </div>
+
+      </div>
+    </section><!-- /speed-satellite-problem -->
+
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         PAGE 12B — DISTANCE SATELLITE PROBLEM PLACEHOLDER
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <section id="distance-satellite-problem" class="page-section">
+      <div class="content-wrap">
+
+        <div class="reading-card">
+          <button class="listen-btn" onclick="alert('Text-to-speech feature coming soon.')">🔊 Listen</button>
+          <div class="reading-card-title">Distance Satellite Problem</div>
+          <div class="reading-card-body">
+            <p>Placeholder for Page 12b.</p>
+            <p>This page will contain the final mission path for the Distance Satellite Problem.</p>
+          </div>
+        </div>
+
+        <div class="nav-bar">
+          <button class="btn-nav btn-back" onclick="goToPage('page-section11')">← Back</button>
+          <span class="section-progress">Section 12b of 14</span>
+          <button class="btn-nav btn-continue" onclick="goToPage('page-section13')">Continue →</button>
+        </div>
+
+      </div>
+    </section><!-- /distance-satellite-problem -->
+
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         PAGE 13 — RECOMMENDATION PLACEHOLDER
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <section id="page-section13" class="page-section">
+      <div class="content-wrap">
+
+        <div class="reading-card">
+          <button class="listen-btn" onclick="alert('Text-to-speech feature coming soon.')">🔊 Listen</button>
+          <div class="reading-card-title">Mission Recommendation</div>
+          <div class="reading-card-body">
+            <p>Placeholder for Page 13.</p>
+            <p>This page will ask students to develop and justify their Mission Control recommendation.</p>
+          </div>
+        </div>
+
+        <div class="nav-bar">
+          <button class="btn-nav btn-back" onclick="goToPage('page-section11')">← Back</button>
+          <span class="section-progress">Section 13 of 14</span>
+          <button class="btn-nav btn-continue" onclick="goToPage('page-section14')">Continue →</button>
+        </div>
+
+      </div>
+    </section><!-- /page-section13 -->
+
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         PAGE 14 — FINAL PLACEHOLDER
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <section id="page-section14" class="page-section">
+      <div class="content-wrap">
+
+        <div class="reading-card">
+          <button class="listen-btn" onclick="alert('Text-to-speech feature coming soon.')">🔊 Listen</button>
+          <div class="reading-card-title">Mission Complete</div>
+          <div class="reading-card-body">
+            <p>Placeholder for Page 14.</p>
+            <p>This page will close the final Mission Control challenge.</p>
+          </div>
+        </div>
+
+        <div class="nav-bar">
+          <button class="btn-nav btn-back" onclick="goToPage('page-section13')">← Back</button>
+          <span class="section-progress">Section 14 of 14</span>
+          <button class="btn-nav btn-continue" style="opacity:0.4;cursor:not-allowed;" disabled>Continue →</button>
+        </div>
+
+      </div>
+    </section><!-- /page-section14 -->
+
+</main><!-- /app -->
 
 
   <!-- Toast -->
@@ -2666,7 +2982,7 @@
 
       // Restore textarea content
       Object.entries(state.responses).forEach(([id, text]) => {
-        const el = document.getElementById(id.replace('response', 'response-'));
+        const el = document.getElementById(id) || document.getElementById(id.replace('response', 'response-'));
         if (el) el.value = text;
         const note = document.getElementById(id + '-saved');
         if (note) { note.textContent = '✓ Response saved'; note.classList.add('saved'); }
@@ -2800,6 +3116,25 @@
     }
 
 
+
+    /* ============================================================
+       SAVE DP3 CHOICE (Section 11 final mission choice)
+       Saves the choice AND navigates to the selected final mission page.
+       ============================================================ */
+    function saveDP3Choice(group, value, btn) {
+      document.querySelectorAll(`[data-group="${group}"]`)
+        .forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+
+      const destPage = (value === 'SpeedSatellite') ? 'speed-satellite-problem' : 'distance-satellite-problem';
+      state.choices[group] = value;
+      state.currentPage = destPage;
+      saveState();
+
+      showToast('Final mission selected — saving your choice…');
+      setTimeout(() => showPage(destPage), 420);
+    }
+
     /* ============================================================
        SAVE TEXT RESPONSE (debounced — use for textarea fields)
        id:   state key, e.g. 'response1'
@@ -2888,8 +3223,13 @@
         'page-section7a':  'Section 7a — Earth Influence Team',
         'page-section7b':  'Section 7b — Forward Motion Team',
         'page-section8':   'Section 8 — Mission Synthesis',
-        'page-section9':   'Section 9 — Building the Explanation',
-        'page-section10':  'Section 10 — Placeholder'
+        'page-section9':   'Section 9 — Putting It Together: Gravity and Motion',
+        'page-section10':  'Section 10 — Gravity: Earth’s Pull',
+        'page-section11':  'Section 11 — Final Mission Challenge',
+        'speed-satellite-problem': 'Section 12a — Speed Satellite Problem',
+        'distance-satellite-problem': 'Section 12b — Distance Satellite Problem',
+        'page-section13':  'Section 13 — Mission Recommendation',
+        'page-section14':  'Section 14 — Mission Complete'
       };
 
       /* ============================================================
@@ -2897,14 +3237,17 @@
          ============================================================ */
       const choiceLabels = {
         'teamChoice': 'Investigation Team (Section 3)',
-        'dp2Choice': 'Next Investigation Choice (Section 6)'
+        'dp2Choice': 'Next Investigation Choice (Section 6)',
+        'dp3Choice': 'Final Mission Choice (Section 11)'
       };
 
       const choiceValueLabels = {
         'OrbitTracking': 'Join Orbit Tracking Team',
         'MotionAnalysis': 'Join Motion Analysis Team',
         'EarthForce': 'Earth Influence Team',
-        'MotionOrbit': 'Forward Motion Team'
+        'MotionOrbit': 'Forward Motion Team',
+        'SpeedSatellite': 'Speed Satellite Problem',
+        'DistanceSatellite': 'Distance Satellite Problem'
       };
 
       /* ============================================================
@@ -2912,6 +3255,8 @@
          ============================================================ */
       const responseLabels = {
         'journal-dp2-synthesis': 'Mission Journal: Synthesis',
+        'journal-putting-it-together': 'Mission Journal: Putting It Together',
+        'journal-gravity-connection': 'Mission Journal: Gravity Connection',
         // No journal-prompt textareas on 4a/4b anymore.
         // Add entries here as new response fields are introduced.
       };
