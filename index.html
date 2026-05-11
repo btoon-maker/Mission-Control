@@ -1269,21 +1269,25 @@
       overflow: hidden;
     }
 
-    /* Page 8 Mission Synthesis matches the narrative-card width.
-       The iframe itself is scaled down so the two observation displays
-       stay side-by-side inside the same-width lesson column. */
+    /* ============================================================
+       PAGE 8 + PAGE 9 INTERACTIVE WRAPPERS
+       ============================================================ */
+    .page8-top-wrap,
+    .page9-top-wrap {
+      padding-bottom: 10px;
+    }
+
+    .page8-bottom-wrap,
+    .page9-bottom-wrap {
+      padding-top: 10px;
+    }
+
+    /* Page 8: same width as narrative cards, with light orange pop-out panel.
+       The iframe is scaled so both observation cards remain side-by-side. */
     .mission-synthesis-wrap {
       max-width: 860px;
       margin: 0 auto 10px;
       padding: 0 16px;
-    }
-
-    .page8-top-wrap {
-      padding-bottom: 10px;
-    }
-
-    .page8-bottom-wrap {
-      padding-top: 10px;
     }
 
     .mission-synthesis-frame-shell {
@@ -1292,9 +1296,18 @@
       position: relative;
       background: #fff1df;
       border: 1px solid #f3d3ab;
-      border-radius: 14px;
-      padding: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+      border-left: 5px solid var(--gold);
+      border-radius: var(--radius-md);
+      padding: 16px 18px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .mission-synthesis-inner {
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      background: transparent;
+      border-radius: 8px;
     }
 
     .mission-synthesis-frame-shell .interactive-frame {
@@ -1302,8 +1315,26 @@
       max-width: none;
       height: 850px;
       transform-origin: top left;
-      border-radius: 10px;
+      border-radius: 8px;
       background: transparent;
+      display: block;
+    }
+
+    /* Page 9: wide Mission Control monitor style, matching the DP1/DP2 lab screens. */
+    .putting-together-wrap {
+      max-width: 1060px;
+      margin: 0 auto 18px;
+      padding: 0 16px;
+    }
+
+    .putting-together-wrap .interactive-frame {
+      width: 100%;
+      height: 760px;
+      border: none;
+      border-radius: 0 0 10px 10px;
+      display: block;
+      background: #06101f;
+      overflow: hidden;
     }
 
 
@@ -1737,7 +1768,7 @@
          PAGE 2 — SECTION 2: Mission Control Alert
          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <section id="page-section2" class="page-section">
-      <div class="content-wrap page8-top-wrap">
+      <div class="content-wrap">
 
         <div class="reading-card">
           <button class="listen-btn" onclick="alert('Text-to-speech feature coming soon.')">
@@ -2296,15 +2327,17 @@
       </div>
 
       <div class="mission-synthesis-wrap">
-        <div class="mission-synthesis-frame-shell scaled-frame-shell">
-          <iframe
-            id="iframe-mission-synthesis"
-            src="interactives/mission-synthesis.html"
-            class="interactive-frame"
-            title="Mission Synthesis Interactive"
-            sandbox="allow-scripts allow-same-origin"
-            scrolling="no">
-          </iframe>
+        <div class="mission-synthesis-frame-shell">
+          <div class="mission-synthesis-inner" id="mission-synthesis-inner">
+            <iframe
+              id="iframe-mission-synthesis"
+              src="interactives/mission-synthesis.html"
+              class="interactive-frame"
+              title="Mission Synthesis Interactive"
+              sandbox="allow-scripts allow-same-origin"
+              scrolling="no">
+            </iframe>
+          </div>
         </div>
       </div>
 
@@ -2336,43 +2369,86 @@
 
 
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-         PAGE 9 — BUILDING THE EXPLANATION  (narrative shell)
-         Edit the reading-card text and replace .image-placeholder
-         with <img src="images/your-file.png" /> when art is ready.
+         PAGE 9 — PUTTING IT TOGETHER
          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <section id="page-section9" class="page-section">
-      <div class="content-wrap">
+      <div class="content-wrap page9-top-wrap">
 
         <div class="reading-card">
           <button class="listen-btn" onclick="alert('Text-to-speech feature coming soon.')">🔊 Listen</button>
-          <div class="reading-card-title">Building the Explanation</div>
+          <div class="reading-card-title">Putting It Together: Gravity and Motion</div>
           <div class="reading-card-body">
-            <!-- ============================================================
-                 NARRATIVE SHELL — replace with final lesson text
-                 ============================================================ -->
-            <p>You now have evidence from every part of the investigation: orbit patterns, movement data, Earth’s influence, and Aurora-3’s forward motion.</p>
+            <p>The intern teams continue reviewing the Mission Control recordings.</p>
 
-            <p>Mission Control needs your team to put it all together. Using everything you have observed, you will build an explanation for how Aurora-3 stays in orbit around Earth.</p>
+            <p>Aurora-3 keeps moving forward, but its path continues curving around Earth.</p>
+
+            <p>Maya opens a new Mission Control model on the central display.</p>
 
             <div class="dialogue-quote">
-              “Your explanation is your team’s best account of what is happening,” Maya says, “grounded in the evidence the interns collected.”
+              “You have already observed that Aurora-3 keeps moving forward while its path curves around Earth,” Maya says.
             </div>
 
-            <p>Use what you noticed across all the observations. Your model does not need to be perfect — it needs to be supported by the evidence.</p>
+            <div class="dialogue-quote">
+              “Now your challenge is to connect that pattern to the force that pulls objects toward Earth.”
+            </div>
+
+            <p>The model begins loading.</p>
           </div>
         </div>
 
-        <div class="content-card dp2-image-card">
-          <div class="image-placeholder">
-            <div class="image-placeholder-label">Page 9 · Hero Image</div>
-            <div class="image-placeholder-caption">Suggested: An orbit-diagram view of Aurora-3 traveling around Earth, with arrows labeling forward motion and Earth’s influence — the two forces students have been investigating.</div>
-            <div class="image-placeholder-hint">images/Orbit_Explanation.png</div>
-          </div>
-        </div>
+      </div>
 
-        <div class="placeholder-note-card">
-          <p><strong>Page 9 — narrative shell.</strong> Edit the <code>reading-card</code> text above with the finished model-building narrative.</p>
-          <p>Replace the dashed image placeholder with <code>&lt;img src="images/Orbit_Explanation.png" /&gt;</code> once the artwork is ready.</p>
+      <div class="putting-together-wrap">
+        <div class="mission-monitor">
+          <div class="mission-monitor-bar">
+            <div class="monitor-dots">
+              <span class="monitor-dot" style="background:#ff5f57;color:#ff5f57"></span>
+              <span class="monitor-dot" style="background:#fec833;color:#fec833"></span>
+              <span class="monitor-dot" style="background:#29ce42;color:#29ce42"></span>
+            </div>
+            <div class="monitor-title">◈ Mission Control · Gravity and Motion Model · Aurora-3</div>
+            <div class="monitor-live">
+              <span class="monitor-live-dot"></span>
+              ARCHIVED
+            </div>
+          </div>
+          <div class="monitor-corner tl"></div>
+          <div class="monitor-corner tr"></div>
+          <div class="monitor-corner bl"></div>
+          <div class="monitor-corner br"></div>
+          <div class="monitor-scanlines"></div>
+          <iframe
+            id="iframe-putting-it-together"
+            src="interactives/putting-it-together.html"
+            class="interactive-frame"
+            title="Putting It Together Interactive"
+            sandbox="allow-scripts allow-same-origin"
+            scrolling="no">
+          </iframe>
+        </div>
+        <div class="mission-monitor-stand">
+          <div class="monitor-stand-neck"></div>
+          <div class="monitor-stand-foot"></div>
+        </div>
+      </div>
+
+      <div class="content-wrap page9-bottom-wrap">
+
+        <div class="journal-card">
+          <div class="journal-title">Mission Journal: Putting It Together</div>
+
+          <label for="journal-putting-it-together">
+            How does Earth’s pull help explain why Aurora-3’s path curves while the satellite keeps moving forward?
+          </label>
+
+          <textarea
+            id="journal-putting-it-together"
+            data-journal="putting-it-together"
+            placeholder="Use evidence from the investigations and the model to explain your thinking..."
+            oninput="saveResponse('journal-putting-it-together', this.value)"
+          ></textarea>
+
+          <div id="journal-putting-it-together-saved" class="save-indicator">✓ Saved</div>
         </div>
 
         <div class="nav-bar">
@@ -2602,6 +2678,25 @@
     /* ============================================================
        PAGE 7 LAB SCREEN SCALING
        ============================================================ */
+
+    function fitMissionSynthesisFrame() {
+      const shell = document.getElementById('mission-synthesis-inner');
+      const frame = document.getElementById('iframe-mission-synthesis');
+      if (!shell || !frame) return;
+
+      const baseWidth = 1320;
+      const baseHeight = 850;
+      const availableWidth = shell.clientWidth;
+      const scale = Math.min(1, availableWidth / baseWidth);
+
+      frame.style.width = baseWidth + 'px';
+      frame.style.height = baseHeight + 'px';
+      frame.style.transform = `scale(${scale})`;
+      shell.style.height = Math.ceil(baseHeight * scale) + 'px';
+    }
+
+    window.addEventListener('resize', fitMissionSynthesisFrame);
+
     function fitScaledLabFrames() {
       const configs = {
         'iframe-earth-influence': { width: 1220, height: 760 },
@@ -2645,7 +2740,8 @@
           try {
             const f = document.getElementById(iframeId);
             if (f && f.contentWindow) f.contentWindow.dispatchEvent(new Event('resize'));
-            if (iframeId === 'iframe-earth-influence' || iframeId === 'iframe-forward-motion' || iframeId === 'iframe-mission-synthesis') fitScaledLabFrames();
+            if (iframeId === 'iframe-earth-influence' || iframeId === 'iframe-forward-motion') fitScaledLabFrames();
+            if (iframeId === 'iframe-mission-synthesis') fitMissionSynthesisFrame();
             if (iframeId === 'iframe-evidence-briefing') refreshEvidenceBriefingFrameLayout();
           } catch(e) {}
         }, 120);
