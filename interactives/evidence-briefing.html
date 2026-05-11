@@ -4,218 +4,183 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mission Control Evidence Briefing — Aurora-3</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700&family=Share+Tech+Mono&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    /* ============================================================
+       MISSION CONTROL EVIDENCE BRIEFING
+       Palette and typography aligned with the parent lesson
+       (Stories in Science · Mission Control: Tracking Aurora-3).
+       ============================================================ */
 
     :root {
-      --navy-deepest: #040d18;
-      --navy-deep:    #07111f;
-      --navy-mid:     #0d2035;
-      --navy-panel:   #0f2740;
-      --navy-border:  #1e3a56;
-      --navy-border2: #2a4f72;
-      --blue-accent:  #378add;
-      --blue-light:   #5baaf5;
-      --blue-text:    #8fb8d8;
-      --blue-dim:     #4a7fa5;
-      --blue-faint:   #2d5070;
-      --orange:       #e07b2a;
-      --orange-dim:   #8a5a0a;
-      --orange-glow:  #f0c88a;
-      --orange-bg:    #1c1a0e;
-      --orange-bg2:   #1e1508;
-      --orange-deep:  #3d2800;
-      --text-bright:  #e8f4ff;
-      --text-main:    #c8dff5;
-      --text-muted:   #7fa8c9;
-      --text-faint:   #4a6a8a;
-      --green:        #2db86b;
-      --grid-gap:     20px;
+      /* Lesson palette (mirrors index.html :root vars) */
+      --bg-page:      #eef2f7;
+      --bg-white:     #ffffff;
+      --accent:       #0f7ea8;
+      --accent-dark:  #0a5c7a;
+      --accent-light: #e4f4fb;
+      --accent-mid:   #b3dff0;
+
+      /* Warm accent kept distinct so the two teams stay visually different,
+         but desaturated to live comfortably in a light layout. */
+      --motion:       #c2611a;
+      --motion-dark:  #8a4612;
+      --motion-light: #fdf1e3;
+      --motion-mid:   #f4d4ad;
+
+      --text-dark:    #1a1a1a;
+      --text-body:    #333333;
+      --text-mid:     #555555;
+      --text-light:   #777777;
+      --text-muted:   #aaaaaa;
+
+      --border:       #dce3ea;
+      --border-mid:   #c5d0da;
+
+      --font-ui:      -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+      --font-body:    Georgia, 'Times New Roman', serif;
+      --font-mono:    'Courier New', Courier, monospace;
+
+      --radius-sm:    6px;
+      --radius-md:    10px;
+      --shadow-sm:    0 1px 4px rgba(0,0,0,0.08);
+      --shadow-card:  0 2px 12px rgba(0,0,0,0.09);
+
+      --grid-gap:     16px;
     }
 
-    html, body {
-      min-height: 100%;
-      background: var(--navy-deepest);
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* Transparent so the parent lesson's white card shows through. */
+    html, body { min-height: 100%; background: transparent; }
 
     body {
-      font-family: 'Barlow', sans-serif;
-      color: var(--text-main);
-      padding: 32px 20px 56px;
-      background:
-        radial-gradient(ellipse 70% 50% at 20% 10%, #0c2245 0%, transparent 60%),
-        radial-gradient(ellipse 60% 40% at 80% 80%, #1a1205 0%, transparent 55%),
-        var(--navy-deepest);
-    }
-
-    /* ── stars bg ── */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background-image:
-        radial-gradient(circle, #ffffff22 1px, transparent 1px),
-        radial-gradient(circle, #ffffff11 1px, transparent 1px);
-      background-size: 200px 200px, 120px 120px;
-      background-position: 0 0, 60px 60px;
-      z-index: 0;
+      font-family: var(--font-body);
+      color: var(--text-body);
+      padding: 8px 4px 12px;
     }
 
     .page-wrap {
-      position: relative;
-      z-index: 1;
       max-width: 920px;
       margin: 0 auto;
     }
 
     /* ──────────── HEADER ──────────── */
     .mc-header {
-      background: var(--navy-panel);
-      border: 1px solid var(--navy-border);
-      border-bottom: 2px solid var(--orange);
-      border-radius: 12px 12px 0 0;
-      padding: 28px 36px 22px;
+      background: var(--accent-light);
+      border: 1px solid var(--accent-mid);
+      border-left: 5px solid var(--accent);
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
+      padding: 18px 22px 16px;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .mc-header::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 4px;
-      background: repeating-linear-gradient(
-        90deg,
-        var(--orange) 0, var(--orange) 22px,
-        transparent 22px, transparent 30px
-      );
-    }
-
-    .mc-header::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse 80% 120% at 50% -20%, #163555 0%, transparent 70%);
-      pointer-events: none;
+      align-items: flex-start;
+      gap: 8px;
     }
 
     .mc-badge {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 2.5px;
-      color: var(--orange);
-      background: #1a2d45;
-      border: 1px solid #e07b2a44;
-      padding: 4px 16px;
-      border-radius: 20px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      color: var(--accent-dark);
+      background: var(--bg-white);
+      border: 1px solid var(--accent-mid);
+      padding: 4px 14px;
+      border-radius: 16px;
       text-transform: uppercase;
-      position: relative;
-      z-index: 1;
     }
 
     .mc-title {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: clamp(26px, 5vw, 40px);
+      font-family: var(--font-ui);
+      font-size: clamp(20px, 3.6vw, 26px);
       font-weight: 700;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      color: var(--text-bright);
-      text-align: center;
-      line-height: 1.1;
-      position: relative;
-      z-index: 1;
+      letter-spacing: 0.03em;
+      color: var(--accent-dark);
+      line-height: 1.2;
     }
 
     .mc-subtitle {
-      font-size: 14px;
-      color: var(--text-muted);
-      text-align: center;
-      max-width: 520px;
-      line-height: 1.6;
-      position: relative;
-      z-index: 1;
+      font-family: var(--font-body);
+      font-size: 16px;
+      color: var(--text-mid);
+      line-height: 1.5;
+      max-width: 640px;
     }
 
     /* ──────────── STATUS BAR ──────────── */
     .mc-status {
-      background: #040d18;
-      border: 1px solid var(--navy-border);
+      background: var(--bg-white);
+      border: 1px solid var(--border);
       border-top: none;
-      padding: 7px 28px;
+      padding: 8px 22px;
       display: flex;
       align-items: center;
-      gap: 0;
       flex-wrap: wrap;
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 10px;
-      color: var(--blue-dim);
-      letter-spacing: 1px;
       gap: 18px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-light);
+      letter-spacing: 0.5px;
     }
 
     .status-item { display: flex; align-items: center; gap: 6px; }
 
     .status-dot {
-      width: 7px; height: 7px;
+      width: 8px; height: 8px;
       border-radius: 50%;
-      background: var(--green);
+      background: #2db86b;
       animation: blink 2s ease-in-out infinite;
       flex-shrink: 0;
     }
 
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.35} }
 
     /* ──────────── MAIN BODY ──────────── */
     .mc-body {
-      background: var(--navy-deep);
-      border: 1px solid var(--navy-border);
+      background: var(--bg-white);
+      border: 1px solid var(--border);
       border-top: none;
-      border-radius: 0 0 12px 12px;
-      padding: 28px 28px 36px;
+      border-radius: 0 0 var(--radius-md) var(--radius-md);
+      padding: 22px;
     }
 
     .hint-bar {
       text-align: center;
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 1.5px;
-      color: var(--blue-faint);
-      margin-bottom: 16px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 1px;
+      color: var(--text-light);
+      margin-bottom: 14px;
       text-transform: uppercase;
     }
 
     .hint-bar em {
-      color: var(--blue-accent);
+      color: var(--accent);
       font-style: normal;
-      opacity: .8;
+      font-weight: 700;
     }
 
-    /* ── team pooling banner ── */
+    /* ──────────── POOLING BANNER ──────────── */
     .pooling-banner {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      background: #0b1f35;
-      border: 1px solid var(--navy-border);
-      border-left: 3px solid var(--blue-accent);
-      border-radius: 7px;
-      padding: 10px 18px;
+      align-items: flex-start;
+      gap: 12px;
+      background: var(--accent-light);
+      border: 1px solid var(--accent-mid);
+      border-left: 4px solid var(--accent);
+      border-radius: var(--radius-sm);
+      padding: 14px 18px;
       margin-bottom: 22px;
-      font-size: 13px;
-      color: var(--text-muted);
-      line-height: 1.5;
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.55;
+      color: var(--text-body);
     }
 
-    .pooling-banner svg { flex-shrink: 0; color: var(--blue-dim); opacity: .9; }
+    .pooling-banner svg {
+      flex-shrink: 0;
+      color: var(--accent);
+      margin-top: 3px;
+    }
 
     .pooling-banner span { font-style: italic; }
 
@@ -224,7 +189,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: var(--grid-gap);
-      margin-bottom: 28px;
+      margin-bottom: 22px;
     }
 
     @media (max-width: 620px) {
@@ -232,259 +197,262 @@
     }
 
     .evidence-col {
-      background: var(--navy-mid);
-      border: 1px solid var(--navy-border);
-      border-radius: 10px;
+      background: var(--bg-white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
       overflow: hidden;
+      box-shadow: var(--shadow-sm);
     }
 
     .col-header {
-      padding: 14px 18px;
+      padding: 12px 16px;
       display: flex;
       align-items: center;
-      gap: 12px;
-      border-bottom: 1px solid var(--navy-border);
+      gap: 10px;
+      border-bottom: 1px solid var(--border);
     }
 
-    .col-header.orbit  { background: #0f2740; border-bottom-color: #2563a0; }
-    .col-header.motion { background: var(--orange-bg); border-bottom-color: var(--orange-dim); }
+    .col-header.orbit  { background: var(--accent-light); border-bottom-color: var(--accent-mid); }
+    .col-header.motion { background: var(--motion-light); border-bottom-color: var(--motion-mid); }
 
     .col-icon {
-      width: 36px; height: 36px;
+      width: 34px; height: 34px;
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      font-size: 17px;
       flex-shrink: 0;
     }
 
-    .col-icon.orbit  { background: #1a4070; color: var(--blue-light); }
-    .col-icon.motion { background: var(--orange-deep); color: var(--orange); }
+    .col-icon.orbit  { background: var(--bg-white); color: var(--accent); border: 1px solid var(--accent-mid); }
+    .col-icon.motion { background: var(--bg-white); color: var(--motion); border: 1px solid var(--motion-mid); }
 
-    .col-label-wrap { display: flex; flex-direction: column; gap: 2px; }
+    .col-label-wrap { display: flex; flex-direction: column; gap: 1px; }
 
     .col-title {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 16px;
+      font-family: var(--font-ui);
+      font-size: 14px;
       font-weight: 700;
-      letter-spacing: 2px;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
     }
-
-    .col-title.orbit  { color: var(--blue-light); }
-    .col-title.motion { color: var(--orange); }
+    .col-title.orbit  { color: var(--accent-dark); }
+    .col-title.motion { color: var(--motion-dark); }
 
     .col-sub {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 9px;
-      letter-spacing: 1.5px;
-      color: var(--text-faint);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 1px;
+      color: var(--text-light);
       text-transform: uppercase;
     }
 
     /* ──────────── OBSERVATION CARDS ──────────── */
-    .cards { padding: 14px; }
+    .cards { padding: 12px; }
 
     .obs-card {
-      background: #091828;
-      border: 1px solid var(--navy-border);
-      border-left: 3px solid var(--navy-border);
-      border-radius: 8px;
-      padding: 11px 14px;
-      margin-bottom: 10px;
+      background: var(--bg-white);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      margin-bottom: 8px;
       cursor: pointer;
       display: flex;
       align-items: flex-start;
       gap: 10px;
       transition: border-color .2s, background .2s, transform .15s;
-      position: relative;
       user-select: none;
     }
 
     .obs-card:last-child { margin-bottom: 0; }
 
-    .obs-card:hover { transform: translateX(3px); }
-    .obs-card.orbit-card:hover  { border-left-color: var(--blue-accent); background: #0c2035; }
-    .obs-card.motion-card:hover { border-left-color: var(--orange); background: #1a1205; }
+    .obs-card:hover { transform: translateX(2px); }
+    .obs-card.orbit-card:hover  { border-left-color: var(--accent); background: var(--accent-light); }
+    .obs-card.motion-card:hover { border-left-color: var(--motion); background: var(--motion-light); }
 
     .obs-card.selected-orbit {
-      border-left-color: var(--blue-light) !important;
-      background: #0e2a44 !important;
-      border-color: #2563a0;
-      transform: translateX(3px);
+      border-left-color: var(--accent) !important;
+      background: var(--accent-light) !important;
+      border-color: var(--accent-mid);
+      transform: translateX(2px);
     }
 
     .obs-card.selected-motion {
-      border-left-color: var(--orange) !important;
-      background: var(--orange-bg2) !important;
-      border-color: var(--orange-dim);
-      transform: translateX(3px);
+      border-left-color: var(--motion) !important;
+      background: var(--motion-light) !important;
+      border-color: var(--motion-mid);
+      transform: translateX(2px);
     }
 
-    .obs-card.dimmed { opacity: .28; transform: none !important; }
+    .obs-card.dimmed { opacity: .35; transform: none !important; }
 
     .obs-num {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 9px;
-      color: var(--blue-faint);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-light);
       flex-shrink: 0;
       padding-top: 3px;
-      letter-spacing: 1px;
-      min-width: 38px;
+      letter-spacing: 0.5px;
+      min-width: 40px;
     }
 
-    .obs-card.selected-orbit  .obs-num { color: var(--blue-light); }
-    .obs-card.selected-motion .obs-num { color: var(--orange); }
+    .obs-card.selected-orbit  .obs-num { color: var(--accent-dark); }
+    .obs-card.selected-motion .obs-num { color: var(--motion-dark); }
 
     .obs-text {
-      font-size: 13.5px;
-      color: var(--blue-text);
-      line-height: 1.55;
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.5;
+      color: var(--text-body);
       flex: 1;
     }
-
-    .obs-card.selected-orbit  .obs-text { color: var(--text-main); }
-    .obs-card.selected-motion .obs-text { color: var(--orange-glow); }
-
-    /* no linked badge — interaction is exploratory only */
 
     /* ──────────── DIVIDER ──────────── */
     .section-divider {
       height: 1px;
-      background: linear-gradient(90deg, transparent, var(--navy-border2) 30%, var(--navy-border2) 70%, transparent);
-      margin-bottom: 28px;
+      background: linear-gradient(90deg, transparent, var(--border-mid) 30%, var(--border-mid) 70%, transparent);
+      margin-bottom: 22px;
     }
 
-    /* ──────────── RESPONSE PANEL ──────────── */
+    /* ──────────── RESPONSE PANEL (Shared Observations) ──────────── */
+    /* Styled to match the lesson's response-group / reading-card look. */
     .response-panel {
-      background: var(--navy-mid);
-      border: 1px solid var(--navy-border);
-      border-radius: 10px;
+      background: var(--bg-white);
+      border: 1px solid var(--accent-mid);
+      border-left: 5px solid var(--accent);
+      border-radius: var(--radius-md);
       overflow: hidden;
+      box-shadow: var(--shadow-sm);
     }
 
     .rp-header {
-      background: var(--navy-panel);
-      border-bottom: 1px solid var(--navy-border);
-      padding: 13px 18px;
+      background: var(--accent-light);
+      border-bottom: 1px solid var(--accent-mid);
+      padding: 12px 18px;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
 
     .rp-title {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 15px;
+      font-family: var(--font-ui);
+      font-size: 13px;
       font-weight: 700;
-      letter-spacing: 2px;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: var(--text-main);
+      color: var(--accent-dark);
       display: flex;
       align-items: center;
       gap: 8px;
     }
 
-    .rp-title svg { flex-shrink: 0; opacity: .8; }
+    .rp-title svg { flex-shrink: 0; }
 
     .save-indicator {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 9px;
-      letter-spacing: 1.5px;
-      color: var(--blue-faint);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.5px;
+      color: var(--text-light);
       display: flex;
       align-items: center;
       gap: 6px;
       transition: color .3s;
     }
 
-    .save-indicator.saved { color: var(--green); }
+    .save-indicator.saved { color: #2db86b; }
 
     .save-dot {
-      width: 6px; height: 6px;
+      width: 7px; height: 7px;
       border-radius: 50%;
       background: currentColor;
     }
 
     .rp-prompt {
       padding: 14px 18px 0;
-      font-size: 14px;
-      color: var(--text-muted);
+      font-family: var(--font-body);
+      font-size: 16px;
+      color: var(--text-body);
       line-height: 1.6;
+      background: var(--bg-white);
     }
 
-    .rp-prompt strong { color: var(--text-bright); font-weight: 600; }
+    .rp-prompt strong { color: var(--text-dark); font-weight: 700; }
 
     .rp-textarea {
       display: block;
       width: 100%;
-      background: #091828;
+      background: var(--bg-white);
       border: none;
-      border-top: 1px solid var(--navy-border);
-      margin-top: 14px;
-      color: var(--text-main);
-      font-family: 'Barlow', sans-serif;
-      font-size: 14px;
-      line-height: 1.7;
-      padding: 16px 18px;
+      border-top: 1px solid var(--border);
+      margin-top: 12px;
+      color: var(--text-body);
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.65;
+      padding: 14px 18px;
       resize: vertical;
       min-height: 120px;
       outline: none;
       transition: background .2s;
     }
 
-    .rp-textarea::placeholder { color: var(--blue-faint); }
-    .rp-textarea:focus { background: #0c1f33; }
+    .rp-textarea::placeholder { color: var(--text-muted); font-style: italic; }
+    .rp-textarea:focus { background: #fafcfe; }
 
     .rp-footer {
-      padding: 9px 18px;
+      padding: 8px 18px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: #091828;
-      border-top: 1px solid var(--navy-border);
+      background: var(--accent-light);
+      border-top: 1px solid var(--accent-mid);
     }
 
     .char-count {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 9px;
-      color: var(--blue-faint);
-      letter-spacing: 1px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-light);
+      letter-spacing: 0.5px;
     }
 
     .btn-clear {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 9px;
-      letter-spacing: 1px;
-      color: var(--text-faint);
-      background: none;
-      border: 1px solid var(--navy-border);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.5px;
+      color: var(--text-mid);
+      background: var(--bg-white);
+      border: 1px solid var(--border);
       padding: 4px 12px;
-      border-radius: 5px;
+      border-radius: var(--radius-sm);
       cursor: pointer;
-      transition: color .2s, border-color .2s;
+      transition: color .2s, border-color .2s, background .2s;
       text-transform: uppercase;
     }
 
-    .btn-clear:hover { color: var(--text-main); border-color: var(--navy-border2); }
+    .btn-clear:hover {
+      color: var(--accent-dark);
+      border-color: var(--accent-mid);
+      background: var(--accent-light);
+    }
 
     /* ──────────── FOOTER ──────────── */
     .page-footer {
       text-align: center;
-      margin-top: 24px;
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 9px;
-      color: var(--blue-faint);
-      letter-spacing: 2px;
+      margin-top: 18px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-light);
+      letter-spacing: 1px;
       text-transform: uppercase;
     }
 
     /* ──────────── FOCUS ──────────── */
     .obs-card:focus-visible {
-      outline: 2px solid var(--blue-accent);
+      outline: 2px solid var(--accent);
       outline-offset: 2px;
     }
 
     .rp-textarea:focus-visible {
-      box-shadow: 0 0 0 2px var(--blue-accent);
+      box-shadow: 0 0 0 2px var(--accent);
     }
   </style>
 </head>
@@ -513,7 +481,7 @@
 
       <div class="pooling-banner" role="note">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        <span>Observation teams are pooling evidence from both investigations. Scientists often look across multiple data sources to find larger patterns before drawing conclusions.</span>
+        <span>The Mission Control screens begin filling with observations from the interns. As the evidence is organized together, the interns begin noticing patterns that no single team could fully see on its own.</span>
       </div>
 
       <!-- TWO-COLUMN EVIDENCE BOARD -->
