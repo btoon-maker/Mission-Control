@@ -1289,6 +1289,54 @@
     }
 
     /* ============================================================
+       MISSION CONTROL MONITOR — MODERN OVERRIDES
+       Replaces the retro CRT-on-a-stand look with a clean HUD panel.
+       To revert any single piece, comment out the matching rule.
+       ============================================================ */
+
+    /* Softer outer frame: one subtle border + one shadow, no multi-layer glow. */
+    .mission-monitor {
+      border: 1px solid rgba(85, 217, 255, 0.18);
+      box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.04) inset,
+        0 10px 28px rgba(0, 0, 0, 0.35);
+      border-radius: 10px;
+    }
+
+    /* Define the missing .monitor-bezel-top class used on pages 7a/7b,
+       and make .mission-monitor-bar (used on 4a/4b/5) match it. */
+    .monitor-bezel-top,
+    .mission-monitor-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 18px;
+      background: #0b1929;
+      border-bottom: 1px solid rgba(85, 217, 255, 0.18);
+    }
+
+    /* Hide the macOS-style traffic-light dots. */
+    .monitor-dots { display: none !important; }
+
+    /* Hide the CRT scanline overlay. */
+    .monitor-scanlines { display: none !important; }
+
+    /* Hide the monitor stand (neck + foot). */
+    .mission-monitor-stand { display: none !important; }
+
+    /* Title sits left-aligned now that the dots are gone; live indicator stays right. */
+    .monitor-title {
+      text-align: left;
+      font-size: 11px;
+      letter-spacing: 1.8px;
+      color: rgba(85, 217, 255, 0.72);
+    }
+
+    /* Corner brackets: tighten to the new bezel height (~42px → ~40px). */
+    .monitor-corner.tl { top: 44px; }
+    .monitor-corner.tr { top: 44px; }
+
+    /* ============================================================
        INSTRUCTION CARD — teal-tinted card for tool instructions
        ============================================================ */
     .instruction-card {
