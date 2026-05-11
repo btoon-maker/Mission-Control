@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mission Control Evidence Briefing — Aurora-3</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700&family=Share+Tech+Mono&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy-deepest: #040d18;
+      --navy-deep:    #07111f;
+      --navy-mid:     #0d2035;
+      --navy-panel:   #0f2740;
+      --navy-border:  #1e3a56;
+      --navy-border2: #2a4f72;
+      --blue-accent:  #378add;
+      --blue-light:   #5baaf5;
+      --blue-text:    #8fb8d8;
+      --blue-dim:     #4a7fa5;
+      --blue-faint:   #2d5070;
+      --orange:       #e07b2a;
+      --orange-dim:   #8a5a0a;
+      --orange-glow:  #f0c88a;
+      --orange-bg:    #1c1a0e;
+      --orange-bg2:   #1e1508;
+      --orange-deep:  #3d2800;
+      --text-bright:  #e8f4ff;
+      --text-main:    #c8dff5;
+      --text-muted:   #7fa8c9;
+      --text-faint:   #4a6a8a;
+      --green:        #2db86b;
+      --grid-gap:     20px;
+    }
+
+    html, body {
+      min-height: 100%;
+      background: var(--navy-deepest);
+    }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      color: var(--text-main);
+      padding: 32px 20px 56px;
+      background:
+        radial-gradient(ellipse 70% 50% at 20% 10%, #0c2245 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 80%, #1a1205 0%, transparent 55%),
+        var(--navy-deepest);
+    }
+
+    /* ── stars bg ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        radial-gradient(circle, #ffffff22 1px, transparent 1px),
+        radial-gradient(circle, #ffffff11 1px, transparent 1px);
+      background-size: 200px 200px, 120px 120px;
+      background-position: 0 0, 60px 60px;
+      z-index: 0;
+    }
+
+    .page-wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 920px;
+      margin: 0 auto;
+    }
+
+    /* ──────────── HEADER ──────────── */
+    .mc-header {
+      background: var(--navy-panel);
+      border: 1px solid var(--navy-border);
+      border-bottom: 2px solid var(--orange);
+      border-radius: 12px 12px 0 0;
+      padding: 28px 36px 22px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .mc-header::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: repeating-linear-gradient(
+        90deg,
+        var(--orange) 0, var(--orange) 22px,
+        transparent 22px, transparent 30px
+      );
+    }
+
+    .mc-header::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 120% at 50% -20%, #163555 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .mc-badge {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      color: var(--orange);
+      background: #1a2d45;
+      border: 1px solid #e07b2a44;
+      padding: 4px 16px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      position: relative;
+      z-index: 1;
+    }
+
+    .mc-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(26px, 5vw, 40px);
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--text-bright);
+      text-align: center;
+      line-height: 1.1;
+      position: relative;
+      z-index: 1;
+    }
+
+    .mc-subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+      text-align: center;
+      max-width: 520px;
+      line-height: 1.6;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ──────────── STATUS BAR ──────────── */
+    .mc-status {
+      background: #040d18;
+      border: 1px solid var(--navy-border);
+      border-top: none;
+      padding: 7px 28px;
+      display: flex;
+      align-items: center;
+      gap: 0;
+      flex-wrap: wrap;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      color: var(--blue-dim);
+      letter-spacing: 1px;
+      gap: 18px;
+    }
+
+    .status-item { display: flex; align-items: center; gap: 6px; }
+
+    .status-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: blink 2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+    /* ──────────── MAIN BODY ──────────── */
+    .mc-body {
+      background: var(--navy-deep);
+      border: 1px solid var(--navy-border);
+      border-top: none;
+      border-radius: 0 0 12px 12px;
+      padding: 28px 28px 36px;
+    }
+
+    .hint-bar {
+      text-align: center;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      color: var(--blue-faint);
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+
+    .hint-bar em {
+      color: var(--blue-accent);
+      font-style: normal;
+      opacity: .8;
+    }
+
+    /* ── team pooling banner ── */
+    .pooling-banner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: #0b1f35;
+      border: 1px solid var(--navy-border);
+      border-left: 3px solid var(--blue-accent);
+      border-radius: 7px;
+      padding: 10px 18px;
+      margin-bottom: 22px;
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .pooling-banner svg { flex-shrink: 0; color: var(--blue-dim); opacity: .9; }
+
+    .pooling-banner span { font-style: italic; }
+
+    /* ──────────── COLUMNS ──────────── */
+    .columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--grid-gap);
+      margin-bottom: 28px;
+    }
+
+    @media (max-width: 620px) {
+      .columns { grid-template-columns: 1fr; }
+    }
+
+    .evidence-col {
+      background: var(--navy-mid);
+      border: 1px solid var(--navy-border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .col-header {
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid var(--navy-border);
+    }
+
+    .col-header.orbit  { background: #0f2740; border-bottom-color: #2563a0; }
+    .col-header.motion { background: var(--orange-bg); border-bottom-color: var(--orange-dim); }
+
+    .col-icon {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 17px;
+      flex-shrink: 0;
+    }
+
+    .col-icon.orbit  { background: #1a4070; color: var(--blue-light); }
+    .col-icon.motion { background: var(--orange-deep); color: var(--orange); }
+
+    .col-label-wrap { display: flex; flex-direction: column; gap: 2px; }
+
+    .col-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .col-title.orbit  { color: var(--blue-light); }
+    .col-title.motion { color: var(--orange); }
+
+    .col-sub {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      color: var(--text-faint);
+      text-transform: uppercase;
+    }
+
+    /* ──────────── OBSERVATION CARDS ──────────── */
+    .cards { padding: 14px; }
+
+    .obs-card {
+      background: #091828;
+      border: 1px solid var(--navy-border);
+      border-left: 3px solid var(--navy-border);
+      border-radius: 8px;
+      padding: 11px 14px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      transition: border-color .2s, background .2s, transform .15s;
+      position: relative;
+      user-select: none;
+    }
+
+    .obs-card:last-child { margin-bottom: 0; }
+
+    .obs-card:hover { transform: translateX(3px); }
+    .obs-card.orbit-card:hover  { border-left-color: var(--blue-accent); background: #0c2035; }
+    .obs-card.motion-card:hover { border-left-color: var(--orange); background: #1a1205; }
+
+    .obs-card.selected-orbit {
+      border-left-color: var(--blue-light) !important;
+      background: #0e2a44 !important;
+      border-color: #2563a0;
+      transform: translateX(3px);
+    }
+
+    .obs-card.selected-motion {
+      border-left-color: var(--orange) !important;
+      background: var(--orange-bg2) !important;
+      border-color: var(--orange-dim);
+      transform: translateX(3px);
+    }
+
+    .obs-card.dimmed { opacity: .28; transform: none !important; }
+
+    .obs-num {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 9px;
+      color: var(--blue-faint);
+      flex-shrink: 0;
+      padding-top: 3px;
+      letter-spacing: 1px;
+      min-width: 38px;
+    }
+
+    .obs-card.selected-orbit  .obs-num { color: var(--blue-light); }
+    .obs-card.selected-motion .obs-num { color: var(--orange); }
+
+    .obs-text {
+      font-size: 13.5px;
+      color: var(--blue-text);
+      line-height: 1.55;
+      flex: 1;
+    }
+
+    .obs-card.selected-orbit  .obs-text { color: var(--text-main); }
+    .obs-card.selected-motion .obs-text { color: var(--orange-glow); }
+
+    /* no linked badge — interaction is exploratory only */
+
+    /* ──────────── DIVIDER ──────────── */
+    .section-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--navy-border2) 30%, var(--navy-border2) 70%, transparent);
+      margin-bottom: 28px;
+    }
+
+    /* ──────────── RESPONSE PANEL ──────────── */
+    .response-panel {
+      background: var(--navy-mid);
+      border: 1px solid var(--navy-border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .rp-header {
+      background: var(--navy-panel);
+      border-bottom: 1px solid var(--navy-border);
+      padding: 13px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .rp-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .rp-title svg { flex-shrink: 0; opacity: .8; }
+
+    .save-indicator {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      color: var(--blue-faint);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color .3s;
+    }
+
+    .save-indicator.saved { color: var(--green); }
+
+    .save-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .rp-prompt {
+      padding: 14px 18px 0;
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .rp-prompt strong { color: var(--text-bright); font-weight: 600; }
+
+    .rp-textarea {
+      display: block;
+      width: 100%;
+      background: #091828;
+      border: none;
+      border-top: 1px solid var(--navy-border);
+      margin-top: 14px;
+      color: var(--text-main);
+      font-family: 'Barlow', sans-serif;
+      font-size: 14px;
+      line-height: 1.7;
+      padding: 16px 18px;
+      resize: vertical;
+      min-height: 120px;
+      outline: none;
+      transition: background .2s;
+    }
+
+    .rp-textarea::placeholder { color: var(--blue-faint); }
+    .rp-textarea:focus { background: #0c1f33; }
+
+    .rp-footer {
+      padding: 9px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #091828;
+      border-top: 1px solid var(--navy-border);
+    }
+
+    .char-count {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 9px;
+      color: var(--blue-faint);
+      letter-spacing: 1px;
+    }
+
+    .btn-clear {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 1px;
+      color: var(--text-faint);
+      background: none;
+      border: 1px solid var(--navy-border);
+      padding: 4px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: color .2s, border-color .2s;
+      text-transform: uppercase;
+    }
+
+    .btn-clear:hover { color: var(--text-main); border-color: var(--navy-border2); }
+
+    /* ──────────── FOOTER ──────────── */
+    .page-footer {
+      text-align: center;
+      margin-top: 24px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 9px;
+      color: var(--blue-faint);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    /* ──────────── FOCUS ──────────── */
+    .obs-card:focus-visible {
+      outline: 2px solid var(--blue-accent);
+      outline-offset: 2px;
+    }
+
+    .rp-textarea:focus-visible {
+      box-shadow: 0 0 0 2px var(--blue-accent);
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrap">
+
+    <!-- HEADER -->
+    <header class="mc-header" role="banner">
+      <div class="mc-badge">Aurora-3 Mission &nbsp;·&nbsp; Evidence Debrief &nbsp;·&nbsp; Decision Point 1</div>
+      <h1 class="mc-title">Mission Control<br>Evidence Briefing</h1>
+      <p class="mc-subtitle">Compare observations collected by different Mission Control investigation teams.</p>
+    </header>
+
+    <!-- STATUS BAR -->
+    <div class="mc-status" role="status" aria-live="polite">
+      <span class="status-item"><span class="status-dot"></span> Teams Online</span>
+      <span class="status-item">OBS Cycle: Complete</span>
+      <span class="status-item">Aurora-3 Status: Nominal</span>
+      <span class="status-item">Session: Evidence Review</span>
+    </div>
+
+    <!-- BODY -->
+    <main class="mc-body">
+
+      <p class="hint-bar">Select any observation card to &nbsp;<em>compare</em>&nbsp; evidence across teams</p>
+
+      <div class="pooling-banner" role="note">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <span>Observation teams are pooling evidence from both investigations. Scientists often look across multiple data sources to find larger patterns before drawing conclusions.</span>
+      </div>
+
+      <!-- TWO-COLUMN EVIDENCE BOARD -->
+      <div class="columns" role="region" aria-label="Evidence columns">
+
+        <!-- ORBIT TRACKING -->
+        <div class="evidence-col" aria-labelledby="orbit-title">
+          <div class="col-header orbit">
+            <div class="col-icon orbit" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3"/>
+                <circle cx="12" cy="12" r="9"/>
+                <line x1="12" y1="3" x2="12" y2="6"/>
+                <line x1="12" y1="18" x2="12" y2="21"/>
+                <line x1="3" y1="12" x2="6" y2="12"/>
+                <line x1="18" y1="12" x2="21" y2="12"/>
+              </svg>
+            </div>
+            <div class="col-label-wrap">
+              <div class="col-title orbit" id="orbit-title">Orbit Tracking Team</div>
+              <div class="col-sub">Pathway &amp; Position Data</div>
+            </div>
+          </div>
+          <div class="cards" role="list">
+            <div class="obs-card orbit-card" data-group="A" tabindex="0" role="listitem button" aria-pressed="false" onclick="selectCard(this)" onkeydown="keyCard(event,this)">
+              <span class="obs-num">OBS-01</span>
+              <span class="obs-text">The path curves around Earth instead of moving in a straight line.</span>
+            </div>
+            <div class="obs-card orbit-card" data-group="B" tabindex="0" role="listitem button" aria-pressed="false" onclick="selectCard(this)" onkeydown="keyCard(event,this)">
+              <span class="obs-num">OBS-02</span>
+              <span class="obs-text">Aurora-3 returns to similar positions during each observation cycle.</span>
+            </div>
+            <div class="obs-card orbit-card" data-group="C" tabindex="0" role="listitem button" aria-pressed="false" onclick="selectCard(this)" onkeydown="keyCard(event,this)">
+              <span class="obs-num">OBS-03</span>
+              <span class="obs-text">The shape of the path did not seem to change across multiple cycles.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- MOTION ANALYSIS -->
+        <div class="evidence-col" aria-labelledby="motion-title">
+          <div class="col-header motion">
+            <div class="col-icon motion" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14"/>
+                <path d="M15 7l5 5-5 5"/>
+                <path d="M5 7c0 5.523 4.477 10 10 10"/>
+              </svg>
+            </div>
+            <div class="col-label-wrap">
+              <div class="col-title motion" id="motion-title">Motion Analysis Team</div>
+              <div class="col-sub">Velocity &amp; Direction Data</div>
+            </div>
+          </div>
+          <div class="cards" role="list">
+            <div class="obs-card motion-card" data-group="A" tabindex="0" role="listitem button" aria-pressed="false" onclick="selectCard(this)" onkeydown="keyCard(event,this)">
+              <span class="obs-num">OBS-04</span>
+              <span class="obs-text">Aurora-3 keeps moving forward even while its direction is changing.</span>
+            </div>
+            <div class="obs-card motion-card" data-group="B" tabindex="0" role="listitem button" aria-pressed="false" onclick="selectCard(this)" onkeydown="keyCard(event,this)">
+              <span class="obs-num">OBS-05</span>
+              <span class="obs-text">The satellite seems to follow a predictable movement path over time.</span>
+            </div>
+            <div class="obs-card motion-card" data-group="C" tabindex="0" role="listitem button" aria-pressed="false" onclick="selectCard(this)" onkeydown="keyCard(event,this)">
+              <span class="obs-num">OBS-06</span>
+              <span class="obs-text">Some movement patterns seemed to repeat during each observation cycle.</span>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /columns -->
+
+      <div class="section-divider" role="separator"></div>
+
+      <!-- SHARED RESPONSE PANEL -->
+      <section class="response-panel" aria-labelledby="rp-title-text">
+        <div class="rp-header">
+          <div class="rp-title">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            </svg>
+            <span id="rp-title-text">Shared Observations</span>
+          </div>
+          <div class="save-indicator" id="save-indicator" aria-live="polite">
+            <span class="save-dot"></span>
+            <span id="save-label">Ready</span>
+          </div>
+        </div>
+        <div class="rp-prompt">
+          <strong>What patterns are beginning to emerge about how Aurora-3 moves around Earth?</strong><br>
+          Use evidence from both investigations. What are you starting to notice? What questions does the evidence raise for you?
+        </div>
+        <textarea
+          class="rp-textarea"
+          id="rp-textarea"
+          placeholder="What evidence from both teams helps you better understand Aurora-3's orbit? What patterns are you beginning to see?"
+          rows="6"
+          aria-label="Shared observations response"
+        ></textarea>
+        <div class="rp-footer">
+          <span class="char-count" id="char-count" aria-live="polite">0 characters</span>
+          <button class="btn-clear" onclick="clearResponse()" aria-label="Clear response">Clear</button>
+        </div>
+      </section>
+
+    </main><!-- /mc-body -->
+
+    <footer class="page-footer" aria-label="Page metadata">
+      Aurora-3 Mission &nbsp;·&nbsp; Evidence Briefing &nbsp;·&nbsp; Decision Point 1 &nbsp;·&nbsp; Mission Control
+    </footer>
+
+  </div><!-- /page-wrap -->
+
+  <script>
+    (function () {
+      'use strict';
+
+      const STORAGE_KEY = 'mc_evidence_briefing_v1';
+      let activeGroup   = null;
+      let saveTimer     = null;
+
+      /* ── Card interaction ── */
+      function selectCard(card) {
+        const group    = card.dataset.group;
+        const allCards = document.querySelectorAll('.obs-card');
+
+        if (activeGroup === group) {
+          activeGroup = null;
+          allCards.forEach(c => {
+            c.classList.remove('selected-orbit', 'selected-motion', 'dimmed');
+            c.setAttribute('aria-pressed', 'false');
+          });
+          return;
+        }
+
+        activeGroup = group;
+        allCards.forEach(c => {
+          c.classList.remove('selected-orbit', 'selected-motion', 'dimmed');
+          if (c.dataset.group === group) {
+            const cls = c.classList.contains('orbit-card') ? 'selected-orbit' : 'selected-motion';
+            c.classList.add(cls);
+            c.setAttribute('aria-pressed', 'true');
+          } else {
+            c.classList.add('dimmed');
+            c.setAttribute('aria-pressed', 'false');
+          }
+        });
+      }
+
+      function keyCard(e, card) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          selectCard(card);
+        }
+      }
+
+      /* ── Textarea / autosave ── */
+      function handleInput() {
+        const ta  = document.getElementById('rp-textarea');
+        const len = ta.value.length;
+        document.getElementById('char-count').textContent =
+          len + (len === 1 ? ' character' : ' characters');
+
+        const si    = document.getElementById('save-indicator');
+        const label = document.getElementById('save-label');
+        label.textContent = 'Saving…';
+        si.classList.remove('saved');
+
+        clearTimeout(saveTimer);
+        saveTimer = setTimeout(() => {
+          try { localStorage.setItem(STORAGE_KEY, ta.value); } catch (_) {}
+          label.textContent = 'Saved';
+          si.classList.add('saved');
+        }, 800);
+      }
+
+      function clearResponse() {
+        const ta    = document.getElementById('rp-textarea');
+        const si    = document.getElementById('save-indicator');
+        const label = document.getElementById('save-label');
+        ta.value = '';
+        document.getElementById('char-count').textContent = '0 characters';
+        try { localStorage.removeItem(STORAGE_KEY); } catch (_) {}
+        label.textContent = 'Cleared';
+        si.classList.remove('saved');
+        setTimeout(() => { label.textContent = 'Ready'; }, 1200);
+      }
+
+      /* ── Restore saved response ── */
+      function init() {
+        try {
+          const saved = localStorage.getItem(STORAGE_KEY);
+          if (saved) {
+            const ta  = document.getElementById('rp-textarea');
+            ta.value  = saved;
+            const len = saved.length;
+            document.getElementById('char-count').textContent =
+              len + (len === 1 ? ' character' : ' characters');
+            const si    = document.getElementById('save-indicator');
+            const label = document.getElementById('save-label');
+            label.textContent = 'Restored';
+            si.classList.add('saved');
+          }
+        } catch (_) {}
+      }
+
+      /* ── Expose to HTML ── */
+      window.selectCard   = selectCard;
+      window.keyCard      = keyCard;
+      window.clearResponse = clearResponse;
+
+      document.getElementById('rp-textarea')
+        .addEventListener('input', handleInput);
+
+      init();
+    })();
+  </script>
+</body>
+</html>
