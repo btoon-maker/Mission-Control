@@ -1274,16 +1274,27 @@
        stay side-by-side inside the same-width lesson column. */
     .mission-synthesis-wrap {
       max-width: 860px;
-      margin: 0 auto 24px;
+      margin: 0 auto 10px;
       padding: 0 16px;
+    }
+
+    .page8-top-wrap {
+      padding-bottom: 10px;
+    }
+
+    .page8-bottom-wrap {
+      padding-top: 10px;
     }
 
     .mission-synthesis-frame-shell {
       width: 100%;
       overflow: hidden;
       position: relative;
-      background: transparent;
-      border-radius: 10px;
+      background: #fff1df;
+      border: 1px solid #f3d3ab;
+      border-radius: 14px;
+      padding: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
     }
 
     .mission-synthesis-frame-shell .interactive-frame {
@@ -1726,7 +1737,7 @@
          PAGE 2 — SECTION 2: Mission Control Alert
          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <section id="page-section2" class="page-section">
-      <div class="content-wrap">
+      <div class="content-wrap page8-top-wrap">
 
         <div class="reading-card">
           <button class="listen-btn" onclick="alert('Text-to-speech feature coming soon.')">
@@ -2264,7 +2275,7 @@
          PAGE 8 — MISSION SYNTHESIS
          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <section id="page-section8" class="page-section">
-      <div class="content-wrap">
+      <div class="content-wrap page8-top-wrap">
 
         <div class="reading-card">
           <button class="listen-btn" onclick="alert('Text-to-speech feature coming soon.')">🔊 Listen</button>
@@ -2297,7 +2308,7 @@
         </div>
       </div>
 
-      <div class="content-wrap">
+      <div class="content-wrap page8-bottom-wrap">
 
         <div class="journal-card">
           <div class="journal-title">Mission Journal: Synthesis</div>
@@ -2312,7 +2323,6 @@
           ></textarea>
           <div id="journal-dp2-synthesis-saved" class="save-indicator">✓ Saved</div>
         </div>
-
 
         <div class="nav-bar">
           <button class="btn-nav btn-back" onclick="goToPage('page-section6')">← Back</button>
