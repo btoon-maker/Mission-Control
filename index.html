@@ -779,6 +779,81 @@
     }
 
     /* ============================================================
+       JOURNAL CARD — Page 8 synthesis response
+       ============================================================ */
+    .journal-card {
+      background: var(--bg-white);
+      border: 1px solid var(--border);
+      border-left: 5px solid var(--accent);
+      border-radius: var(--radius-md);
+      padding: 24px 28px 22px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .journal-title {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+      font-family: var(--font-ui);
+    }
+
+    .journal-card label {
+      display: block;
+      font-family: var(--font-body);
+      font-size: 17px;
+      color: var(--text-body);
+      line-height: 1.75;
+      margin-bottom: 16px;
+    }
+
+    .journal-card textarea {
+      width: 100%;
+      min-height: 140px;
+      background: var(--bg-page);
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text-body);
+      font-family: var(--font-body);
+      font-size: 17px;
+      line-height: 1.75;
+      padding: 14px 16px;
+      resize: vertical;
+      outline: none;
+      transition: border-color 0.18s, box-shadow 0.18s;
+      display: block;
+    }
+
+    .journal-card textarea::placeholder {
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    .journal-card textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(15,126,168,0.10);
+      background: #fff;
+    }
+
+    .journal-card .save-indicator {
+      font-family: var(--font-ui);
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 8px;
+      transition: color 0.3s;
+    }
+
+    .journal-card .save-indicator.saved {
+      color: var(--green);
+      font-weight: 600;
+    }
+
+    /* ============================================================
        COMING SOON CARD
        ============================================================ */
     .coming-soon-card {
@@ -2160,9 +2235,7 @@
 
 
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-         PAGE 8 — MISSION SYNTHESIS  (narrative shell)
-         Edit the reading-card text and replace .image-placeholder
-         with <img src="images/your-file.png" /> when art is ready.
+         PAGE 8 — MISSION SYNTHESIS
          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <section id="page-section8" class="page-section">
       <div class="content-wrap">
@@ -2171,34 +2244,62 @@
           <button class="listen-btn" onclick="alert('Text-to-speech feature coming soon.')">🔊 Listen</button>
           <div class="reading-card-title">Mission Synthesis</div>
           <div class="reading-card-body">
-            <!-- ============================================================
-                 NARRATIVE SHELL — replace with final lesson text
-                 ============================================================ -->
-            <p>You return to Mission Control. The Earth Influence Team and the Forward Motion Team have each completed their investigations.</p>
-
-            <p>Both groups gather around the main observation screens. Their evidence is now displayed side by side for the first time.</p>
-
-            <p>Maya looks across the room at the interns and gestures toward the displays.</p>
-
+            <p>The Earth Influence Team and Forward Motion Team return to the main Mission Control room.</p>
+            <p>Each intern team investigated a different part of Aurora-3’s orbit system.</p>
+            <p>Maya brings one observation from each investigation onto the central display.</p>
             <div class="dialogue-quote">
-              “Each team only saw part of the story,” Maya says. “Together, your evidence is stronger than either investigation alone.”
+              “Your internship challenge is to use evidence to figure out how Aurora-3 can keep moving around Earth,” Maya says.
             </div>
-
-            <p>Your task is to look across <em>both</em> sets of observations and notice where the evidence agrees, where it differs, and what patterns connect the two.</p>
+            <div class="dialogue-quote">
+              “Compare the recordings carefully. Look for patterns that connect both investigations.”
+            </div>
           </div>
         </div>
 
-        <div class="content-card dp2-image-card">
-          <div class="image-placeholder">
-            <div class="image-placeholder-label">Page 8 · Hero Image</div>
-            <div class="image-placeholder-caption">Suggested: Both investigation teams gathered at Mission Control, comparing evidence from the Earth Influence and Forward Motion labs on the main display.</div>
-            <div class="image-placeholder-hint">images/Orbit_Synthesis.png</div>
-          </div>
+      </div>
+
+      <div class="interactive-wrap">
+        <iframe
+          id="iframe-mission-synthesis"
+          src="interactives/mission-synthesis.html"
+          class="interactive-frame"
+          title="Mission Synthesis Interactive"
+          sandbox="allow-scripts allow-same-origin"
+          scrolling="no">
+        </iframe>
+      </div>
+
+      <div class="content-wrap">
+
+        <div class="journal-card">
+          <div class="journal-title">Mission Journal: Synthesis</div>
+          <label for="journal-dp2-synthesis">
+            What patterns do you notice when you compare both team displays? What do these patterns help you figure out about Aurora-3’s orbit?
+          </label>
+          <textarea
+            id="journal-dp2-synthesis"
+            data-journal="dp2-synthesis"
+            placeholder="Write what you notice and what you think it helps explain..."
+            oninput="saveResponse('journal-dp2-synthesis', this.value)"
+          ></textarea>
+          <div id="journal-dp2-synthesis-saved" class="save-indicator">✓ Saved</div>
         </div>
 
-        <div class="placeholder-note-card">
-          <p><strong>Page 8 — narrative shell.</strong> Edit the <code>reading-card</code> text above with the finished synthesis narrative.</p>
-          <p>Replace the dashed image placeholder with <code>&lt;img src="images/Orbit_Synthesis.png" /&gt;</code> once the artwork is ready.</p>
+        <div class="reading-card">
+          <button class="listen-btn" onclick="alert('Text-to-speech feature coming soon.')">🔊 Listen</button>
+          <div class="reading-card-title">Mission Control Briefing</div>
+          <div class="reading-card-body">
+            <p>The displays replay again on the central screen.</p>
+            <p>Aurora-3 keeps moving forward, but its path still curves around Earth.</p>
+            <p>Maya looks around at the intern teams.</p>
+            <div class="dialogue-quote">
+              “You have gathered evidence from two different investigations,” Maya says.
+            </div>
+            <div class="dialogue-quote">
+              “Now your next challenge is to connect those patterns to the science idea that explains why objects can stay near Earth while moving through space.”
+            </div>
+            <p>The next Mission Control screen begins to load.</p>
+          </div>
         </div>
 
         <div class="nav-bar">
@@ -2512,7 +2613,7 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
 
       // Trigger canvas resize in interactive iframes when their page becomes visible
-      const iframeMap = { 'page-section4a': 'iframe-track-orbit', 'page-section4b': 'iframe-motion-analysis', 'page-section5': 'iframe-evidence-briefing', 'page-section7a': 'iframe-earth-influence', 'page-section7b': 'iframe-forward-motion' };
+      const iframeMap = { 'page-section4a': 'iframe-track-orbit', 'page-section4b': 'iframe-motion-analysis', 'page-section5': 'iframe-evidence-briefing', 'page-section7a': 'iframe-earth-influence', 'page-section7b': 'iframe-forward-motion', 'page-section8': 'iframe-mission-synthesis' };
       const iframeId = iframeMap[pageId];
       if (iframeId) {
         setTimeout(() => {
@@ -2689,6 +2790,7 @@
          RESPONSE LABELS — add new response boxes here as lesson grows
          ============================================================ */
       const responseLabels = {
+        'journal-dp2-synthesis': 'Mission Journal: Synthesis',
         // No journal-prompt textareas on 4a/4b anymore.
         // Add entries here as new response fields are introduced.
       };
@@ -2767,7 +2869,7 @@
       document.querySelectorAll('[data-group]').forEach(b => b.classList.remove('selected'));
 
       // Reset only lesson response textareas
-      document.querySelectorAll('.response-textarea').forEach(el => el.value = '');
+      document.querySelectorAll('.response-textarea, .journal-card textarea').forEach(el => el.value = '');
 
       document.getElementById('display-code').textContent = state.resumeCode;
       closeModal('modal-restart');
