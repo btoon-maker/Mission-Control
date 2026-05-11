@@ -1269,6 +1269,32 @@
       overflow: hidden;
     }
 
+    /* Page 8 Mission Synthesis matches the narrative-card width.
+       The iframe itself is scaled down so the two observation displays
+       stay side-by-side inside the same-width lesson column. */
+    .mission-synthesis-wrap {
+      max-width: 860px;
+      margin: 0 auto 24px;
+      padding: 0 16px;
+    }
+
+    .mission-synthesis-frame-shell {
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      background: transparent;
+      border-radius: 10px;
+    }
+
+    .mission-synthesis-frame-shell .interactive-frame {
+      width: 1320px;
+      max-width: none;
+      height: 850px;
+      transform-origin: top left;
+      border-radius: 10px;
+      background: transparent;
+    }
+
 
     /* Page 7a/7b lab screens need a wider virtual viewport than the lesson card.
        This shell scales the embedded lab down to fit inside the monitor instead of
@@ -2258,15 +2284,17 @@
 
       </div>
 
-      <div class="interactive-wrap">
-        <iframe
-          id="iframe-mission-synthesis"
-          src="interactives/mission-synthesis.html"
-          class="interactive-frame"
-          title="Mission Synthesis Interactive"
-          sandbox="allow-scripts allow-same-origin"
-          scrolling="no">
-        </iframe>
+      <div class="mission-synthesis-wrap">
+        <div class="mission-synthesis-frame-shell scaled-frame-shell">
+          <iframe
+            id="iframe-mission-synthesis"
+            src="interactives/mission-synthesis.html"
+            class="interactive-frame"
+            title="Mission Synthesis Interactive"
+            sandbox="allow-scripts allow-same-origin"
+            scrolling="no">
+          </iframe>
+        </div>
       </div>
 
       <div class="content-wrap">
@@ -2285,22 +2313,6 @@
           <div id="journal-dp2-synthesis-saved" class="save-indicator">✓ Saved</div>
         </div>
 
-        <div class="reading-card">
-          <button class="listen-btn" onclick="alert('Text-to-speech feature coming soon.')">🔊 Listen</button>
-          <div class="reading-card-title">Mission Control Briefing</div>
-          <div class="reading-card-body">
-            <p>The displays replay again on the central screen.</p>
-            <p>Aurora-3 keeps moving forward, but its path still curves around Earth.</p>
-            <p>Maya looks around at the intern teams.</p>
-            <div class="dialogue-quote">
-              “You have gathered evidence from two different investigations,” Maya says.
-            </div>
-            <div class="dialogue-quote">
-              “Now your next challenge is to connect those patterns to the science idea that explains why objects can stay near Earth while moving through space.”
-            </div>
-            <p>The next Mission Control screen begins to load.</p>
-          </div>
-        </div>
 
         <div class="nav-bar">
           <button class="btn-nav btn-back" onclick="goToPage('page-section6')">← Back</button>
@@ -2581,7 +2593,8 @@
     function fitScaledLabFrames() {
       const configs = {
         'iframe-earth-influence': { width: 1220, height: 760 },
-        'iframe-forward-motion': { width: 1120, height: 760 }
+        'iframe-forward-motion': { width: 1120, height: 760 },
+        'iframe-mission-synthesis': { width: 1320, height: 850 }
       };
 
       Object.entries(configs).forEach(([id, cfg]) => {
@@ -2620,7 +2633,7 @@
           try {
             const f = document.getElementById(iframeId);
             if (f && f.contentWindow) f.contentWindow.dispatchEvent(new Event('resize'));
-            if (iframeId === 'iframe-earth-influence' || iframeId === 'iframe-forward-motion') fitScaledLabFrames();
+            if (iframeId === 'iframe-earth-influence' || iframeId === 'iframe-forward-motion' || iframeId === 'iframe-mission-synthesis') fitScaledLabFrames();
             if (iframeId === 'iframe-evidence-briefing') refreshEvidenceBriefingFrameLayout();
           } catch(e) {}
         }, 120);
