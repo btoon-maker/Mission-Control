@@ -1082,6 +1082,58 @@
       border-radius: 10px;
     }
 
+    /* ============================================================
+       IMAGE PLACEHOLDER — drop-in stand-in for unfinished artwork
+       Replace the inner div with <img src="images/your-file.png" />
+       when the real image is ready.
+       ============================================================ */
+    .image-placeholder {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 28px 24px;
+      text-align: center;
+      background:
+        repeating-linear-gradient(45deg,
+          var(--bg-page) 0,
+          var(--bg-page) 14px,
+          var(--bg-white) 14px,
+          var(--bg-white) 28px);
+      border: 2px dashed var(--border-mid);
+      border-radius: var(--radius-md);
+    }
+
+    .image-placeholder-label {
+      font-family: var(--font-ui);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent-dark);
+    }
+
+    .image-placeholder-caption {
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.5;
+      color: var(--text-mid);
+      max-width: 520px;
+    }
+
+    .image-placeholder-hint {
+      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+      font-size: 11px;
+      color: var(--text-light);
+      background: rgba(255, 255, 255, 0.75);
+      padding: 4px 10px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+    }
+
     .placeholder-note-card {
       background: var(--accent-light);
       border: 1px solid var(--accent-mid);
@@ -1785,28 +1837,6 @@
       </div>
 
       <div class="content-wrap">
-        <div class="response-group">
-          <div class="card-label">📓 Journal Prompt — Orbit Tracking Team</div>
-          <div class="response-prompt">
-            <p><strong>Journal Reflection:</strong></p>
-
-            <p>What patterns do you notice in Aurora-3’s orbit path?</p>
-
-            <p>Use evidence from the observation cycles to describe:</p>
-
-            <ul>
-              <li>how the satellite’s path curves around Earth</li>
-              <li>what repeats from one cycle to the next</li>
-              <li>what questions you still have about the orbit’s shape</li>
-            </ul>
-          </div>
-          <textarea class="response-textarea" id="response-4a"
-            placeholder="Type your observations here…"
-            oninput="saveResponse('response4a', this.value)"></textarea>
-          <div class="response-save-note" id="response4a-saved">
-            Responses are saved automatically as you type.
-          </div>
-        </div>
         <div class="nav-bar">
           <button class="btn-nav btn-back" onclick="goToPage('page-section3')">← Back</button>
           <span class="section-progress">Section 4a of 7</span>
@@ -1876,28 +1906,6 @@
       </div>
 
       <div class="content-wrap">
-        <div class="response-group">
-          <div class="card-label">📓 Journal Prompt — Motion Analysis Team</div>
-          <div class="response-prompt">
-            <p><strong>Journal Reflection:</strong></p>
-
-            <p>What patterns do you notice in Aurora-3’s movement during orbit?</p>
-
-            <p>Use evidence from the observation cycles to describe:</p>
-
-            <ul>
-              <li>how the satellite keeps moving around Earth</li>
-              <li>how its direction changes during orbit</li>
-              <li>what questions you still have about its movement</li>
-            </ul>
-          </div>
-          <textarea class="response-textarea" id="response-4b"
-            placeholder="Type your observations here…"
-            oninput="saveResponse('response4b', this.value)"></textarea>
-          <div class="response-save-note" id="response4b-saved">
-            Responses are saved automatically as you type.
-          </div>
-        </div>
         <div class="nav-bar">
           <button class="btn-nav btn-back" onclick="goToPage('page-section3')">← Back</button>
           <span class="section-progress">Section 4b of 7</span>
@@ -2084,7 +2092,7 @@
         <div class="nav-bar">
           <button class="btn-nav btn-back" onclick="goToPage('page-section6')">← Back</button>
           <span class="section-progress">Section 7a of 7</span>
-          <button class="btn-nav btn-continue" style="opacity:0.4;cursor:not-allowed;" disabled>Continue →</button>
+          <button class="btn-nav btn-continue" onclick="goToPage('page-section8')">Continue →</button>
         </div>
       </div>
     </section><!-- /page-section7a -->
@@ -2145,29 +2153,52 @@
         <div class="nav-bar">
           <button class="btn-nav btn-back" onclick="goToPage('page-section6')">← Back</button>
           <span class="section-progress">Section 7b of 7</span>
-          <button class="btn-nav btn-continue" style="opacity:0.4;cursor:not-allowed;" disabled>Continue →</button>
+          <button class="btn-nav btn-continue" onclick="goToPage('page-section8')">Continue →</button>
         </div>
       </div>
     </section><!-- /page-section7b -->
 
 
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-         PAGE 8 — PLACEHOLDER
+         PAGE 8 — MISSION SYNTHESIS  (narrative shell)
+         Edit the reading-card text and replace .image-placeholder
+         with <img src="images/your-file.png" /> when art is ready.
          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <section id="page-section8" class="page-section">
       <div class="content-wrap">
+
         <div class="reading-card">
           <button class="listen-btn" onclick="alert('Text-to-speech feature coming soon.')">🔊 Listen</button>
-          <div class="reading-card-title">Page 8 Placeholder</div>
+          <div class="reading-card-title">Mission Synthesis</div>
           <div class="reading-card-body">
-            <p>This page is ready for the next shared lesson section after the team investigation.</p>
-            <p>Add the next narrative, interactive, journal, or sensemaking activity here.</p>
+            <!-- ============================================================
+                 NARRATIVE SHELL — replace with final lesson text
+                 ============================================================ -->
+            <p>You return to Mission Control. The Earth Influence Team and the Forward Motion Team have each completed their investigations.</p>
+
+            <p>Both groups gather around the main observation screens. Their evidence is now displayed side by side for the first time.</p>
+
+            <p>Maya looks across the room at the interns and gestures toward the displays.</p>
+
+            <div class="dialogue-quote">
+              “Each team only saw part of the story,” Maya says. “Together, your evidence is stronger than either investigation alone.”
+            </div>
+
+            <p>Your task is to look across <em>both</em> sets of observations and notice where the evidence agrees, where it differs, and what patterns connect the two.</p>
+          </div>
+        </div>
+
+        <div class="content-card dp2-image-card">
+          <div class="image-placeholder">
+            <div class="image-placeholder-label">Page 8 · Hero Image</div>
+            <div class="image-placeholder-caption">Suggested: Both investigation teams gathered at Mission Control, comparing evidence from the Earth Influence and Forward Motion labs on the main display.</div>
+            <div class="image-placeholder-hint">images/Orbit_Synthesis.png</div>
           </div>
         </div>
 
         <div class="placeholder-note-card">
-          <p><strong>Placeholder:</strong> Build Page 8 content here.</p>
-          <p>This page continues to Page 9 and returns to the team choice page.</p>
+          <p><strong>Page 8 — narrative shell.</strong> Edit the <code>reading-card</code> text above with the finished synthesis narrative.</p>
+          <p>Replace the dashed image placeholder with <code>&lt;img src="images/Orbit_Synthesis.png" /&gt;</code> once the artwork is ready.</p>
         </div>
 
         <div class="nav-bar">
@@ -2180,22 +2211,43 @@
 
 
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-         PAGE 9 — PLACEHOLDER
+         PAGE 9 — BUILDING THE EXPLANATION  (narrative shell)
+         Edit the reading-card text and replace .image-placeholder
+         with <img src="images/your-file.png" /> when art is ready.
          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <section id="page-section9" class="page-section">
       <div class="content-wrap">
+
         <div class="reading-card">
           <button class="listen-btn" onclick="alert('Text-to-speech feature coming soon.')">🔊 Listen</button>
-          <div class="reading-card-title">Page 9 Placeholder</div>
+          <div class="reading-card-title">Building the Explanation</div>
           <div class="reading-card-body">
-            <p>This page is ready for the lesson section that follows Page 8.</p>
-            <p>Add the next narrative, model-building task, application, journal, or briefing activity here.</p>
+            <!-- ============================================================
+                 NARRATIVE SHELL — replace with final lesson text
+                 ============================================================ -->
+            <p>You now have evidence from every part of the investigation: orbit patterns, movement data, Earth’s influence, and Aurora-3’s forward motion.</p>
+
+            <p>Mission Control needs your team to put it all together. Using everything you have observed, you will build an explanation for how Aurora-3 stays in orbit around Earth.</p>
+
+            <div class="dialogue-quote">
+              “Your explanation is your team’s best account of what is happening,” Maya says, “grounded in the evidence the interns collected.”
+            </div>
+
+            <p>Use what you noticed across all the observations. Your model does not need to be perfect — it needs to be supported by the evidence.</p>
+          </div>
+        </div>
+
+        <div class="content-card dp2-image-card">
+          <div class="image-placeholder">
+            <div class="image-placeholder-label">Page 9 · Hero Image</div>
+            <div class="image-placeholder-caption">Suggested: An orbit-diagram view of Aurora-3 traveling around Earth, with arrows labeling forward motion and Earth’s influence — the two forces students have been investigating.</div>
+            <div class="image-placeholder-hint">images/Orbit_Explanation.png</div>
           </div>
         </div>
 
         <div class="placeholder-note-card">
-          <p><strong>Placeholder:</strong> Build Page 9 content here.</p>
-          <p>This page continues to Page 10 and returns to Page 8.</p>
+          <p><strong>Page 9 — narrative shell.</strong> Edit the <code>reading-card</code> text above with the finished model-building narrative.</p>
+          <p>Replace the dashed image placeholder with <code>&lt;img src="images/Orbit_Explanation.png" /&gt;</code> once the artwork is ready.</p>
         </div>
 
         <div class="nav-bar">
@@ -2613,8 +2665,8 @@
         'page-section6':   'Section 6 — Why Does Aurora-3 Stay in Orbit?',
         'page-section7a':  'Section 7a — Earth Influence Team',
         'page-section7b':  'Section 7b — Forward Motion Team',
-        'page-section8':   'Section 8 — Placeholder',
-        'page-section9':   'Section 9 — Placeholder',
+        'page-section8':   'Section 8 — Mission Synthesis',
+        'page-section9':   'Section 9 — Building the Explanation',
         'page-section10':  'Section 10 — Placeholder'
       };
 
@@ -2637,8 +2689,8 @@
          RESPONSE LABELS — add new response boxes here as lesson grows
          ============================================================ */
       const responseLabels = {
-        'response4a': 'Page 4a — Orbit Tracking Team: Journal Prompt',
-        'response4b': 'Page 4b — Motion Analysis Team: Journal Prompt'
+        // No journal-prompt textareas on 4a/4b anymore.
+        // Add entries here as new response fields are introduced.
       };
 
       let lines = [
