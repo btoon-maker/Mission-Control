@@ -2604,82 +2604,32 @@
 
   <div class="content-wrap page8-mid-wrap">
 
-    <div class="reading-card evidence-board-card">
-      <div class="reading-card-title">Mission Control Evidence Board</div>
-
-      <div class="reading-card-body">
-        <p>
-          Review the evidence from both investigation teams. Look for patterns across the orbit paths before writing your Mission Journal response.
-        </p>
-
-        <div class="evidence-table-wrap">
-
-          <table class="mission-evidence-table">
-            <thead>
-              <tr>
-                <th>Investigation Team</th>
-                <th>Observation</th>
-                <th>Orbit Evidence</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <tr>
-                <td class="team-cell" rowspan="4">Earth Influence Team</td>
-                <td>Minimal Earth Influence</td>
-                <td>
-                  <img src="images/Orbit_minimal influence.png" alt="Minimal Earth Influence orbit evidence">
-                </td>
-              </tr>
-
-              <tr>
-                <td>Small Earth Influence</td>
-                <td>
-                  <img src="images/Orbit_small inflence.png" alt="Small Earth Influence orbit evidence">
-                </td>
-              </tr>
-
-              <tr>
-                <td>Medium Earth Influence</td>
-                <td>
-                  <img src="images/Orbit_medium influence.png" alt="Medium Earth Influence orbit evidence">
-                </td>
-              </tr>
-
-              <tr>
-                <td>Greater Earth Influence</td>
-                <td>
-                  <img src="images/Orbit_greater influence.png" alt="Greater Earth Influence orbit evidence">
-                </td>
-              </tr>
-
-              <tr>
-                <td class="team-cell" rowspan="3">Forward Motion Team</td>
-                <td>Slow Forward Motion</td>
-                <td>
-                  <img src="images/Orbit_slow forward motion.png" alt="Slow Forward Motion orbit evidence">
-                </td>
-              </tr>
-
-              <tr>
-                <td>Medium Forward Motion</td>
-                <td>
-                  <img src="images/Orbit_medium forward motion.png" alt="Medium Forward Motion orbit evidence">
-                </td>
-              </tr>
-
-              <tr>
-                <td>Fast Forward Motion</td>
-                <td>
-                  <img src="images/Orbit_fast forward motion.png" alt="Fast Forward Motion orbit evidence">
-                </td>
-              </tr>
-            </tbody>
-          </table>
-
-        </div>
-      </div>
-    </div>
+    <iframe
+      id="iframe-evidence-board"
+      src="interactives/evidence-board.html"
+      class="interactive-frame"
+      title="Mission Control Evidence Board"
+      sandbox="allow-same-origin"
+      scrolling="no">
+    </iframe>
+    <script>
+      (function () {
+        var f = document.getElementById('iframe-evidence-board');
+        if (!f) return;
+        f.addEventListener('load', function () {
+          var resize = function () {
+            try {
+              f.style.height = f.contentDocument.documentElement.scrollHeight + 'px';
+            } catch (e) { /* not ready or blocked */ }
+          };
+          resize();
+          if (typeof ResizeObserver !== 'undefined') {
+            try { new ResizeObserver(resize).observe(f.contentDocument.documentElement); } catch (e) {}
+          }
+          window.addEventListener('resize', resize);
+        });
+      })();
+    </script>
   </div>
   <div class="content-wrap page8-bottom-wrap">
     <div class="journal-card">
@@ -2823,7 +2773,8 @@
 </div>
 
 <div class="dialogue-quote">
-“Your evidence suggests that Earth may be pulling on Aurora-3, even while Aurora-3 keeps moving forward through space.”</div>
+  “Earth continuously pulls on nearby objects, even while those objects continue moving forward through space.”
+</div>
   <div class="content-card dp2-image-card"> <img src="images/Orbit_gravity.png" alt="Mission Control teams preparing to investigate why Aurora-3 stays in orbit" /> </div>
 
 <p>Maya points toward the curved orbit path displayed on the Mission Control screen.</p>
@@ -3171,42 +3122,36 @@
         <!-- ============================================================
              GLOSSARY TERMS — add or edit terms here
              ============================================================ -->
-      <div class="glossary-term">
-  <div class="glossary-word">Orbit</div>
-  <div class="glossary-def">The curved path an object follows as it moves around another object in space.</div>
-</div>
-
-<div class="glossary-term">
-  <div class="glossary-word">Forward Motion</div>
-  <div class="glossary-def">The way Aurora-3 keeps moving ahead as it travels through space.</div>
-</div>
-
-<div class="glossary-term">
-  <div class="glossary-word">Earth’s Pull</div>
-  <div class="glossary-def">The pull Earth has on objects near it, including satellites like Aurora-3.</div>
-</div>
-
-<div class="glossary-term">
-  <div class="glossary-word">Aurora-3</div>
-  <div class="glossary-def">The research satellite your team is investigating during this Mission Control lesson.</div>
-</div>
-
-<div class="glossary-term">
-  <div class="glossary-word">Mission Control</div>
-  <div class="glossary-def">The team that studies spacecraft data, monitors missions, and helps solve problems during space missions.</div>
-</div>
-
-<div class="glossary-term">
-  <div class="glossary-word">System</div>
-  <div class="glossary-def">A group of parts that work together. In this mission, Earth, Aurora-3, Earth’s pull, and forward motion are all parts of the orbit system.</div>
-</div>
-</div>
-
-<div class="modal-footer">
-  <button class="btn-modal-primary" onclick="closeModal('modal-glossary')">Close</button>
-</div>
-</div>
-</div>
+        <div class="glossary-term">
+          <div class="glossary-word">Orbit</div>
+          <div class="glossary-def"><em>Placeholder.</em> The curved path an object takes around another object in space due to gravity. Replace with your lesson-specific definition.</div>
+        </div>
+        <div class="glossary-term">
+          <div class="glossary-word">Gravity</div>
+          <div class="glossary-def"><em>Placeholder.</em> The force that pulls objects toward one another. Replace with your lesson-specific definition.</div>
+        </div>
+        <div class="glossary-term">
+          <div class="glossary-word">Inertia</div>
+          <div class="glossary-def"><em>Placeholder.</em> The tendency of an object to keep moving unless a force acts on it. Replace with your lesson-specific definition.</div>
+        </div>
+        <div class="glossary-term">
+          <div class="glossary-word">Aurora-3</div>
+          <div class="glossary-def"><em>Placeholder.</em> The research satellite your team is investigating. It was designed to study weather patterns and atmospheric changes around Earth.</div>
+        </div>
+        <div class="glossary-term">
+          <div class="glossary-word">Mission Control</div>
+          <div class="glossary-def"><em>Placeholder.</em> The team on the ground that monitors and guides spacecraft and satellites. Replace with your lesson-specific definition.</div>
+        </div>
+        <div class="glossary-term">
+          <div class="glossary-word">[ Term 6 — Placeholder ]</div>
+          <div class="glossary-def"><em>Add your sixth glossary term and definition here.</em></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-modal-primary" onclick="closeModal('modal-glossary')">Close</button>
+      </div>
+    </div>
+  </div>
 
 
   <!-- ============================================================
