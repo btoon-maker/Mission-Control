@@ -469,6 +469,18 @@
 
     .listen-btn:hover { border-color: var(--accent); color: var(--accent); }
 
+    .listen-btn.playing {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .listen-btn.playing:hover {
+      background: var(--accent-dark);
+      border-color: var(--accent-dark);
+      color: #fff;
+    }
+
     .reading-card-title {
       font-size: 22px;
       font-weight: 800;
@@ -1897,16 +1909,6 @@
           </div>
         </div>
 
-        <div class="path-step-connector"></div>
-
-        <div class="path-step" id="step-3">
-          <div class="step-num">3</div>
-          <div class="step-info">
-            <div class="step-title">Evidence Synthesis</div>
-            <div class="step-status" id="step-3-status">Coming next...</div>
-          </div>
-        </div>
-
       </div>
     </div>
   </div>
@@ -1979,7 +1981,7 @@
 
         <!-- Main reading card -->
         <div class="reading-card">
-          <button class="listen-btn" onclick="alert('Text-to-speech feature coming soon.')">
+          <button class="listen-btn" onclick="toggleTTS(this)">
             🔊 Listen
           </button>
 
@@ -2039,7 +2041,7 @@
       <div class="content-wrap">
 
         <div class="reading-card">
-          <button class="listen-btn" onclick="alert('Text-to-speech feature coming soon.')">
+          <button class="listen-btn" onclick="toggleTTS(this)">
             🔊 Listen
           </button>
 
@@ -2082,6 +2084,7 @@
   </div>
 
 </div>
+        </div>
 
         <!-- Navigation -->
         <div class="nav-bar">
@@ -2105,7 +2108,7 @@
              ============================================================ -->
         <!-- Narrative reading card -->
         <div class="reading-card">
-          <button class="listen-btn" onclick="alert('Text-to-speech feature coming soon.')">
+          <button class="listen-btn" onclick="toggleTTS(this)">
             🔊 Listen
           </button>
 
@@ -2197,7 +2200,7 @@
       <div class="content-wrap">
 
         <div class="reading-card">
-          <button class="listen-btn" onclick="alert('Text-to-speech feature coming soon.')">🔊 Listen</button>
+          <button class="listen-btn" onclick="toggleTTS(this)">🔊 Listen</button>
           <div class="reading-card-title">Orbit Tracking Team</div>
           <div class="reading-card-body">
             <p>You arrive at the orbital tracking station.</p>
@@ -2266,7 +2269,7 @@
       <div class="content-wrap">
 
         <div class="reading-card">
-          <button class="listen-btn" onclick="alert('Text-to-speech feature coming soon.')">🔊 Listen</button>
+          <button class="listen-btn" onclick="toggleTTS(this)">🔊 Listen</button>
           <div class="reading-card-title">Motion Analysis Team</div>
           <div class="reading-card-body">
             <p>You arrive at a Mission Control station filled with movement diagrams and orbital tracking displays.</p>
@@ -2335,7 +2338,7 @@
      <div class="content-wrap">
 
   <div class="reading-card">
-    <button class="listen-btn" onclick="alert('Text-to-speech feature coming soon.')">🔊 Listen</button>
+    <button class="listen-btn" onclick="toggleTTS(this)">🔊 Listen</button>
 
     <div class="reading-card-title">Mission Control Team Briefing</div>
 
@@ -2380,7 +2383,7 @@
       <div class="content-wrap">
 
         <div class="reading-card">
-          <button class="listen-btn" onclick="alert('Text-to-speech feature coming soon.')">🔊 Listen</button>
+          <button class="listen-btn" onclick="toggleTTS(this)">🔊 Listen</button>
           <div class="reading-card-title">Why Does Aurora-3 Stay in Orbit?</div>
           <div class="reading-card-body">
 <p>The <strong>Junior Orbital Response Specialist interns</strong> continue studying the combined observation data.</p>
@@ -2454,7 +2457,7 @@
     <section id="page-section7a" class="page-section">
       <div class="content-wrap">
         <div class="reading-card">
-          <button class="listen-btn" onclick="alert('Text-to-speech feature coming soon.')">🔊 Listen</button>
+          <button class="listen-btn" onclick="toggleTTS(this)">🔊 Listen</button>
           <div class="reading-card-title">Earth Influence Team</div>
           <div class="reading-card-body">
             <p>You enter the Earth Influence Investigation Lab.</p>
@@ -2516,7 +2519,7 @@
     <section id="page-section7b" class="page-section">
       <div class="content-wrap">
         <div class="reading-card">
-          <button class="listen-btn" onclick="alert('Text-to-speech feature coming soon.')">🔊 Listen</button>
+          <button class="listen-btn" onclick="toggleTTS(this)">🔊 Listen</button>
           <div class="reading-card-title">Forward Motion Team</div>
           <div class="reading-card-body">
             <p>You enter the Forward Motion Investigation Lab.</p>
@@ -2579,7 +2582,7 @@
   <div class="content-wrap page8-top-wrap">
 
     <div class="reading-card">
-      <button class="listen-btn" onclick="alert('Text-to-speech feature coming soon.')">🔊 Listen</button>
+      <button class="listen-btn" onclick="toggleTTS(this)">🔊 Listen</button>
       <div class="reading-card-title">Mission Synthesis</div>
       <div class="reading-card-body">
         <p>The interns from the Earth Influence and Forward Motion Teams return to the main Mission Control room.</p>
@@ -2697,6 +2700,7 @@
     </div>
 
   </div>
+  <div class="content-wrap">
         <div class="nav-bar">
           <button class="btn-nav btn-back" onclick="goToPage('page-section6')">← Back</button>
           <span class="section-progress">Section 8 of 9</span>
@@ -2713,7 +2717,7 @@
       <div class="content-wrap page9-top-wrap">
 
         <div class="reading-card">
-          <button class="listen-btn" onclick="alert('Text-to-speech feature coming soon.')">🔊 Listen</button>
+          <button class="listen-btn" onclick="toggleTTS(this)">🔊 Listen</button>
           <div class="reading-card-title">Putting It Together: Gravity and Motion</div>
           <div class="reading-card-body">
             <p>The intern teams continue reviewing the Mission Control recordings.</p>
@@ -2804,7 +2808,7 @@
       <div class="content-wrap">
 
         <div class="reading-card">
-          <button class="listen-btn" onclick="alert('Text-to-speech feature coming soon.')">🔊 Listen</button>
+          <button class="listen-btn" onclick="toggleTTS(this)">🔊 Listen</button>
 
           <div class="reading-card-title">Gravity: Earth’s Pull</div>
 
@@ -2871,7 +2875,7 @@
       <div class="content-wrap">
 
         <div class="reading-card">
-          <button class="listen-btn" onclick="alert('Text-to-speech feature coming soon.')">🔊 Listen</button>
+          <button class="listen-btn" onclick="toggleTTS(this)">🔊 Listen</button>
 
           <div class="reading-card-title">Final Mission Challenge</div>
 
@@ -2941,32 +2945,33 @@
     <section id="page-section12" class="page-section">
       <div class="content-wrap">
 
-<div class="reading-card-title">Orbit System Challenge</div>
+        <div class="reading-card">
+          <button class="listen-btn" onclick="toggleTTS(this)">🔊 Listen</button>
+          <div class="reading-card-title">Orbit System Challenge</div>
+          <div class="reading-card-body">
 
-<div class="reading-card-body">
+            <p>The intern teams gather around the Mission Control display one final time.</p>
 
-<p>The intern teams gather around the Mission Control display one final time.</p>
+            <p>New orbit tracking alerts begin loading across the observatory screens.</p>
 
-<p>New orbit tracking alerts begin loading across the observatory screens.</p>
+            <div class="dialogue-quote">
+              “Mission Control has detected unusual changes in a satellite’s orbit system,” Maya says.
+            </div>
 
-<div class="dialogue-quote">
-  “Mission Control has detected unusual changes in a satellite’s orbit system,” Maya says.
-</div>
+            <p>The tracking data does not fully match the satellite’s expected orbit path.</p>
 
-<p>The tracking data does not fully match the satellite’s expected orbit path.</p>
+            <p>Intern teams must now investigate the system, test possible adjustments, and recommend changes that may help stabilize the orbit.</p>
 
-<p>Intern teams must now investigate the system, test possible adjustments, and recommend changes that may help stabilize the orbit.</p>
+            <div class="dialogue-quote">
+              “Use the evidence and models you explored today to guide your decisions.”
+            </div>
 
-<div class="dialogue-quote">
-  “Use the evidence and models you explored today to guide your decisions.”
-</div>
+          </div>
+        </div>
 
-</div>
-        <div class="content-wrap">
-  <div class="reading-card">
-    <p><strong>Mission Control uploads the unstable orbit data to the intern system modeler.</strong></p>
-  </div>
-</div>
+        <div class="reading-card">
+          <p><strong>Mission Control uploads the unstable orbit data to the intern system modeler.</strong></p>
+        </div>
 
       </div>
 
@@ -3024,7 +3029,7 @@
       <div class="content-wrap">
 
         <div class="reading-card">
-          <button class="listen-btn" onclick="alert('Text-to-speech feature coming soon.')">🔊 Listen</button>
+          <button class="listen-btn" onclick="toggleTTS(this)">🔊 Listen</button>
           <div class="reading-card-title">Mission Complete</div>
           <div class="reading-card-body">
             <p>Mission Control uploads the intern recommendations into the Canyon Observatory archive system.</p>
@@ -3238,7 +3243,13 @@
       currentPage: 'page-opening',
       choices:     {},   // { teamChoice: 'OrbitTracking', ... }
       responses:   {},   // { response1: '...text...', ... }
-      completed:   []
+      completed:   [],
+      // Tracking — silent (never shown to students). Surfaces in the export.
+      path:            [],    // [{ page, durationSeconds }, ...] in visit order
+      pageTotals:      {},    // { pageId: aggregateSeconds }
+      totalSeconds:    0,
+      startedAt:       null,  // first-entry timestamp (ms)
+      iframeResponses: {}     // { iframeId: [{ label, value }, ...] }
     };
 
     /* ============================================================
@@ -3273,6 +3284,7 @@
        APPLY SAVED STATE TO UI
        ============================================================ */
     function applyStateToUI() {
+      ensureTrackingFields();
       document.getElementById('display-code').textContent = state.resumeCode;
 
       // Restore choice button visual states
@@ -3343,9 +3355,295 @@
     }
 
     /* ============================================================
+       INTERACTIVE / IFRAME REGISTRY
+       Used by tracking + iframe text harvest. Keyed by page id.
+       ============================================================ */
+    const INTERACTIVE_MAP = {
+      'page-section4a':  { iframeId: 'iframe-track-orbit',           label: 'Orbit Pattern Analyzer (Section 4a)' },
+      'page-section4b':  { iframeId: 'iframe-motion-analysis',       label: 'Motion Direction Analyzer (Section 4b)' },
+      'page-section5':   { iframeId: 'iframe-evidence-briefing',     label: 'Mission Control Evidence Briefing (Section 5)' },
+      'page-section7a':  { iframeId: 'iframe-earth-influence',       label: 'Earth Influence Investigation Lab (Section 7a)' },
+      'page-section7b':  { iframeId: 'iframe-forward-motion',        label: 'Forward Motion Investigation Lab (Section 7b)' },
+      'page-section9':   { iframeId: 'iframe-putting-it-together',   label: 'Gravity and Motion Model (Section 9)' },
+      'page-section12':  { iframeId: 'iframe-orbit-system-challenge', label: 'Orbit System Challenge (Section 12)' }
+    };
+
+    /* ============================================================
+       TEXT-TO-SPEECH (uses the OS speech synthesis voices)
+       Single button toggles play / pause / resume for the parent
+       reading-card. Navigating to a new page auto-stops TTS.
+       ============================================================ */
+    let _ttsState = { utterance: null, button: null };
+
+    function collectCardText(card) {
+      const clone = card.cloneNode(true);
+      clone.querySelectorAll('.listen-btn').forEach(b => b.remove());
+      return (clone.textContent || '').replace(/\s+/g, ' ').trim();
+    }
+
+    function startTTSForButton(button) {
+      if (!('speechSynthesis' in window)) {
+        showToast('Text-to-speech not supported in this browser');
+        return;
+      }
+      const card = button.closest('.reading-card');
+      if (!card) return;
+      const text = collectCardText(card);
+      if (!text) return;
+
+      const u = new SpeechSynthesisUtterance(text);
+      u.rate = 1.0;
+      u.pitch = 1.0;
+      u.volume = 1.0;
+      const reset = () => {
+        button.classList.remove('playing');
+        button.innerHTML = '🔊 Listen';
+        _ttsState = { utterance: null, button: null };
+      };
+      u.onend = reset;
+      u.onerror = reset;
+
+      _ttsState = { utterance: u, button: button };
+      button.classList.add('playing');
+      button.innerHTML = '⏸ Pause';
+      window.speechSynthesis.speak(u);
+    }
+
+    function toggleTTS(button) {
+      if (!('speechSynthesis' in window)) {
+        showToast('Text-to-speech not supported in this browser');
+        return;
+      }
+      const synth = window.speechSynthesis;
+      if (_ttsState.button === button) {
+        if (synth.paused) {
+          synth.resume();
+          button.classList.add('playing');
+          button.innerHTML = '⏸ Pause';
+        } else if (synth.speaking) {
+          synth.pause();
+          button.classList.remove('playing');
+          button.innerHTML = '▶ Resume';
+        } else {
+          startTTSForButton(button);
+        }
+        return;
+      }
+      stopTTS();
+      startTTSForButton(button);
+    }
+
+    function stopTTS() {
+      try {
+        if (window.speechSynthesis && (window.speechSynthesis.speaking || window.speechSynthesis.pending)) {
+          window.speechSynthesis.cancel();
+        }
+      } catch(e) {}
+      if (_ttsState.button) {
+        _ttsState.button.classList.remove('playing');
+        _ttsState.button.innerHTML = '🔊 Listen';
+      }
+      _ttsState = { utterance: null, button: null };
+    }
+
+    /* ============================================================
+       TIME + PATH TRACKING (silent — never shown to students)
+       Records duration on each visited page and the order of visits.
+       Pauses while the tab is hidden so idle time isn't counted.
+       ============================================================ */
+    let _entryInfo = null;   // { pageId, time }
+    let _hiddenAt  = null;   // timestamp tab was hidden
+
+    function ensureTrackingFields() {
+      if (!state.path)          state.path          = [];
+      if (!state.pageTotals)    state.pageTotals    = {};
+      if (typeof state.totalSeconds !== 'number') state.totalSeconds = 0;
+      if (!state.startedAt)     state.startedAt     = null;
+      if (!state.iframeResponses) state.iframeResponses = {};
+    }
+
+    function recordPageEnter(pageId) {
+      ensureTrackingFields();
+      _entryInfo = { pageId: pageId, time: Date.now() };
+      if (!state.startedAt) {
+        state.startedAt = _entryInfo.time;
+        saveState();
+      }
+    }
+
+    function recordPageLeave() {
+      if (!_entryInfo) return;
+      ensureTrackingFields();
+      const elapsed = (Date.now() - _entryInfo.time) / 1000;
+      const pid = _entryInfo.pageId;
+      state.pageTotals[pid] = (state.pageTotals[pid] || 0) + elapsed;
+      state.totalSeconds = (state.totalSeconds || 0) + elapsed;
+      state.path.push({ page: pid, durationSeconds: Math.round(elapsed * 10) / 10 });
+
+      // Harvest any text the student entered inside this page's interactive
+      const interactive = INTERACTIVE_MAP[pid];
+      if (interactive) {
+        const harvested = harvestIframeText(interactive.iframeId);
+        if (harvested && harvested.length) state.iframeResponses[interactive.iframeId] = harvested;
+      }
+      saveState();
+      _entryInfo = null;
+    }
+
+    // Pause/resume on tab visibility changes so idle time doesn't accrue
+    document.addEventListener('visibilitychange', function() {
+      if (document.hidden) {
+        if (_entryInfo) {
+          _hiddenAt = Date.now();
+        }
+      } else if (_hiddenAt && _entryInfo) {
+        // Shift the entry time forward by however long the tab was hidden
+        _entryInfo.time += (Date.now() - _hiddenAt);
+        _hiddenAt = null;
+      }
+    });
+
+    // Flush time tracking when the student closes the tab mid-page
+    window.addEventListener('pagehide', function() {
+      try { recordPageLeave(); } catch(e) {}
+    });
+
+    /* ============================================================
+       IFRAME TEXT HARVEST
+       Reads any textarea / text input inside same-origin iframes
+       so students' typed responses in the interactives end up in the
+       exported journal. Returns array of { label, value } or null.
+       ============================================================ */
+    function findInputLabel(el) {
+      try {
+        if (el.id) {
+          const lbl = el.ownerDocument.querySelector('label[for="' + el.id + '"]');
+          if (lbl) return (lbl.textContent || '').replace(/\s+/g, ' ').trim();
+        }
+        let node = el.parentElement;
+        while (node) {
+          if (node.tagName === 'LABEL') return (node.textContent || '').replace(/\s+/g, ' ').trim();
+          node = node.parentElement;
+        }
+        const prev = el.previousElementSibling;
+        if (prev) {
+          const txt = (prev.textContent || '').replace(/\s+/g, ' ').trim();
+          if (txt && txt.length < 240) return txt;
+        }
+      } catch(e) {}
+      return null;
+    }
+
+    function harvestIframeText(iframeId) {
+      try {
+        const frame = document.getElementById(iframeId);
+        if (!frame || !frame.contentDocument) return null;
+        const doc = frame.contentDocument;
+        const out = [];
+
+        doc.querySelectorAll('textarea').forEach(el => {
+          const v = (el.value || '').trim();
+          if (v) {
+            out.push({
+              label: findInputLabel(el) || el.placeholder || el.name || el.id || 'Response',
+              value: v
+            });
+          }
+        });
+        doc.querySelectorAll('input[type="text"], input:not([type])').forEach(el => {
+          const v = (el.value || '').trim();
+          if (v) {
+            out.push({
+              label: findInputLabel(el) || el.placeholder || el.name || el.id || 'Input',
+              value: v
+            });
+          }
+        });
+        return out.length ? out : null;
+      } catch(e) {
+        return null;
+      }
+    }
+
+    /* ============================================================
+       INVESTIGATION PATH BAR (top of page)
+       Reflects the two team choices the student makes:
+         Step 1 — Page 3 choice (Orbit Tracking or Motion Analysis Team)
+         Step 2 — Page 6 choice (Earth Influence or Forward Motion Team)
+       States per step: idle (awaiting / unreached), active (on the
+       choice page, no choice yet), done (choice made).
+       ============================================================ */
+    const PATH_STEP_VALUE_LABELS = {
+      'OrbitTracking':  'Orbit Tracking Team',
+      'MotionAnalysis': 'Motion Analysis Team',
+      'EarthForce':     'Earth Influence Team',
+      'MotionOrbit':    'Forward Motion Team'
+    };
+
+    // Page-ordering used to decide whether a step has been passed
+    const PATH_PAGE_ORDER = [
+      'page-opening','page-section1','page-section2','page-section3',
+      'page-section4a','page-section4b','page-section5','page-section6',
+      'page-section7a','page-section7b','page-section8','page-section9',
+      'page-section10','page-section11','page-section12','page-section14'
+    ];
+
+    function pageIndex(pageId) {
+      const i = PATH_PAGE_ORDER.indexOf(pageId);
+      return i === -1 ? 0 : i;
+    }
+
+    function setStepState(stepEl, statusEl, mode, text) {
+      if (!stepEl) return;
+      stepEl.classList.toggle('active', mode === 'active');
+      stepEl.classList.toggle('done',   mode === 'done');
+      if (statusEl) statusEl.textContent = text;
+    }
+
+    function updateInvestigationPath() {
+      const step1     = document.getElementById('step-1');
+      const step1Stat = document.getElementById('step-1-status');
+      const step2     = document.getElementById('step-2');
+      const step2Stat = document.getElementById('step-2-status');
+      if (!step1 || !step2) return;
+
+      const current  = state.currentPage || 'page-opening';
+      const curIdx   = pageIndex(current);
+      const team1    = state && state.choices && state.choices.teamChoice;
+      const team2    = state && state.choices && state.choices.dp2Choice;
+      const page3Idx = pageIndex('page-section3');
+      const page6Idx = pageIndex('page-section6');
+
+      // ---- Step 1 (Page 3 choice) ----
+      if (team1) {
+        setStepState(step1, step1Stat, 'done', PATH_STEP_VALUE_LABELS[team1] || team1);
+      } else if (curIdx === page3Idx) {
+        setStepState(step1, step1Stat, 'active', 'Awaiting your choice...');
+      } else {
+        setStepState(step1, step1Stat, 'idle', 'Awaiting your choice...');
+      }
+
+      // ---- Step 2 (Page 6 choice) ----
+      if (team2) {
+        setStepState(step2, step2Stat, 'done', PATH_STEP_VALUE_LABELS[team2] || team2);
+      } else if (curIdx === page6Idx) {
+        setStepState(step2, step2Stat, 'active', 'Awaiting your choice...');
+      } else if (curIdx < page6Idx) {
+        setStepState(step2, step2Stat, 'idle', 'Awaiting your choice...');
+      } else {
+        // Past page 6 without a recorded choice — leave neutral
+        setStepState(step2, step2Stat, 'idle', 'Awaiting your choice...');
+      }
+    }
+
+    /* ============================================================
        PAGE NAVIGATION
        ============================================================ */
     function showPage(pageId) {
+      // Stop any in-progress TTS and record time on the previous page
+      stopTTS();
+      recordPageLeave();
+
       document.querySelectorAll('.page-section')
         .forEach(s => s.classList.toggle('active', s.id === pageId));
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -3372,6 +3670,12 @@
           } catch(e) {}
         }, 120);
       }
+
+      // Begin time tracking for the new page
+      recordPageEnter(pageId);
+
+      // Refresh the path tracker bar (active/done states)
+      updateInvestigationPath();
     }
 
 
@@ -3445,6 +3749,7 @@
       state.choices[group] = value;
       state.currentPage = destPage;
       saveState();
+      updateInvestigationPath();
 
       showToast('Team selected — saving your choice…');
       setTimeout(() => showPage(destPage), 420);
@@ -3463,6 +3768,7 @@
       state.choices[group] = value;
       state.currentPage = destPage;
       saveState();
+      updateInvestigationPath();
 
       showToast('Investigation selected — saving your choice…');
       setTimeout(() => showPage(destPage), 420);
@@ -3555,6 +3861,18 @@
        EXPORT JOURNAL
        ============================================================ */
     function doExport() {
+      // Flush any unsaved textarea contents (the saveResponse debounce
+      // could otherwise drop a final keystroke right before export).
+      document.querySelectorAll('.journal-card textarea[data-journal], .response-textarea').forEach(el => {
+        if (el.id) state.responses[el.id] = el.value;
+      });
+
+      // Snapshot the current page's time + iframe text before exporting,
+      // then restart the entry timer so tracking continues seamlessly.
+      recordPageLeave();
+      const exportPageId = state.currentPage;
+      recordPageEnter(exportPageId);
+
       const name = document.getElementById('export-name-input').value.trim();
       const now  = new Date();
       const ts   = now.toLocaleDateString('en-US', {
@@ -3589,7 +3907,8 @@
       const choiceLabels = {
         'teamChoice': 'Investigation Team (Section 3)',
         'dp2Choice': 'Next Investigation Choice (Section 6)',
-        'dp3Choice': 'Final Mission Choice (Section 11)'
+        'dp3Choice': 'Final Mission Choice (Section 11)',
+        'orbitChallengeComplete': 'Orbit System Challenge (Section 12)'
       };
 
       const choiceValueLabels = {
@@ -3598,21 +3917,37 @@
         'EarthForce': 'Earth Influence Team',
         'MotionOrbit': 'Forward Motion Team',
         'OrbitChallenge': 'Start Orbit Challenge',
-        'true': 'Completed'
+        'true': 'Completed',
+        true: 'Completed'
       };
 
       /* ============================================================
-         RESPONSE LABELS — add new response boxes here as lesson grows
+         RESPONSE LABELS — fallback labels for textareas
          ============================================================ */
       const responseLabels = {
-        'journal-dp2-synthesis': 'Mission Journal: Synthesis',
-        'journal-putting-it-together': 'Mission Journal: Putting It Together',
-        'journal-gravity-connection': 'Mission Journal: Gravity Connection',
-        'journal-final-reflection-1': 'Mission Debrief Reflection: Satellites in Orbit',
-        'journal-final-reflection-2': 'Mission Debrief Reflection: Evidence and Models',
-        // No journal-prompt textareas on 4a/4b anymore.
-        // Add entries here as new response fields are introduced.
+        'journal-dp2-synthesis': 'Mission Journal: Synthesis (Section 8)',
+        'journal-putting-it-together': 'Mission Journal: Putting It Together (Section 9)',
+        'journal-gravity-connection': 'Mission Journal: Gravity Connection (Section 10)',
+        'journal-final-reflection-1': 'Mission Debrief Reflection: Satellites in Orbit (Section 14)',
+        'journal-final-reflection-2': 'Mission Debrief Reflection: Evidence and Models (Section 14)'
       };
+
+      // Pull the full prompt text directly from the DOM <label> for each textarea
+      function promptFor(textareaId) {
+        const lbl = document.querySelector('label[for="' + textareaId + '"]');
+        if (!lbl) return null;
+        return (lbl.textContent || '').replace(/\s+/g, ' ').trim();
+      }
+
+      // Format seconds as M:SS or H:MM:SS
+      function fmtTime(seconds) {
+        const s = Math.round(seconds || 0);
+        const h = Math.floor(s / 3600);
+        const m = Math.floor((s % 3600) / 60);
+        const ss = s % 60;
+        const pad = n => String(n).padStart(2, '0');
+        return h > 0 ? `${h}:${pad(m)}:${pad(ss)}` : `${m}:${pad(ss)}`;
+      }
 
       let lines = [
         '================================================',
@@ -3626,8 +3961,36 @@
       lines.push('Resume Code:  ' + state.resumeCode);
       lines.push('Current Page: ' + (pageLabels[state.currentPage] || state.currentPage));
       lines.push('Exported:     ' + ts);
+      if (state.startedAt) {
+        const startDate = new Date(state.startedAt);
+        lines.push('Started:      ' + startDate.toLocaleDateString('en-US', {
+          year:'numeric', month:'long', day:'numeric', hour:'2-digit', minute:'2-digit'
+        }));
+      }
+      lines.push('Total Time:   ' + fmtTime(state.totalSeconds));
+
+      /* ------------------------------------------------
+         LESSON PATH — order pages were visited, with time
+         ------------------------------------------------ */
       lines.push('', '------------------------------------------------');
-      lines.push('  CHOICES MADE');
+      lines.push('  LESSON PATH (in order visited)');
+      lines.push('------------------------------------------------');
+
+      if (!state.path || !state.path.length) {
+        lines.push('No path recorded yet.');
+      } else {
+        state.path.forEach((entry, i) => {
+          const label = pageLabels[entry.page] || entry.page;
+          const t = fmtTime(entry.durationSeconds);
+          lines.push('  ' + String(i + 1).padStart(2, ' ') + '. ' + label + '   [' + t + ']');
+        });
+      }
+
+      /* ------------------------------------------------
+         DECISION POINTS / CHOICES
+         ------------------------------------------------ */
+      lines.push('', '------------------------------------------------');
+      lines.push('  DECISION POINTS & CHOICES');
       lines.push('------------------------------------------------');
 
       if (!Object.keys(state.choices).length) {
@@ -3635,21 +3998,60 @@
       } else {
         Object.entries(state.choices).forEach(([k, v]) => {
           const label    = choiceLabels[k] || k;
-          const valLabel = choiceValueLabels[v] || v;
+          const valLabel = choiceValueLabels[v] !== undefined ? choiceValueLabels[v] : String(v);
           lines.push('  ' + label + ':  ' + valLabel);
         });
       }
 
+      /* ------------------------------------------------
+         JOURNAL PROMPTS & RESPONSES — full question text
+         ------------------------------------------------ */
       lines.push('', '------------------------------------------------');
-      lines.push('  WRITTEN RESPONSES');
+      lines.push('  JOURNAL PROMPTS & RESPONSES');
       lines.push('------------------------------------------------');
 
       if (!Object.keys(state.responses).length) {
         lines.push('No written responses recorded yet.');
       } else {
         Object.entries(state.responses).forEach(([k, v]) => {
-          lines.push('', '  PROMPT: ' + (responseLabels[k] || k), '  RESPONSE:');
-          lines.push('  ' + (v || '[No response entered]').split('\n').join('\n  '));
+          const fullPrompt = promptFor(k);
+          const heading    = responseLabels[k] || k;
+          lines.push('', '  [' + heading + ']');
+          if (fullPrompt) lines.push('  PROMPT: ' + fullPrompt);
+          lines.push('  RESPONSE:');
+          lines.push('    ' + (v || '[No response entered]').split('\n').join('\n    '));
+        });
+      }
+
+      /* ------------------------------------------------
+         INTERACTIVE TOOL RESPONSES — text typed inside iframes
+         ------------------------------------------------ */
+      lines.push('', '------------------------------------------------');
+      lines.push('  INTERACTIVE TOOL RESPONSES');
+      lines.push('------------------------------------------------');
+
+      const iframeEntries = Object.entries(state.iframeResponses || {});
+      if (!iframeEntries.length) {
+        lines.push('No interactive tool text recorded.');
+      } else {
+        iframeEntries.forEach(([iframeId, items]) => {
+          // Find label by walking INTERACTIVE_MAP
+          let toolLabel = iframeId;
+          Object.values(INTERACTIVE_MAP).forEach(cfg => {
+            if (cfg.iframeId === iframeId) toolLabel = cfg.label;
+          });
+          lines.push('', '  [' + toolLabel + ']');
+          if (Array.isArray(items)) {
+            items.forEach(item => {
+              if (item && item.label) lines.push('  PROMPT: ' + item.label);
+              lines.push('  RESPONSE:');
+              lines.push('    ' + (item.value || '').split('\n').join('\n    '));
+            });
+          } else if (typeof items === 'string') {
+            // Legacy fallback
+            lines.push('  RESPONSE:');
+            lines.push('    ' + items.split('\n').join('\n    '));
+          }
         });
       }
 
@@ -3675,12 +4077,20 @@
        ============================================================ */
     function doRestart() {
       clearState();
+      stopTTS();
+      _entryInfo = null;
+      _hiddenAt = null;
       state = {
         resumeCode:  generateCode(),
         currentPage: 'page-opening',
         choices:     {},
         responses:   {},
-        completed:   []
+        completed:   [],
+        path:            [],
+        pageTotals:      {},
+        totalSeconds:    0,
+        startedAt:       null,
+        iframeResponses: {}
       };
       saveState();
 
