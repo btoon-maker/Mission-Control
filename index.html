@@ -1610,6 +1610,24 @@
       gap: 14px;
     }
 
+    .choice-grid.single-choice {
+      grid-template-columns: 1fr;
+    }
+
+    .choice-grid.single-choice .choice-option {
+      text-align: center;
+      min-height: auto;
+      max-width: 520px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 22px 24px;
+    }
+
+    .choice-grid.single-choice .choice-option-title {
+      font-size: 18px;
+      margin-bottom: 0;
+    }
+
     .choice-option {
       background: #f5891c;
       border: 3px solid transparent;
@@ -2655,35 +2673,19 @@
         <div class="choice-card">
 
           <div class="choice-title">
-            Decision Point 3: Choose Your Final Mission
+            Decision Point 3: Final Orbit Challenge
           </div>
 
           <p>
-            Select one Mission Control challenge to investigate.
+            Mission Control has prepared one final systems challenge. Use what you learned about forward motion, Earth’s pull, and orbit paths to investigate the problem.
           </p>
 
-          <div class="choice-grid">
+          <div class="choice-grid single-choice">
 
-            <button class="choice-option" data-group="dp3Choice" data-value="SpeedSatellite" onclick="saveDP3Choice('dp3Choice', 'SpeedSatellite', this)">
-
-              <span class="choice-option-title">
-                Speed Satellite Problem
-              </span>
-
-              <span class="choice-option-text">
-                Mission Control has detected unusual changes in a satellite’s orbit path.
-              </span>
-
-            </button>
-
-            <button class="choice-option" data-group="dp3Choice" data-value="DistanceSatellite" onclick="saveDP3Choice('dp3Choice', 'DistanceSatellite', this)">
+            <button class="choice-option" onclick="goToPage('page-section12')">
 
               <span class="choice-option-title">
-                Distance Satellite Problem
-              </span>
-
-              <span class="choice-option-text">
-                Mission Control has detected a satellite drifting into an unexpected orbit path.
+                Start Orbit Challenge
               </span>
 
             </button>
@@ -2703,53 +2705,64 @@
 
 
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-         PAGE 12A — SPEED SATELLITE PROBLEM PLACEHOLDER
+         PAGE 12 — ORBIT SYSTEM CHALLENGE
          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    <section id="speed-satellite-problem" class="page-section">
+    <section id="page-section12" class="page-section">
       <div class="content-wrap">
 
         <div class="reading-card">
           <button class="listen-btn" onclick="alert('Text-to-speech feature coming soon.')">🔊 Listen</button>
-          <div class="reading-card-title">Speed Satellite Problem</div>
+          <div class="reading-card-title">Orbit System Challenge</div>
           <div class="reading-card-body">
-            <p>Placeholder for Page 12a.</p>
-            <p>This page will contain the final mission path for the Speed Satellite Problem.</p>
+            <p>Placeholder for Page 12 narrative.</p>
+            <p>This page will introduce the final integrated orbit system challenge before students enter the model.</p>
           </div>
         </div>
 
-        <div class="nav-bar">
-          <button class="btn-nav btn-back" onclick="goToPage('page-section11')">← Back</button>
-          <span class="section-progress">Section 12a of 14</span>
-          <button class="btn-nav btn-continue" onclick="goToPage('page-section13')">Continue →</button>
-        </div>
-
       </div>
-    </section><!-- /speed-satellite-problem -->
 
+      <div class="putting-together-wrap">
+        <div class="mission-monitor">
+          <div class="mission-monitor-bar">
+            <div class="monitor-dots">
+              <span class="monitor-dot" style="background:#ff5f57;color:#ff5f57"></span>
+              <span class="monitor-dot" style="background:#fec833;color:#fec833"></span>
+              <span class="monitor-dot" style="background:#29ce42;color:#29ce42"></span>
+            </div>
+            <div class="monitor-title">◈ Mission Control · Orbit System Challenge · Aurora-3</div>
+            <div class="monitor-live">
+              <span class="monitor-live-dot"></span>
+              ARCHIVED
+            </div>
+          </div>
+          <div class="monitor-corner tl"></div>
+          <div class="monitor-corner tr"></div>
+          <div class="monitor-corner bl"></div>
+          <div class="monitor-corner br"></div>
+          <div class="monitor-scanlines"></div>
+          <iframe
+            id="iframe-orbit-system-challenge"
+            src="interactives/orbit-system-challenge.html"
+            class="interactive-frame"
+            title="Orbit System Challenge Interactive"
+            sandbox="allow-scripts allow-same-origin"
+            scrolling="no">
+          </iframe>
+        </div>
+        <div class="mission-monitor-stand">
+          <div class="monitor-stand-neck"></div>
+          <div class="monitor-stand-foot"></div>
+        </div>
+      </div>
 
-    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-         PAGE 12B — DISTANCE SATELLITE PROBLEM PLACEHOLDER
-         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    <section id="distance-satellite-problem" class="page-section">
       <div class="content-wrap">
-
-        <div class="reading-card">
-          <button class="listen-btn" onclick="alert('Text-to-speech feature coming soon.')">🔊 Listen</button>
-          <div class="reading-card-title">Distance Satellite Problem</div>
-          <div class="reading-card-body">
-            <p>Placeholder for Page 12b.</p>
-            <p>This page will contain the final mission path for the Distance Satellite Problem.</p>
-          </div>
-        </div>
-
         <div class="nav-bar">
           <button class="btn-nav btn-back" onclick="goToPage('page-section11')">← Back</button>
-          <span class="section-progress">Section 12b of 14</span>
+          <span class="section-progress">Section 12 of 14</span>
           <button class="btn-nav btn-continue" onclick="goToPage('page-section13')">Continue →</button>
         </div>
-
       </div>
-    </section><!-- /distance-satellite-problem -->
+    </section><!-- /page-section12 -->
 
 
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -3049,7 +3062,7 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
 
       // Trigger canvas resize in interactive iframes when their page becomes visible
-      const iframeMap = { 'page-section4a': 'iframe-track-orbit', 'page-section4b': 'iframe-motion-analysis', 'page-section5': 'iframe-evidence-briefing', 'page-section7a': 'iframe-earth-influence', 'page-section7b': 'iframe-forward-motion', 'page-section8': 'iframe-mission-synthesis' };
+      const iframeMap = { 'page-section4a': 'iframe-track-orbit', 'page-section4b': 'iframe-motion-analysis', 'page-section5': 'iframe-evidence-briefing', 'page-section7a': 'iframe-earth-influence', 'page-section7b': 'iframe-forward-motion', 'page-section8': 'iframe-mission-synthesis', 'page-section12': 'iframe-orbit-system-challenge' };
       const iframeId = iframeMap[pageId];
       if (iframeId) {
         setTimeout(() => {
@@ -3226,8 +3239,7 @@
         'page-section9':   'Section 9 — Putting It Together: Gravity and Motion',
         'page-section10':  'Section 10 — Gravity: Earth’s Pull',
         'page-section11':  'Section 11 — Final Mission Challenge',
-        'speed-satellite-problem': 'Section 12a — Speed Satellite Problem',
-        'distance-satellite-problem': 'Section 12b — Distance Satellite Problem',
+        'page-section12':  'Section 12 — Orbit System Challenge',
         'page-section13':  'Section 13 — Mission Recommendation',
         'page-section14':  'Section 14 — Mission Complete'
       };
@@ -3246,8 +3258,7 @@
         'MotionAnalysis': 'Join Motion Analysis Team',
         'EarthForce': 'Earth Influence Team',
         'MotionOrbit': 'Forward Motion Team',
-        'SpeedSatellite': 'Speed Satellite Problem',
-        'DistanceSatellite': 'Distance Satellite Problem'
+        'OrbitChallenge': 'Start Orbit Challenge'
       };
 
       /* ============================================================
