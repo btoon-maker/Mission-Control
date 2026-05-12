@@ -366,23 +366,28 @@ body::after {
   font-size: 13px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--cyan-soft);
-  background: linear-gradient(180deg, rgba(40,80,130,0.55), rgba(15,30,55,0.85));
-  border: 1px solid var(--cyan);
+  color: #e8f7ff;
+  background: linear-gradient(180deg, rgba(60,120,180,0.65), rgba(25,55,95,0.92));
+  border: 1.5px solid var(--cyan);
   padding: 15px 24px;
   cursor: pointer;
   position: relative;
-  transition: transform 0.18s var(--ease), box-shadow 0.25s var(--ease), color 0.2s;
-  box-shadow: 0 0 0 rgba(77,216,255,0), inset 0 0 12px rgba(77,216,255,0.08);
+  transition: transform 0.18s var(--ease), box-shadow 0.25s var(--ease), color 0.2s, background 0.2s;
+  box-shadow: 0 0 12px rgba(77,216,255,0.22), inset 0 0 14px rgba(77,216,255,0.12);
 }
-.btn:hover { box-shadow: 0 0 18px rgba(77,216,255,0.4), inset 0 0 14px rgba(77,216,255,0.18); color: #fff; }
+.btn:hover { background: linear-gradient(180deg, rgba(80,150,210,0.8), rgba(40,80,130,0.95)); box-shadow: 0 0 22px rgba(77,216,255,0.55), inset 0 0 18px rgba(77,216,255,0.22); color: #fff; }
 .btn:active { transform: translateY(1px); }
-.btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.btn:disabled { opacity: 0.4; cursor: not-allowed; box-shadow: none; }
 
 .btn.primary {
-  background: linear-gradient(180deg, rgba(77,216,255,0.18), rgba(20,50,90,0.7));
+  background: linear-gradient(180deg, rgba(120,210,255,0.32), rgba(30,75,130,0.85));
   font-size: 16px;
   padding: 16px 30px;
+  box-shadow: 0 0 18px rgba(77,216,255,0.4), inset 0 0 16px rgba(77,216,255,0.18);
+}
+.btn.primary:hover {
+  background: linear-gradient(180deg, rgba(140,225,255,0.45), rgba(45,100,160,0.92));
+  box-shadow: 0 0 28px rgba(77,216,255,0.65), inset 0 0 20px rgba(77,216,255,0.28);
 }
 .btn.large {
   font-size: 18px;
@@ -487,19 +492,20 @@ body::after {
   display: block; width: 100%;
   text-align: left;
   padding: 16px 18px;
-  background: rgba(8,16,30,0.5);
-  border: 1px solid var(--hairline);
+  background: linear-gradient(180deg, rgba(20,40,70,0.55), rgba(10,22,42,0.7));
+  border: 1.5px solid rgba(77,216,255,0.4);
   cursor: pointer;
   font-family: var(--font-display);
   color: var(--text);
   position: relative;
-  transition: background 0.2s, border-color 0.2s, transform 0.18s var(--ease);
+  transition: background 0.2s, border-color 0.2s, transform 0.18s var(--ease), box-shadow 0.25s var(--ease);
+  box-shadow: 0 0 8px rgba(77,216,255,0.12), inset 0 0 10px rgba(77,216,255,0.05);
 }
-.option:hover { background: rgba(20,40,70,0.7); border-color: var(--hairline-bright); }
+.option:hover { background: linear-gradient(180deg, rgba(35,70,110,0.75), rgba(18,40,75,0.85)); border-color: var(--cyan); box-shadow: 0 0 16px rgba(77,216,255,0.3), inset 0 0 12px rgba(77,216,255,0.12); }
 .option.active {
-  background: rgba(77,216,255,0.1);
+  background: linear-gradient(180deg, rgba(77,216,255,0.18), rgba(30,80,130,0.65));
   border-color: var(--cyan);
-  box-shadow: 0 0 0 1px var(--cyan), inset 0 0 12px rgba(77,216,255,0.08);
+  box-shadow: 0 0 0 1px var(--cyan), 0 0 22px rgba(77,216,255,0.45), inset 0 0 16px rgba(77,216,255,0.14);
 }
 .option .opt-tag {
   font-family: var(--font-mono);
@@ -561,22 +567,28 @@ body::after {
   width: 100%;
   min-height: 110px;
   resize: vertical;
-  background: rgba(4,10,20,0.7);
-  border: 1px solid var(--hairline);
-  color: var(--text);
+  background: rgba(14,28,50,0.85);
+  border: 1.5px solid rgba(77,216,255,0.4);
+  color: #f1faff;
   font-family: var(--font-display);
   font-size: 16.5px;
   line-height: 1.75;
   padding: 16px 18px;
   outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+  box-shadow: 0 0 10px rgba(77,216,255,0.15), inset 0 0 12px rgba(77,216,255,0.06);
+}
+.reason-block textarea:hover {
+  border-color: rgba(77,216,255,0.65);
+  background: rgba(18,36,62,0.9);
 }
 .reason-block textarea:focus {
   border-color: var(--cyan);
-  box-shadow: 0 0 0 1px var(--cyan), inset 0 0 10px rgba(77,216,255,0.06);
+  background: rgba(20,40,68,0.92);
+  box-shadow: 0 0 0 1px var(--cyan), 0 0 18px rgba(77,216,255,0.4), inset 0 0 14px rgba(77,216,255,0.12);
 }
 .reason-block textarea::placeholder {
-  color: var(--text-mute);
+  color: rgba(184,210,235,0.55);
   font-style: italic;
 }
 .reason-meta {
@@ -1335,9 +1347,27 @@ function notifyLessonHeight() {
   } catch (e) {}
 }
 
+/* Broadcasts the student's modeler choices + run history to the lesson
+   so they can be captured in the exported Mission Journal. Sent on every
+   selection change, every model run, and on final board generation. */
+function notifyLessonModelerState(reason) {
+  try {
+    window.parent.postMessage({
+      type: 'orbit-system-challenge:state',
+      reason: reason || 'change',
+      selectedMotion:    state.selectedMotion    || null,
+      selectedPosition:  state.selectedPosition  || null,
+      modelRunCount:     state.modelRunCount     || 0,
+      lastModelOutcome:  state.lastModelOutcome  || null,
+      lastComboKey:      state.lastComboKey      || null
+    }, '*');
+  } catch (e) {}
+}
+
 function notifyLessonComplete() {
   try {
     window.parent.postMessage({ type: 'orbit-system-challenge:complete' }, '*');
+    notifyLessonModelerState('complete');
     notifyLessonHeight();
   } catch (e) {}
 }
@@ -1844,6 +1874,7 @@ motionButtons.forEach(b => {
     b.setAttribute('aria-checked','true');
     state.selectedMotion = b.dataset.motion;
     updateRunButtonState();
+    notifyLessonModelerState('motion-change');
   });
 });
 
@@ -1854,6 +1885,7 @@ positionButtons.forEach(b => {
     b.setAttribute('aria-checked','true');
     state.selectedPosition = b.dataset.position;
     updateRunButtonState();
+    notifyLessonModelerState('position-change');
   });
 });
 
@@ -1861,6 +1893,7 @@ positionButtons.forEach(b => {
 document.getElementById('btn-run-model').addEventListener('click', () => {
   if (!state.selectedMotion || !state.selectedPosition) return;
   runModel(state.selectedMotion, state.selectedPosition);
+  notifyLessonModelerState('model-run');
 });
 
 function classifyCombo(motion, position) {
