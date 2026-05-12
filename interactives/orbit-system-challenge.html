@@ -1320,6 +1320,47 @@ body::after {
 </div>
 
 <script>
+
+/* ============================================================
+   PARENT LESSON BRIDGE
+   Sends height updates to the lesson shell and unlocks Continue after
+   the scientific board is generated.
+   ============================================================ */
+function notifyLessonHeight() {
+  try {
+    const h = Math.max(
+      document.documentElement.scrollHeight,
+      document.body ? document.body.scrollHeight : 0
+    );
+    window.parent.postMessage({ type: 'orbit-system-challenge:height', height: h }, '*');
+  } catch (e) {}
+}
+
+function notifyLessonComplete() {
+  try {
+    window.parent.postMessage({ type: 'orbit-system-challenge:complete' }, '*');
+    notifyLessonHeight();
+  } catch (e) {}
+}
+
+window.addEventListener('load', () => {
+  notifyLessonHeight();
+  setTimeout(notifyLessonHeight, 250);
+  setTimeout(notifyLessonHeight, 900);
+});
+
+window.addEventListener('resize', notifyLessonHeight);
+window.addEventListener('message', (event) => {
+  const data = event.data || {};
+  if (data && data.type === 'orbit-system-challenge:request-height') notifyLessonHeight();
+});
+
+try {
+  const ro = new ResizeObserver(() => notifyLessonHeight());
+  ro.observe(document.documentElement);
+  if (document.body) ro.observe(document.body);
+} catch (e) {}
+
 /* ============================================================
    STARFIELD
    ============================================================ */
@@ -2083,7 +2124,12 @@ function generateBoard() {
   const sec = document.getElementById('sec-board');
   sec.classList.add('show');
   state.boardShown = true;
-  setTimeout(() => sec.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60);
+  notifyLessonComplete();
+  setTimeout(() => {
+    notifyLessonHeight();
+    sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 60);
+  setTimeout(notifyLessonHeight, 500);
 }
 
 /* ----- thumbnail (smaller scene of the final modeled orbit) ----- */
@@ -2142,6 +2188,9 @@ document.getElementById('btn-new').addEventListener('click', () => {
   document.getElementById('sec-modeler').scrollIntoView({ behavior: 'smooth', block: 'start' });
 });
 
+
+document.addEventListener('click', () => setTimeout(notifyLessonHeight, 120));
+document.addEventListener('input', () => setTimeout(notifyLessonHeight, 120));
 </script>
 </body>
 </html>
