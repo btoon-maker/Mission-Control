@@ -1673,6 +1673,44 @@
       .choice-grid { grid-template-columns: 1fr; }
     }
 
+
+    /* Page 12: Orbit System Challenge iframe wrapper.
+       This interactive is taller than the earlier lab screens, so the iframe
+       height is controlled by postMessage from the child file. */
+    .orbit-challenge-wrap {
+      max-width: 1060px;
+      margin: 0 auto 18px;
+      padding: 0 16px;
+    }
+
+    .orbit-challenge-wrap .interactive-frame {
+      width: 100%;
+      min-height: 760px;
+      height: 900px;
+      border: none;
+      border-radius: 0 0 10px 10px;
+      display: block;
+      background: #06101f;
+      overflow: hidden;
+    }
+
+    .orbit-challenge-lock-note {
+      font-family: var(--font-ui);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-light);
+      text-align: right;
+      min-width: 190px;
+    }
+
+    .orbit-challenge-lock-note.complete {
+      color: var(--green);
+    }
+
+    .page12-continue-hidden {
+      display: none !important;
+    }
+
   </style>
 </head>
 <body>
@@ -2721,7 +2759,7 @@
 
       </div>
 
-      <div class="putting-together-wrap">
+      <div class="orbit-challenge-wrap">
         <div class="mission-monitor">
           <div class="mission-monitor-bar">
             <div class="monitor-dots">
@@ -2746,7 +2784,7 @@
             class="interactive-frame"
             title="Orbit System Challenge Interactive"
             sandbox="allow-scripts allow-same-origin"
-            scrolling="no">
+            scrolling="auto">
           </iframe>
         </div>
         <div class="mission-monitor-stand">
@@ -2759,7 +2797,10 @@
         <div class="nav-bar">
           <button class="btn-nav btn-back" onclick="goToPage('page-section11')">← Back</button>
           <span class="section-progress">Section 12 of 14</span>
-          <button class="btn-nav btn-continue" onclick="goToPage('page-section13')">Continue →</button>
+          <div id="orbit-challenge-lock-note" class="orbit-challenge-lock-note">
+            Complete the interactive to continue.
+          </div>
+          <button id="page12-continue-btn" class="btn-nav btn-continue page12-continue-hidden" onclick="goToPage('page-section13')">Continue →</button>
         </div>
       </div>
     </section><!-- /page-section12 -->
@@ -3002,6 +3043,7 @@
       });
 
       showPage(state.currentPage);
+      updateOrbitChallengeContinue();
     }
 
     /* ============================================================
@@ -3064,6 +3106,14 @@
       // Trigger canvas resize in interactive iframes when their page becomes visible
       const iframeMap = { 'page-section4a': 'iframe-track-orbit', 'page-section4b': 'iframe-motion-analysis', 'page-section5': 'iframe-evidence-briefing', 'page-section7a': 'iframe-earth-influence', 'page-section7b': 'iframe-forward-motion', 'page-section8': 'iframe-mission-synthesis', 'page-section12': 'iframe-orbit-system-challenge' };
       const iframeId = iframeMap[pageId];
+      if (pageId === 'page-section12') {
+        updateOrbitChallengeContinue();
+        setTimeout(() => {
+          const f = document.getElementById('iframe-orbit-system-challenge');
+          if (f && f.contentWindow) f.contentWindow.postMessage({ type: 'orbit-system-challenge:request-height' }, '*');
+        }, 160);
+      }
+
       if (iframeId) {
         setTimeout(() => {
           try {
@@ -3076,6 +3126,49 @@
         }, 120);
       }
     }
+
+
+    /* ============================================================
+       PAGE 12 ORBIT CHALLENGE — iframe resize + completion gate
+       The child interactive posts messages when its height changes and when
+       students generate the scientific board.
+       ============================================================ */
+    function updateOrbitChallengeContinue() {
+      const btn = document.getElementById('page12-continue-btn');
+      const note = document.getElementById('orbit-challenge-lock-note');
+      const complete = !!(state && state.choices && state.choices.orbitChallengeComplete);
+
+      if (btn) btn.classList.toggle('page12-continue-hidden', !complete);
+      if (note) {
+        note.textContent = complete ? 'Orbit challenge complete ✓' : 'Complete the interactive to continue.';
+        note.classList.toggle('complete', complete);
+        note.style.display = complete ? 'none' : 'block';
+      }
+    }
+
+    function markOrbitChallengeComplete() {
+      state.choices.orbitChallengeComplete = true;
+      saveState();
+      updateOrbitChallengeContinue();
+      showToast('Orbit challenge complete — continue unlocked ✓');
+    }
+
+    window.addEventListener('message', function(event) {
+      const data = event.data || {};
+      if (!data || typeof data !== 'object') return;
+
+      if (data.type === 'orbit-system-challenge:height') {
+        const frame = document.getElementById('iframe-orbit-system-challenge');
+        if (frame && data.height) {
+          const nextHeight = Math.max(760, Math.min(Number(data.height) + 20, 2600));
+          frame.style.height = nextHeight + 'px';
+        }
+      }
+
+      if (data.type === 'orbit-system-challenge:complete') {
+        markOrbitChallengeComplete();
+      }
+    });
 
     /* Back from section 5 — return to whichever team page the student came from */
     function goBackFromSection5() {
@@ -3258,7 +3351,8 @@
         'MotionAnalysis': 'Join Motion Analysis Team',
         'EarthForce': 'Earth Influence Team',
         'MotionOrbit': 'Forward Motion Team',
-        'OrbitChallenge': 'Start Orbit Challenge'
+        'OrbitChallenge': 'Start Orbit Challenge',
+        'true': 'Completed'
       };
 
       /* ============================================================
