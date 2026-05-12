@@ -2604,32 +2604,82 @@
 
   <div class="content-wrap page8-mid-wrap">
 
-    <iframe
-      id="iframe-evidence-board"
-      src="interactives/evidence-board.html"
-      class="interactive-frame"
-      title="Mission Control Evidence Board"
-      sandbox="allow-same-origin"
-      scrolling="no">
-    </iframe>
-    <script>
-      (function () {
-        var f = document.getElementById('iframe-evidence-board');
-        if (!f) return;
-        f.addEventListener('load', function () {
-          var resize = function () {
-            try {
-              f.style.height = f.contentDocument.documentElement.scrollHeight + 'px';
-            } catch (e) { /* not ready or blocked */ }
-          };
-          resize();
-          if (typeof ResizeObserver !== 'undefined') {
-            try { new ResizeObserver(resize).observe(f.contentDocument.documentElement); } catch (e) {}
-          }
-          window.addEventListener('resize', resize);
-        });
-      })();
-    </script>
+    <div class="reading-card evidence-board-card">
+      <div class="reading-card-title">Mission Control Evidence Board</div>
+
+      <div class="reading-card-body">
+        <p>
+          Review the evidence from both investigation teams. Look for patterns across the orbit paths before writing your Mission Journal response.
+        </p>
+
+        <div class="evidence-table-wrap">
+
+          <table class="mission-evidence-table">
+            <thead>
+              <tr>
+                <th>Investigation Team</th>
+                <th>Observation</th>
+                <th>Orbit Evidence</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td class="team-cell" rowspan="4">Earth Influence Team</td>
+                <td>Minimal Earth Influence</td>
+                <td>
+                  <img src="images/Orbit_minimal influence.png" alt="Minimal Earth Influence orbit evidence">
+                </td>
+              </tr>
+
+              <tr>
+                <td>Small Earth Influence</td>
+                <td>
+                  <img src="images/Orbit_small inflence.png" alt="Small Earth Influence orbit evidence">
+                </td>
+              </tr>
+
+              <tr>
+                <td>Medium Earth Influence</td>
+                <td>
+                  <img src="images/Orbit_medium influence.png" alt="Medium Earth Influence orbit evidence">
+                </td>
+              </tr>
+
+              <tr>
+                <td>Greater Earth Influence</td>
+                <td>
+                  <img src="images/Orbit_greater influence.png" alt="Greater Earth Influence orbit evidence">
+                </td>
+              </tr>
+
+              <tr>
+                <td class="team-cell" rowspan="3">Forward Motion Team</td>
+                <td>Slow Forward Motion</td>
+                <td>
+                  <img src="images/Orbit_slow forward motion.png" alt="Slow Forward Motion orbit evidence">
+                </td>
+              </tr>
+
+              <tr>
+                <td>Medium Forward Motion</td>
+                <td>
+                  <img src="images/Orbit_medium forward motion.png" alt="Medium Forward Motion orbit evidence">
+                </td>
+              </tr>
+
+              <tr>
+                <td>Fast Forward Motion</td>
+                <td>
+                  <img src="images/Orbit_fast forward motion.png" alt="Fast Forward Motion orbit evidence">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </div>
   </div>
   <div class="content-wrap page8-bottom-wrap">
     <div class="journal-card">
@@ -3199,7 +3249,8 @@
       pageTotals:      {},    // { pageId: aggregateSeconds }
       totalSeconds:    0,
       startedAt:       null,  // first-entry timestamp (ms)
-      iframeResponses: {}     // { iframeId: [{ label, value }, ...] }
+      iframeResponses: {},    // { iframeId: [{ label, value }, ...] }
+      modelerConstraints: null // Orbit System Modeler constraint snapshot
     };
 
     /* ============================================================
@@ -3410,6 +3461,7 @@
       if (typeof state.totalSeconds !== 'number') state.totalSeconds = 0;
       if (!state.startedAt)     state.startedAt     = null;
       if (!state.iframeResponses) state.iframeResponses = {};
+      if (state.modelerConstraints === undefined) state.modelerConstraints = null;
     }
 
     function recordPageEnter(pageId) {
@@ -3465,20 +3517,51 @@
        exported journal. Returns array of { label, value } or null.
        ============================================================ */
     function findInputLabel(el) {
+      // Helper: extract the cleanest readable text from a candidate label element.
+      // If the label contains a child with class "q-text" (interactives use this
+      // to mark the actual question text), prefer that.
+      function cleanFromLabel(lbl) {
+        if (!lbl) return null;
+        const qtext = lbl.querySelector('.q-text');
+        if (qtext) return (qtext.textContent || '').replace(/\s+/g, ' ').trim();
+        return (lbl.textContent || '').replace(/\s+/g, ' ').trim();
+      }
+
       try {
+        // 1. Explicit <label for="...">
         if (el.id) {
           const lbl = el.ownerDocument.querySelector('label[for="' + el.id + '"]');
-          if (lbl) return (lbl.textContent || '').replace(/\s+/g, ' ').trim();
+          const t = cleanFromLabel(lbl);
+          if (t) return t;
         }
+        // 2. Enclosing <label>
         let node = el.parentElement;
         while (node) {
-          if (node.tagName === 'LABEL') return (node.textContent || '').replace(/\s+/g, ' ').trim();
+          if (node.tagName === 'LABEL') {
+            const t = cleanFromLabel(node);
+            if (t) return t;
+            break;
+          }
           node = node.parentElement;
         }
+        // 3. Sibling label immediately before the input
         const prev = el.previousElementSibling;
         if (prev) {
-          const txt = (prev.textContent || '').replace(/\s+/g, ' ').trim();
-          if (txt && txt.length < 240) return txt;
+          if (prev.tagName === 'LABEL') {
+            const t = cleanFromLabel(prev);
+            if (t && t.length < 300) return t;
+          } else {
+            // Walk further back for a <label> sibling
+            let walker = prev;
+            while (walker && walker.tagName !== 'LABEL') walker = walker.previousElementSibling;
+            if (walker) {
+              const t = cleanFromLabel(walker);
+              if (t && t.length < 300) return t;
+            }
+            // Otherwise use the previous sibling's text directly if short
+            const txt = (prev.textContent || '').replace(/\s+/g, ' ').trim();
+            if (txt && txt.length < 240) return txt;
+          }
         }
       } catch(e) {}
       return null;
@@ -3668,6 +3751,22 @@
 
       if (data.type === 'orbit-system-challenge:complete') {
         markOrbitChallengeComplete();
+      }
+
+      // Modeler broadcasts its constraint choices, run count, and outcome
+      // here so the lesson can include them in the exported journal.
+      if (data.type === 'orbit-system-challenge:state') {
+        ensureTrackingFields();
+        state.modelerConstraints = {
+          selectedMotion:    data.selectedMotion    || null,
+          selectedPosition:  data.selectedPosition  || null,
+          modelRunCount:     data.modelRunCount     || 0,
+          lastModelOutcome:  data.lastModelOutcome  || null,
+          lastComboKey:      data.lastComboKey      || null,
+          lastUpdatedAt:     Date.now(),
+          lastReason:        data.reason            || null
+        };
+        saveState();
       }
     });
 
@@ -4005,6 +4104,44 @@
         });
       }
 
+      /* ------------------------------------------------
+         ORBIT SYSTEM MODELER CONSTRAINTS (Section 12)
+         Captures the motion + position changes the student
+         tested, plus the run count and stability outcome.
+         ------------------------------------------------ */
+      lines.push('', '------------------------------------------------');
+      lines.push('  ORBIT SYSTEM MODELER CONSTRAINTS');
+      lines.push('------------------------------------------------');
+
+      const modelerMotionLabels = {
+        'increase': 'Adjust Forward Motion Higher (Motion A)',
+        'same':     'Maintain Current Forward Motion (Motion B)',
+        'decrease': 'Adjust Forward Motion Lower (Motion C)'
+      };
+      const modelerPositionLabels = {
+        'closer':  'Adjust Orbit Position Inward (Position A)',
+        'same':    'Maintain Current Orbit Position (Position B)',
+        'farther': 'Adjust Orbit Position Outward (Position C)'
+      };
+      const modelerOutcomeLabels = {
+        'stable':   'Stable orbit — the modeled orbit moved closest to the target path',
+        'moderate': 'Moderate improvement — closer to the target, but small instability remained',
+        'partial':  'Partial improvement — slight improvement, system not fully balanced',
+        'worse':    'Worse — the orbit became wider or less stable'
+      };
+
+      const mc = state.modelerConstraints;
+      if (!mc || (!mc.selectedMotion && !mc.selectedPosition && !mc.modelRunCount)) {
+        lines.push('No modeler activity recorded.');
+      } else {
+        lines.push('  Forward Motion Change:    ' + (modelerMotionLabels[mc.selectedMotion] || mc.selectedMotion || '(not selected)'));
+        lines.push('  Satellite Position Change: ' + (modelerPositionLabels[mc.selectedPosition] || mc.selectedPosition || '(not selected)'));
+        lines.push('  Model Runs:                ' + (mc.modelRunCount || 0));
+        if (mc.lastModelOutcome) {
+          lines.push('  Last Model Outcome:        ' + (modelerOutcomeLabels[mc.lastModelOutcome] || mc.lastModelOutcome));
+        }
+      }
+
       lines.push('', '================================================', '  END OF JOURNAL', '================================================');
 
       const safeName = name ? name.replace(/[^a-z0-9]/gi, '_').substring(0, 30) + '_' : '';
@@ -4040,7 +4177,8 @@
         pageTotals:      {},
         totalSeconds:    0,
         startedAt:       null,
-        iframeResponses: {}
+        iframeResponses: {},
+        modelerConstraints: null
       };
       saveState();
 
