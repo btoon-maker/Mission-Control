@@ -2979,30 +2979,39 @@
     <section id="page-section14" class="page-section">
       <div class="content-wrap">
 
-        <div class="reading-card">
-          <button class="listen-btn" onclick="toggleTTS(this)">🔊 Listen</button>
-          <div class="reading-card-title">Mission Complete</div>
-          <div class="reading-card-body">
-            <p>Mission Control uploads the intern recommendations into the Canyon Observatory archive system.</p>
+<div class="reading-card">
+  <button class="listen-btn" onclick="toggleTTS(this)">🔊 Listen</button>
 
-<p>The orbit tracking display stabilizes as the updated model finishes processing.</p>
+  <div class="reading-card-title">Mission Recommendation Submitted</div>
 
-<div class="dialogue-quote">
-  “Scientists use evidence, models, and collaboration to improve systems,” Maya says.
+  <div class="reading-card-body">
+
+    <p>Mission Control uploads the intern recommendations into the Canyon Observatory archive system.</p>
+
+    <p>The new Aurora-3 orbit data, model results, and intern explanations are now saved for the Mission Control scientists to review.</p>
+
+    <div class="dialogue-quote">
+      “Your recommendation gives the science team evidence they can use,” Maya says. “You did not just guess. You studied the data, tested possible adjustments, and explained your thinking.”
+    </div>
+
+    <p>The tracking display updates as the system finishes processing the recommendation files.</p>
+
+    <div class="dialogue-quote">
+      “Scientists often use evidence, models, and collaboration to make decisions about complex systems,” Maya explains. “Today, your intern team helped Mission Control do that work.”
+    </div>
+
+    <p>Maya smiles as the Mission Control screens begin powering down for the evening.</p>
+
+    <div class="dialogue-quote">
+      “This may be the end of today’s mission,” she says, “but I can’t wait to see what the rest of summer has in store for your intern team.”
+    </div>
+
+    <div class="content-card dp2-image-card">
+      <img src="images/Canyon_Observatory_End.png" alt="Junior Orbital Response Interns leaving Canyon Observatory after submitting their mission recommendation" />
+    </div>
+
+  </div>
 </div>
-
-<div class="dialogue-quote">
-  “Today your intern teams did the same thing.”
-</div>
-
-<p>Maya smiles as the Mission Control screens begin powering down for the evening.</p>
-
-<div class="dialogue-quote">
-  “This may be the end of today’s mission,” she says, “but I can’t wait to see what the rest of summer has in store for your intern teams.” 
-</div>
-<div class="content-card dp2-image-card"> <img src="images/Orbit_mission complete.png" alt="Intern leaving for the day" /> </div>
-          </div>
-        </div>
 
         <div class="journal-card">
           <div class="journal-title">Mission Debrief Reflection</div>
@@ -3014,7 +3023,7 @@
           <textarea
             id="journal-final-reflection-1"
             data-journal="final-reflection-1"
-            placeholder="Reflect on what you learned about satellites and orbits..."
+            placeholder="Reflect on what you learned about satellites, Earth’s pull, forward motion, and orbit paths..."
             oninput="saveResponse('journal-final-reflection-1', this.value)"
           ></textarea>
 
@@ -3025,7 +3034,7 @@
           <div class="journal-title">Mission Debrief Reflection</div>
 
           <label for="journal-final-reflection-2">
-            How did using evidence and models help your intern team solve the orbit system challenge?
+            How did using evidence and models help you make a recommendation for Mission Control?
           </label>
 
           <textarea
@@ -3039,13 +3048,13 @@
         </div>
 
         <div class="mission-complete-banner">
-          <div class="mc-banner-title">🏅 Mission Complete!</div>
+          <div class="mc-banner-title">🏅 Mission Recommendation Submitted!</div>
           <div class="mc-banner-body">
-            You used <strong>evidence, models, and collaboration</strong> to investigate how satellites stay in orbit.
-            Export your <strong>Mission Journal</strong> now to save your choices, responses, and reflections.
+            <p>You used evidence, models, and scientific reasoning to review new Aurora-3 orbit data and prepare a recommendation for Mission Control.</p>
+            <p>Export your <strong>Mission Journal</strong> now to save your choices, responses, and reflections.</p>
           </div>
           <button class="btn-export-journal" onclick="openModal('modal-export')">
-            📥 Export Mission Journal
+            Export Mission Journal
           </button>
         </div>
 
