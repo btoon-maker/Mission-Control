@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Mission Control — Orbit System Challenge</title>
+<title>Mission Control — Aurora-3 Data Review</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
-   MISSION CONTROL — ORBIT SYSTEM CHALLENGE
+   MISSION CONTROL — AURORA-3 DATA REVIEW
    Grade 5 SINS Application Interactive
    ============================================================ */
 
@@ -1043,7 +1043,7 @@ body::after {
 }
 
 
-/* Orbit System Challenge refinements */
+/* Aurora-3 Data Review refinements */
 .system-options {
   gap: 8px;
 }
@@ -1074,8 +1074,8 @@ body::after {
     <div class="brand">
       <div class="brand-mark"></div>
       <div class="brand-text">
-        <div class="h1">Mission Control — Orbit System Challenge</div>
-        <div class="h2">Tracking Aurora-3 · Orbit System Analysis</div>
+        <div class="h1">Mission Control — Aurora-3 Data Review</div>
+        <div class="h2">Tracking Aurora-3 · New Orbit Data Review</div>
       </div>
     </div>
     <div class="status-stack">
@@ -1091,13 +1091,13 @@ body::after {
     <div class="alert-head">
       <div class="alert-icon"></div>
       <div class="alert-head-text">
-        <div class="label">Priority Alert · Incoming Tasking</div>
-        <div class="target">Satellite Aurora-3 · Orbit System</div>
+        <div class="label">Priority Data Review · Aurora-3</div>
+        <div class="target">New Orbit Data Uploaded</div>
       </div>
     </div>
     <div class="alert-body">
-      <p>Mission Control has detected unusual changes in a satellite's orbit system.</p>
-      <p>Intern teams must analyze the system, test possible adjustments, and recommend changes that may help stabilize the orbit path.</p>
+      <p>Mission Control has uploaded new Aurora-3 orbit data for review.</p>
+      <p>Intern teams must analyze the evidence, test possible adjustments, and recommend the adjustment best supported by the data.</p>
     </div>
   </section>
 
@@ -1134,21 +1134,21 @@ body::after {
         </div>
 
         <div class="btn-row" style="margin-top: 18px;">
-          <button class="btn primary" id="btn-run-track" style="width: 100%; justify-content: center;"><span class="arrow">▶</span>Run Tracking Data</button>
+          <button class="btn primary" id="btn-run-track" style="width: 100%; justify-content: center;"><span class="arrow">▶</span>Review Orbit Data</button>
         </div>
       </aside>
     </div>
 
     <div class="notice amber" id="notice-problem">
-      <span class="tag">Mission Control</span>Orbit system instability detected.
+      <span class="tag">Mission Control</span>New orbit data loaded for review.
     </div>
 
     <div class="reason-list hidden" id="orbit-problem-block" style="margin-top: 18px;">
       <div class="reason-block">
-        <label><span class="qnum">Q1</span>Orbit System Patterns
-          <span class="q-text">What patterns did you observe in the unstable orbit system?</span>
+        <label><span class="qnum">Q1</span>New Orbit Data Patterns
+          <span class="q-text">What patterns did you observe in the new Aurora-3 orbit data?</span>
         </label>
-        <textarea id="r1" data-key="aurora3_system_r1" placeholder="Describe the orbit patterns you observed…"></textarea>
+        <textarea id="r1" data-key="aurora3_system_r1" placeholder="Describe the orbit data patterns you observed…"></textarea>
         <div class="reason-meta"><span>Autosaving locally</span><span class="saved-flash" id="flash-r1">Saved ✓</span></div>
       </div>
     </div>
@@ -1156,16 +1156,16 @@ body::after {
 
   <!-- ================= SECTION 3 — ENTER MODELER ================= -->
   <section class="gate hidden" id="sec-gate">
-    <div class="gate-sub">Initial observation logged · Modeler standing by</div>
-    <button class="btn large primary" id="btn-enter-modeler"><span class="arrow">◈</span>Enter the System Modeler</button>
+    <div class="gate-sub">Initial data review logged · Modeler standing by</div>
+    <button class="btn large primary" id="btn-enter-modeler"><span class="arrow">◈</span>Open the System Modeler</button>
   </section>
 
   <!-- ================= SECTION 5 — MODELER ================= -->
   <section class="panel hud hidden" id="sec-modeler">
     <span class="corner-tr"></span><span class="corner-bl"></span>
     <div class="panel-head">
-      <div class="panel-title">Orbit System Modeler</div>
-      <div class="panel-meta">Step 03 / Test System Changes</div>
+      <div class="panel-title">Aurora-3 System Modeler</div>
+      <div class="panel-meta">Step 03 / Test Possible Adjustments</div>
     </div>
 
     <div class="modeler-grid">
@@ -1234,32 +1234,32 @@ body::after {
   <section class="panel hud hidden" id="sec-reason">
     <span class="corner-tr"></span><span class="corner-bl"></span>
     <div class="panel-head">
-      <div class="panel-title">Mission Control Scientific Reasoning</div>
-      <div class="panel-meta">Step 04 / Explain Your Thinking</div>
+      <div class="panel-title">Mission Control Data Reasoning</div>
+      <div class="panel-meta">Step 04 / Support Your Recommendation</div>
     </div>
 
     <div class="reason-list">
       <div class="reason-block">
-        <label><span class="qnum">Q2</span>Model Adjustment
-          <span class="q-text">What changes did your intern team test in the orbit model?</span>
+        <label><span class="qnum">Q2</span>Possible Adjustment
+          <span class="q-text">What possible adjustments did you test in the orbit model?</span>
         </label>
-        <textarea id="r2" data-key="aurora3_system_r2" placeholder="Describe the system changes you tested in the modeler…"></textarea>
+        <textarea id="r2" data-key="aurora3_system_r2" placeholder="Describe the possible adjustments you tested in the modeler…"></textarea>
         <div class="reason-meta"><span>Autosaving locally</span><span class="saved-flash" id="flash-r2">Saved ✓</span></div>
       </div>
 
       <div class="reason-block">
-        <label><span class="qnum">Q3</span>Model Effect
-          <span class="q-text">How did your model changes affect the orbit path?</span>
+        <label><span class="qnum">Q3</span>Data Review Result
+          <span class="q-text">How did your possible adjustments affect the orbit path?</span>
         </label>
-        <textarea id="r3" data-key="aurora3_system_r3" placeholder="Describe what changed when you ran your model…"></textarea>
+        <textarea id="r3" data-key="aurora3_system_r3" placeholder="Describe what changed when you reviewed the model data…"></textarea>
         <div class="reason-meta"><span>Autosaving locally</span><span class="saved-flash" id="flash-r3">Saved ✓</span></div>
       </div>
 
       <div class="reason-block">
         <label><span class="qnum">Q4</span>Scientific Explanation
-          <span class="q-text">Why do you think your model helped improve orbit stability? Use ideas about gravity, Earth's pull, forward motion, and orbit path patterns.</span>
+          <span class="q-text">Why is your recommended adjustment supported by the data? Use ideas about gravity, Earth's pull, forward motion, and orbit path patterns.</span>
         </label>
-        <textarea id="r4" data-key="aurora3_system_r4" placeholder="Explain how the parts of the orbit system worked together…"></textarea>
+        <textarea id="r4" data-key="aurora3_system_r4" placeholder="Explain how the data supports your recommendation…"></textarea>
         <div class="reason-meta"><span>Autosaving locally</span><span class="saved-flash" id="flash-r4">Saved ✓</span></div>
       </div>
     </div>
@@ -1267,8 +1267,8 @@ body::after {
 
   <!-- ================= SECTION 7 — GENERATE BOARD ================= -->
   <section class="gate hidden" id="sec-generate">
-    <div class="gate-sub">Reasoning complete · Ready to compile recommendation</div>
-    <button class="btn large primary" id="btn-generate"><span class="arrow">◈</span>Generate Scientific Board</button>
+    <div class="gate-sub">Data reasoning complete · Ready to compile recommendation</div>
+    <button class="btn large primary" id="btn-generate"><span class="arrow">◈</span>Generate Mission Recommendation</button>
   </section>
 
   <!-- ================= SECTION 8 — SCIENTIFIC BOARD ================= -->
@@ -1278,7 +1278,7 @@ body::after {
       <div class="board-head">
         <div>
           <div class="agency">Canyon Observatory · Mission Control</div>
-          <h1>Scientific Board</h1>
+          <h1>Mission Recommendation</h1>
           <div class="sub">Junior Orbital Response Specialist Recommendation</div>
         </div>
         <div class="stamp">
@@ -1296,15 +1296,15 @@ body::after {
 
         <div class="board-fields">
           <div class="field-block amber">
-            <div class="field-label">Orbit System Patterns Observed</div>
+            <div class="field-label">New Orbit Data Patterns Observed</div>
             <div class="field-text" id="bf-problem">—</div>
           </div>
           <div class="field-block violet">
-            <div class="field-label">Model Adjustments Tested</div>
+            <div class="field-label">Possible Adjustments Tested</div>
             <div class="field-text" id="bf-adjust">—</div>
           </div>
           <div class="field-block" id="bf-result-block">
-            <div class="field-label">Model Results</div>
+            <div class="field-label">Data Review Results</div>
             <div class="field-text" id="bf-result">—</div>
           </div>
           <div class="field-block">
@@ -1319,10 +1319,10 @@ body::after {
       </div>
 
       <div class="board-footer">
-        <div class="board-sig">Filed by <b>Junior Orbital Response Specialist</b> · Aurora-3 Tasking</div>
+        <div class="board-sig">Filed by <b>Junior Orbital Response Specialist</b> · Aurora-3 Data Review</div>
         <div class="btn-row" style="margin: 0;">
-          <button class="btn" id="btn-replay">▶ Replay Orbit Model</button>
-          <button class="btn" id="btn-new">Generate New Recommendation</button>
+          <button class="btn" id="btn-replay">▶ Replay Data Model</button>
+          <button class="btn" id="btn-new">Revise Recommendation</button>
         </div>
       </div>
     </div>
