@@ -804,7 +804,7 @@
     }
 
     .journal-title {
-      font-size: 10px;
+      font-size: 14px;
       font-weight: 700;
       letter-spacing: 0.14em;
       text-transform: uppercase;
@@ -1878,7 +1878,7 @@
       <button class="hdr-btn" onclick="openModal('modal-resume')">Resume</button>
       <button class="hdr-btn" onclick="openModal('modal-export')">Export Journal</button>
       <button class="hdr-btn" onclick="openModal('modal-glossary')">📖 Glossary</button>
-      <button class="hdr-btn hdr-btn-restart" onclick="openModal('modal-restart')">⟳ Restart Lesson</button>
+      <button class="hdr-btn hdr-btn-restart">⟳ Restart Lesson</button>
     </div>
   </header>
 
@@ -3243,7 +3243,7 @@
       </div>
       <div class="modal-footer">
         <button class="btn-modal-secondary" onclick="closeModal('modal-restart')">No, I do not want to restart the lesson</button>
-        <button class="btn-modal-danger" onclick="doRestart()">Yes, Restart Lesson</button>
+        <button class="btn-modal-danger">Yes, Restart Lesson</button>
       </div>
     </div>
   </div>
@@ -4060,83 +4060,36 @@
       }
 
       /* ------------------------------------------------
-         DECISION POINTS / CHOICES
+         JOURNAL ENTRIES — in the order students encounter
+         them. Walks the lesson section-by-section and emits
+         every decision, journal response, interactive text
+         entry, and (for Section 12) the modeler snapshot
+         captured on that page.
          ------------------------------------------------ */
-      lines.push('', '------------------------------------------------');
-      lines.push('  DECISION POINTS & CHOICES');
-      lines.push('------------------------------------------------');
 
-      if (!Object.keys(state.choices).length) {
-        lines.push('No choices recorded yet.');
-      } else {
-        Object.entries(state.choices).forEach(([k, v]) => {
-          const label    = choiceLabels[k] || k;
-          const valLabel = choiceValueLabels[v] !== undefined ? choiceValueLabels[v] : String(v);
-          lines.push('  ' + label + ':  ' + valLabel);
-        });
-      }
+      // Map each piece of stored data back to the page where it was made
+      const choicePage = {
+        teamChoice:             'page-section3',
+        dp2Choice:              'page-section6',
+        dp3Choice:              'page-section11',
+        orbitChallengeComplete: 'page-section12'
+      };
+      const responsePage = {
+        'journal-dp2-synthesis':       'page-section8',
+        'journal-putting-it-together': 'page-section9',
+        'journal-gravity-connection':  'page-section10',
+        'journal-final-reflection-1':  'page-section14',
+        'journal-final-reflection-2':  'page-section14'
+      };
+      const iframePage = {};
+      Object.entries(INTERACTIVE_MAP).forEach(([pageId, cfg]) => {
+        if (cfg && cfg.iframeId) iframePage[cfg.iframeId] = pageId;
+      });
+      // Iframes that aren't in INTERACTIVE_MAP but still produce data
+      if (!iframePage['iframe-evidence-board'])  iframePage['iframe-evidence-board']  = 'page-section8';
+      if (!iframePage['iframe-new-orbit-data'])  iframePage['iframe-new-orbit-data']  = 'page-section12';
 
-      /* ------------------------------------------------
-         JOURNAL PROMPTS & RESPONSES — full question text
-         ------------------------------------------------ */
-      lines.push('', '------------------------------------------------');
-      lines.push('  JOURNAL PROMPTS & RESPONSES');
-      lines.push('------------------------------------------------');
-
-      if (!Object.keys(state.responses).length) {
-        lines.push('No written responses recorded yet.');
-      } else {
-        Object.entries(state.responses).forEach(([k, v]) => {
-          const fullPrompt = promptFor(k);
-          const heading    = responseLabels[k] || k;
-          lines.push('', '  [' + heading + ']');
-          if (fullPrompt) lines.push('  PROMPT: ' + fullPrompt);
-          lines.push('  RESPONSE:');
-          lines.push('    ' + (v || '[No response entered]').split('\n').join('\n    '));
-        });
-      }
-
-      /* ------------------------------------------------
-         INTERACTIVE TOOL RESPONSES — text typed inside iframes
-         ------------------------------------------------ */
-      lines.push('', '------------------------------------------------');
-      lines.push('  INTERACTIVE TOOL RESPONSES');
-      lines.push('------------------------------------------------');
-
-      const iframeEntries = Object.entries(state.iframeResponses || {});
-      if (!iframeEntries.length) {
-        lines.push('No interactive tool text recorded.');
-      } else {
-        iframeEntries.forEach(([iframeId, items]) => {
-          // Find label by walking INTERACTIVE_MAP
-          let toolLabel = iframeId;
-          Object.values(INTERACTIVE_MAP).forEach(cfg => {
-            if (cfg.iframeId === iframeId) toolLabel = cfg.label;
-          });
-          lines.push('', '  [' + toolLabel + ']');
-          if (Array.isArray(items)) {
-            items.forEach(item => {
-              if (item && item.label) lines.push('  PROMPT: ' + item.label);
-              lines.push('  RESPONSE:');
-              lines.push('    ' + (item.value || '').split('\n').join('\n    '));
-            });
-          } else if (typeof items === 'string') {
-            // Legacy fallback
-            lines.push('  RESPONSE:');
-            lines.push('    ' + items.split('\n').join('\n    '));
-          }
-        });
-      }
-
-      /* ------------------------------------------------
-         ORBIT SYSTEM MODELER CONSTRAINTS (Section 12)
-         Captures the motion + position changes the student
-         tested, plus the run count and stability outcome.
-         ------------------------------------------------ */
-      lines.push('', '------------------------------------------------');
-      lines.push('  ORBIT SYSTEM MODELER CONSTRAINTS');
-      lines.push('------------------------------------------------');
-
+      // Modeler labels (used inside the Section 12 block below)
       const modelerMotionLabels = {
         'increase': 'Adjust Forward Motion Higher (Motion A)',
         'same':     'Maintain Current Forward Motion (Motion B)',
@@ -4153,24 +4106,105 @@
         'partial':  'Partial improvement — slight improvement, system not fully balanced',
         'worse':    'Worse — the orbit became wider or less stable'
       };
-
       const mc = state.modelerConstraints;
-      if (!mc || (!mc.selectedMotion && !mc.selectedPosition && !mc.modelRunCount)) {
-        lines.push('No modeler activity recorded.');
-      } else {
-        lines.push('  Forward Motion Change:    ' + (modelerMotionLabels[mc.selectedMotion] || mc.selectedMotion || '(not selected)'));
-        lines.push('  Satellite Position Change: ' + (modelerPositionLabels[mc.selectedPosition] || mc.selectedPosition || '(not selected)'));
-        lines.push('  Model Runs:                ' + (mc.modelRunCount || 0));
-        if (mc.lastModelOutcome) {
-          lines.push('  Last Model Outcome:        ' + (modelerOutcomeLabels[mc.lastModelOutcome] || mc.lastModelOutcome));
-        }
+      const mcHasData = !!(mc && (mc.selectedMotion || mc.selectedPosition || mc.modelRunCount));
+
+      // Look up the friendly label for any iframe ID
+      function interactiveLabelFor(iframeId) {
+        let label = iframeId;
+        Object.values(INTERACTIVE_MAP).forEach(cfg => {
+          if (cfg && cfg.iframeId === iframeId && cfg.label) label = cfg.label;
+        });
+        return label;
       }
+
+      // Lesson section progression. Sections with no captured data are skipped.
+      const sectionOrder = [
+        'page-section1',  'page-section2',
+        'page-section3',  'page-section4a', 'page-section4b',
+        'page-section5',  'page-section6',
+        'page-section7a', 'page-section7b',
+        'page-section8',  'page-section9',  'page-section10',
+        'page-section11', 'page-section12', 'page-section14'
+      ];
+
+      lines.push('', '------------------------------------------------');
+      lines.push('  JOURNAL ENTRIES (in lesson order)');
+      lines.push('------------------------------------------------');
+
+      let anySection = false;
+      sectionOrder.forEach(pageId => {
+        const sectChoices   = Object.entries(state.choices         || {}).filter(([k]) => choicePage[k]   === pageId);
+        const sectResponses = Object.entries(state.responses       || {}).filter(([k]) => responsePage[k] === pageId);
+        const sectIframes   = Object.entries(state.iframeResponses || {}).filter(([k]) => iframePage[k]   === pageId);
+        const showModeler   = (pageId === 'page-section12') && mcHasData;
+
+        if (!sectChoices.length && !sectResponses.length && !sectIframes.length && !showModeler) return;
+
+        anySection = true;
+        lines.push('', '  --- ' + (pageLabels[pageId] || pageId) + ' ---');
+
+        // Decisions made on this page
+        sectChoices.forEach(([k, v]) => {
+          const label    = choiceLabels[k] || k;
+          const valLabel = choiceValueLabels[v] !== undefined ? choiceValueLabels[v] : String(v);
+          lines.push('', '  DECISION: ' + label);
+          lines.push('    → ' + valLabel);
+        });
+
+        // Text entered inside interactive iframes on this page
+        sectIframes.forEach(([iframeId, items]) => {
+          lines.push('', '  INTERACTIVE: ' + interactiveLabelFor(iframeId));
+          if (Array.isArray(items)) {
+            items.forEach(item => {
+              if (item && item.label) lines.push('    PROMPT:   ' + item.label);
+              lines.push('    RESPONSE:');
+              lines.push('      ' + (item && item.value ? String(item.value) : '').split('\n').join('\n      '));
+            });
+          } else if (typeof items === 'string') {
+            lines.push('    RESPONSE:');
+            lines.push('      ' + items.split('\n').join('\n      '));
+          }
+        });
+
+        // Journal textarea responses on this page
+        sectResponses.forEach(([k, v]) => {
+          const fullPrompt = promptFor(k);
+          const heading    = responseLabels[k] || k;
+          lines.push('', '  JOURNAL: ' + heading);
+          if (fullPrompt) lines.push('    PROMPT:   ' + fullPrompt);
+          lines.push('    RESPONSE:');
+          lines.push('      ' + (v || '[No response entered]').split('\n').join('\n      '));
+        });
+
+        // Section 12 — orbit system modeler snapshot
+        if (showModeler) {
+          lines.push('', '  ORBIT SYSTEM MODELER:');
+          lines.push('    Forward Motion Change:     ' + (modelerMotionLabels[mc.selectedMotion]     || mc.selectedMotion   || '(not selected)'));
+          lines.push('    Satellite Position Change: ' + (modelerPositionLabels[mc.selectedPosition] || mc.selectedPosition || '(not selected)'));
+          lines.push('    Model Runs:                ' + (mc.modelRunCount || 0));
+          if (mc.lastModelOutcome) {
+            lines.push('    Last Model Outcome:        ' + (modelerOutcomeLabels[mc.lastModelOutcome] || mc.lastModelOutcome));
+          }
+        }
+      });
+
+      if (!anySection) lines.push('', '  No journal entries recorded yet.');
 
       lines.push('', '================================================', '  END OF JOURNAL', '================================================');
 
-      const safeName = name ? name.replace(/[^a-z0-9]/gi, '_').substring(0, 30) + '_' : '';
-      const safeDate = now.toISOString().slice(0, 10);
-      const filename = `OrbitRescue_Journal_${safeName}${safeDate}.txt`;
+      // Build filename in the format:  [chosen name]_Mission Control Journal.txt
+      // Strip filesystem-illegal characters from the name but keep spaces and
+      // common punctuation so student names read naturally. If no name was
+      // entered, fall back to just "Mission Control Journal.txt".
+      const cleanName = name
+        .replace(/[<>:"/\\|?*\x00-\x1F]/g, '')   // strip illegal filename chars
+        .replace(/\s+/g, ' ')                      // collapse whitespace
+        .trim()
+        .substring(0, 60);
+      const filename = cleanName
+        ? `${cleanName}_Mission Control Journal.txt`
+        : `Mission Control Journal.txt`;
 
       const blob = new Blob([lines.join('\n')], { type: 'text/plain;charset=utf-8' });
       const url  = URL.createObjectURL(blob);
@@ -4453,6 +4487,19 @@
       initIframes();
       setTimeout(fitScaledLabFrames, 150);
       setTimeout(fitScaledLabFrames, 450);
+
+      // Wire up the restart flow via addEventListener. Using JS bindings here
+      // (instead of inline onclick attributes) avoids edge cases where a
+      // sanitizer, browser extension, or stale cache strips inline handlers
+      // and leaves the button looking like it does nothing.
+      const headerRestart = document.querySelector('.hdr-btn-restart');
+      if (headerRestart) {
+        headerRestart.addEventListener('click', function () { openModal('modal-restart'); });
+      }
+      const modalConfirmRestart = document.querySelector('#modal-restart .btn-modal-danger');
+      if (modalConfirmRestart) {
+        modalConfirmRestart.addEventListener('click', function () { doRestart(); });
+      }
 
       const saved = loadState();
       if (saved && saved.resumeCode) {
