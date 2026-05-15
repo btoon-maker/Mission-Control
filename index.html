@@ -2976,8 +2976,8 @@
           <div class="monitor-corner br"></div>
           <div class="monitor-scanlines"></div>
           <iframe
-            id="iframe-orbit-system-challenge"
-            src="interactives/orbit-system-challenge.html"
+            id="iframe-new-orbit-data"
+            src="interactives/new-orbit-data.html"
             class="interactive-frame"
             title="Mission Control Data Review: Aurora-3 Interactive"
             sandbox="allow-scripts allow-same-origin"
@@ -3390,7 +3390,7 @@
       'page-section7a':  { iframeId: 'iframe-earth-influence',       label: 'Earth Influence Investigation Lab (Section 7a)' },
       'page-section7b':  { iframeId: 'iframe-forward-motion',        label: 'Forward Motion Investigation Lab (Section 7b)' },
       'page-section9':   { iframeId: 'iframe-putting-it-together',   label: 'Gravity and Motion Model (Section 9)' },
-      'page-section12':  { iframeId: 'iframe-orbit-system-challenge', label: 'Orbit System Challenge (Section 12)' }
+      'page-section12':  { iframeId: 'iframe-', label: 'Orbit System Challenge (Section 12)' }
     };
 
     /* ============================================================
@@ -3706,13 +3706,13 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
 
       // Trigger canvas resize in interactive iframes when their page becomes visible
-      const iframeMap = { 'page-section4a': 'iframe-track-orbit', 'page-section4b': 'iframe-motion-analysis', 'page-section5': 'iframe-evidence-briefing', 'page-section7a': 'iframe-earth-influence', 'page-section7b': 'iframe-forward-motion', 'page-section8': 'iframe-mission-synthesis', 'page-section12': 'iframe-orbit-system-challenge' };
+      const iframeMap = { 'page-section4a': 'iframe-track-orbit', 'page-section4b': 'iframe-motion-analysis', 'page-section5': 'iframe-evidence-briefing', 'page-section7a': 'iframe-earth-influence', 'page-section7b': 'iframe-forward-motion', 'page-section8': 'iframe-mission-synthesis', 'page-section12': 'iframe-new-orbit-data' };
       const iframeId = iframeMap[pageId];
       if (pageId === 'page-section12') {
         updateOrbitChallengeContinue();
         setTimeout(() => {
-          const f = document.getElementById('iframe-orbit-system-challenge');
-          if (f && f.contentWindow) f.contentWindow.postMessage({ type: 'orbit-system-challenge:request-height' }, '*');
+          const f = document.getElementById('iframe-new-orbit-data');
+          if (f && f.contentWindow) f.contentWindow.postMessage({ type: 'new-orbit-data:request-height' }, '*');
         }, 160);
       }
 
@@ -3765,21 +3765,21 @@
       const data = event.data || {};
       if (!data || typeof data !== 'object') return;
 
-      if (data.type === 'orbit-system-challenge:height') {
-        const frame = document.getElementById('iframe-orbit-system-challenge');
+      if (data.type === 'new-orbit-data:height') {
+        const frame = document.getElementById('iframe-new-orbit-data');
         if (frame && data.height) {
           const nextHeight = Math.max(760, Math.min(Number(data.height) + 20, 2600));
           frame.style.height = nextHeight + 'px';
         }
       }
 
-      if (data.type === 'orbit-system-challenge:complete') {
+      if (data.type === 'new-orbit-data:complete') {
         markOrbitChallengeComplete();
       }
 
       // Modeler broadcasts its constraint choices, run count, and outcome
       // here so the lesson can include them in the exported journal.
-      if (data.type === 'orbit-system-challenge:state') {
+      if (data.type === 'new-orbit-data:state') {
         ensureTrackingFields();
         state.modelerConstraints = {
           selectedMotion:    data.selectedMotion    || null,
