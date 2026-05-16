@@ -434,8 +434,10 @@
       text-align: center;
       font-size: 11px;
       color: var(--text-muted);
-      line-height: 1.6;
-      padding: 18px 0 0;
+      line-height: 1.7;
+      padding: 20px 24px 28px;
+      max-width: 760px;
+      margin: 0 auto;
     }
 
     /* ============================================================
@@ -1857,6 +1859,133 @@
       box-shadow: 0 6px 16px rgba(0,0,0,0.22);
     }
 
+    /* ============================================================
+       INSTRUCTIONAL ALIGNMENT PANEL (opening page collapsible)
+       ============================================================ */
+    .align-overview {
+      font-family: var(--font-body);
+      font-size: 15px;
+      color: var(--text-body);
+      line-height: 1.75;
+      margin-bottom: 20px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .align-section-label {
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .align-section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .align-objectives-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .align-obj-card {
+      background: var(--accent-light);
+      border: 1px solid var(--accent-mid);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+    }
+
+    .align-obj-num {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+      flex-shrink: 0;
+    }
+
+    .align-obj-text {
+      font-family: var(--font-body);
+      font-size: 13.5px;
+      color: var(--text-body);
+      line-height: 1.65;
+    }
+
+    .align-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .align-meta-card {
+      background: var(--bg-white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+    }
+
+    .align-meta-heading {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--accent-dark);
+      margin-bottom: 7px;
+    }
+
+    .align-meta-body {
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--text-mid);
+      line-height: 1.65;
+    }
+
+    .align-sins-card {
+      background: var(--gold-light);
+      border: 1px solid #f3d3ab;
+      border-left: 4px solid var(--gold);
+      border-radius: var(--radius-md);
+      padding: 14px 18px;
+    }
+
+    .align-sins-heading {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: #8a5c00;
+      margin-bottom: 7px;
+    }
+
+    .align-sins-body {
+      font-family: var(--font-body);
+      font-size: 13.5px;
+      color: var(--text-body);
+      line-height: 1.65;
+    }
+
+    @media (max-width: 680px) {
+      .align-objectives-grid,
+      .align-meta-grid { grid-template-columns: 1fr; }
+    }
+
   </style>
 </head>
 <body>
@@ -1941,58 +2070,63 @@
           </button>
         </div>
 
-        <!-- Collapsible: Learning Objectives -->
+        <!-- Collapsible: Learning Objectives & Instructional Alignment -->
         <div class="collapsible-section">
           <button class="collapsible-trigger" onclick="toggleCollapsible(this)" aria-expanded="false">
             <span>Learning Objectives &amp; Instructional Alignment</span>
-            <span class="collapsible-arrow">▼</span>
+            <span class="collapsible-arrow">&#9660;</span>
           </button>
           <div class="collapsible-body">
-            <!-- ============================================================
-                 PLACEHOLDER — replace with real objectives when ready
-                 ============================================================ -->
-<div class="placeholder-objectives">
-      <p>
-    <strong>Arizona Science Standard:</strong>
-     5.E2U1.8 — Obtain, analyze, and communicate evidence to support an explanation that the gravitational force of Earth on objects is directed toward the planet’s center.
-  </p>
-      <p>
-    <strong>Science and Engineering Practices:</strong>
-     Analyzing and Interpreting Data; Developing and Using Models; Constructing Explanations; Engaging in Argument from Evidence; Obtaining, Evaluating, and Communicating Information.
-  </p>
-    <p>
-    <strong>Crosscutting Concepts:</strong>
-     Patterns; Cause and Effect; Systems and System Models; Stability and Change.
-  </p>
-  <p>
-    <strong>Learning Objectives & Instructional Alignment:</strong>
-    In this lesson, students investigate archived and new Aurora-3 orbit data to develop an evidence-based explanation for how Earth’s gravitational pull affects the motion of objects near Earth.
-  </p>
 
-  <ul>
-    <li>
-    Students will be able to obtain and analyze orbit data to identify patterns in how Aurora-3 moves around Earth.
-    </li>
+            <p class="align-overview">
+              In this lesson, students investigate archived and new <strong>Aurora-3</strong> orbit data to develop an evidence-based explanation for how Earth's gravitational pull affects the motion of objects near Earth.
+            </p>
 
-    <li>
-    Students will be able to use evidence from observations, simulations, and models to explain that Earth’s gravitational force pulls objects inward toward Earth’s center.
-    </li>
+            <div class="align-section-label">Learning Objectives</div>
+            <div class="align-objectives-grid">
+              <div class="align-obj-card">
+                <div class="align-obj-num">1</div>
+                <div class="align-obj-text">Obtain and analyze orbit data to identify patterns in how Aurora-3 moves around Earth.</div>
+              </div>
+              <div class="align-obj-card">
+                <div class="align-obj-num">2</div>
+                <div class="align-obj-text">Use evidence from observations, simulations, and models to explain that Earth's gravitational force pulls objects inward toward Earth's center.</div>
+              </div>
+              <div class="align-obj-card">
+                <div class="align-obj-num">3</div>
+                <div class="align-obj-text">Communicate a recommendation supported by evidence about how Earth's pull and forward motion affect Aurora-3's orbit path.</div>
+              </div>
+            </div>
 
-    <li>
-    Students will be able to communicate a recommendation supported by evidence about how Earth’s pull and forward motion affect Aurora-3’s orbit path.
-    </li>
+            <div class="align-section-label">Standards &amp; Practices</div>
+            <div class="align-meta-grid">
+              <div class="align-meta-card">
+                <div class="align-meta-heading">&#128208; Arizona Science Standard</div>
+                <div class="align-meta-body"><strong>5.E2U1.8</strong> &#8212; Obtain, analyze, and communicate evidence to support an explanation that the gravitational force of Earth on objects is directed toward the planet's center.</div>
+              </div>
+              <div class="align-meta-card">
+                <div class="align-meta-heading">&#128300; Science &amp; Engineering Practices</div>
+                <div class="align-meta-body">Analyzing and Interpreting Data &middot; Developing and Using Models &middot; Constructing Explanations &middot; Engaging in Argument from Evidence &middot; Obtaining, Evaluating, and Communicating Information</div>
+              </div>
+              <div class="align-meta-card">
+                <div class="align-meta-heading">&#128279; Crosscutting Concepts</div>
+                <div class="align-meta-body">Patterns &middot; Cause and Effect &middot; Systems and System Models &middot; Stability and Change</div>
+              </div>
+            </div>
 
-  </ul>
-</div>
+            <div class="align-sins-card">
+              <div class="align-sins-heading">&#11088; SINS Framework Alignment</div>
+              <div class="align-sins-body">Students enter through a narrative role as Junior Orbital Response Interns, choose investigation pathways, compare evidence at convergence points, use models for sensemaking, apply understanding to new orbit data, and export a Mission Journal artifact.</div>
+            </div>
 
+          </div><!-- /collapsible-body -->
+        </div><!-- /collapsible-section -->
 
-      </div>
+      </div><!-- /content-wrap -->
 
-      <!-- ============================================================
-           COPYRIGHT — edit name and year here
-           ============================================================ -->
+      <!-- Copyright sits in the page background, below the white card -->
       <div class="lesson-footer">
-        © 2026 Brooke Toon. All rights reserved. This lesson is part of the Stories in Science (SINS) Framework developed by the author. Generative AI tools were used to support the development of this instructional material. This content may not be reproduced, distributed, modified, or used for commercial purposes without permission.
+        &#169; 2026 Brooke Toon. All rights reserved. This lesson is part of the Stories in Science (SINS) Framework developed by the author. Generative AI tools were used to support the development of this instructional material. This content may not be reproduced, distributed, modified, or used for commercial purposes without permission.
       </div>
 
     </section><!-- /page-opening -->
@@ -2744,7 +2878,7 @@
               <span class="monitor-dot" style="background:#fec833;color:#fec833"></span>
               <span class="monitor-dot" style="background:#29ce42;color:#29ce42"></span>
             </div>
-            <div class="monitor-title">◈ Mission Control · Earth Influence and Motion Model · Aurora-3</div>
+            <div class="monitor-title">◈ Mission Control · Gravity and Motion Model · Aurora-3</div>
             <div class="monitor-live">
               <span class="monitor-live-dot"></span>
               ARCHIVED
