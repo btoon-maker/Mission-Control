@@ -553,39 +553,6 @@
 
       </div><!-- /columns -->
 
-      <div class="section-divider" role="separator"></div>
-
-      <!-- SHARED RESPONSE PANEL -->
-      <section class="response-panel" aria-labelledby="rp-title-text">
-        <div class="rp-header">
-          <div class="rp-title">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-            </svg>
-            <span id="rp-title-text">Shared Observations</span>
-          </div>
-          <div class="save-indicator" id="save-indicator" aria-live="polite">
-            <span class="save-dot"></span>
-            <span id="save-label">Ready</span>
-          </div>
-        </div>
-        <div class="rp-prompt">
-          <strong>What patterns are beginning to emerge across Aurora-3’s orbit system?</strong><br>
-          Use evidence from both investigations. What are you starting to notice? What questions does the evidence raise for you?
-        </div>
-        <textarea
-          class="rp-textarea"
-          id="rp-textarea"
-          placeholder="What evidence from both teams helps you better understand Aurora-3's orbit? What patterns are you beginning to see?"
-          rows="6"
-          aria-label="Shared observations response"
-        ></textarea>
-        <div class="rp-footer">
-          <span class="char-count" id="char-count" aria-live="polite">0 characters</span>
-          <button class="btn-clear" onclick="clearResponse()" aria-label="Clear response">Clear</button>
-        </div>
-      </section>
-
     </main><!-- /mc-body -->
 
     <footer class="page-footer" aria-label="Page metadata">
@@ -636,67 +603,7 @@
           selectCard(card);
         }
       }
-
-      /* ── Textarea / autosave ── */
-      function handleInput() {
-        const ta  = document.getElementById('rp-textarea');
-        const len = ta.value.length;
-        document.getElementById('char-count').textContent =
-          len + (len === 1 ? ' character' : ' characters');
-
-        const si    = document.getElementById('save-indicator');
-        const label = document.getElementById('save-label');
-        label.textContent = 'Saving…';
-        si.classList.remove('saved');
-
-        clearTimeout(saveTimer);
-        saveTimer = setTimeout(() => {
-          try { localStorage.setItem(STORAGE_KEY, ta.value); } catch (_) {}
-          label.textContent = 'Saved';
-          si.classList.add('saved');
-        }, 800);
-      }
-
-      function clearResponse() {
-        const ta    = document.getElementById('rp-textarea');
-        const si    = document.getElementById('save-indicator');
-        const label = document.getElementById('save-label');
-        ta.value = '';
-        document.getElementById('char-count').textContent = '0 characters';
-        try { localStorage.removeItem(STORAGE_KEY); } catch (_) {}
-        label.textContent = 'Cleared';
-        si.classList.remove('saved');
-        setTimeout(() => { label.textContent = 'Ready'; }, 1200);
-      }
-
-      /* ── Restore saved response ── */
-      function init() {
-        try {
-          const saved = localStorage.getItem(STORAGE_KEY);
-          if (saved) {
-            const ta  = document.getElementById('rp-textarea');
-            ta.value  = saved;
-            const len = saved.length;
-            document.getElementById('char-count').textContent =
-              len + (len === 1 ? ' character' : ' characters');
-            const si    = document.getElementById('save-indicator');
-            const label = document.getElementById('save-label');
-            label.textContent = 'Restored';
-            si.classList.add('saved');
-          }
-        } catch (_) {}
-      }
-
-      /* ── Expose to HTML ── */
-      window.selectCard   = selectCard;
-      window.keyCard      = keyCard;
-      window.clearResponse = clearResponse;
-
-      document.getElementById('rp-textarea')
-        .addEventListener('input', handleInput);
-
-      init();
-    })();
+      })();
   </script>
 </body>
 </html>
