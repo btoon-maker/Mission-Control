@@ -2120,16 +2120,14 @@
       </div>
     </div>
 
-  </div>
-
         <!-- Navigation -->
         <div class="nav-bar">
           <button class="btn-nav btn-back" onclick="goToPage('page-section1')">← Back</button>
           <button class="btn-nav btn-continue" onclick="goToPage('page-section3')">Continue →</button>
         </div>
 
-      </div>
-    </section><!-- /page-section2 -->
+  </div>
+</section><!-- /page-section2 -->
 
 
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2660,10 +2658,10 @@
     <iframe
       id="iframe-evidence-board"
       src="interactives/evidence-board2.html"
-      class="interactive-frame"
       title="Mission Control Evidence Board"
       sandbox="allow-same-origin"
-      scrolling="no">
+      scrolling="no"
+      style="width:100%; height:1px; border:none; display:block; overflow:hidden; background:transparent;">
     </iframe>
     <script>
       (function () {
@@ -2749,7 +2747,7 @@
               <span class="monitor-dot" style="background:#fec833;color:#fec833"></span>
               <span class="monitor-dot" style="background:#29ce42;color:#29ce42"></span>
             </div>
-            <div class="monitor-title">◈ Mission Control · Earth Influence and Motion Model · Aurora-3</div>
+            <div class="monitor-title">◈ Mission Control · Gravity and Motion Model · Aurora-3</div>
             <div class="monitor-live">
               <span class="monitor-live-dot"></span>
               ARCHIVED
@@ -3780,6 +3778,8 @@
       // Stop any in-progress TTS and record time on the previous page
       stopTTS();
       recordPageLeave();
+      // Stop orbit polling whenever we leave page 12
+      stopOrbitPolling();
 
       document.querySelectorAll('.page-section')
         .forEach(s => s.classList.toggle('active', s.id === pageId));
@@ -3817,6 +3817,11 @@
       // Begin time tracking for the new page
       recordPageEnter(pageId);
 
+      // Start polling for orbit challenge completion when on page 12
+      if (pageId === 'page-section12' && !(state.choices && state.choices.orbitChallengeComplete)) {
+        startOrbitPolling();
+      }
+
       // Refresh the path tracker bar (active/done states)
       updateInvestigationPath();
     }
@@ -3845,6 +3850,54 @@
       saveState();
       updateOrbitChallengeContinue();
       showToast('Orbit challenge complete — continue unlocked ✓');
+      // Stop polling once complete
+      if (_orbitPollTimer) { clearInterval(_orbitPollTimer); _orbitPollTimer = null; }
+    }
+
+    /* Polling fallback — runs every 1.5 s while page 12 is active.
+       Re-requests state from the iframe; also inspects the iframe DOM
+       directly for completion markers so the button appears even if the
+       postMessage was missed the first time around. */
+    let _orbitPollTimer = null;
+
+    function startOrbitPolling() {
+      if (_orbitPollTimer) return; // already running
+      _orbitPollTimer = setInterval(function () {
+        if (state.choices && state.choices.orbitChallengeComplete) {
+          clearInterval(_orbitPollTimer); _orbitPollTimer = null; return;
+        }
+        // Re-ask the iframe for its current state
+        try {
+          const f = document.getElementById('iframe-new-orbit-data');
+          if (f && f.contentWindow) {
+            f.contentWindow.postMessage({ type: 'new-orbit-data:request-state' }, '*');
+          }
+          // DOM fallback — look for any completion indicator in the iframe
+          if (f && f.contentDocument) {
+            const doc = f.contentDocument;
+            // Common completion markers: a filed recommendation section,
+            // a "replay" button, or text containing "filed" / "recommendation"
+            const filed = doc.querySelector(
+              '.recommendation-filed, .filed-banner, .filed-recommendation, ' +
+              '[data-complete="true"], [data-filed="true"], .report-filed, ' +
+              '.final-recommendation, #final-recommendation'
+            );
+            // Also look for any visible element containing "FILED" text
+            const allText = doc.body ? doc.body.innerText : '';
+            const hasFiled = filed ||
+              /\bfiled\b/i.test(allText) ||
+              /junior orbital response specialist/i.test(allText) ||
+              /replay data model/i.test(allText);
+            if (hasFiled) {
+              markOrbitChallengeComplete();
+            }
+          }
+        } catch(e) {}
+      }, 1500);
+    }
+
+    function stopOrbitPolling() {
+      if (_orbitPollTimer) { clearInterval(_orbitPollTimer); _orbitPollTimer = null; }
     }
 
     window.addEventListener('message', function(event) {
@@ -4202,6 +4255,22 @@
           lines.push('  ' + String(i + 1).padStart(2, ' ') + '. ' + label + '   [' + t + ']');
         });
       }
+
+      /* ------------------------------------------------
+         MISSION PATH — DECISION CHOICES
+         ------------------------------------------------ */
+      lines.push('', '------------------------------------------------');
+      lines.push('  MISSION PATH \u2014 DECISION CHOICES');
+      lines.push('------------------------------------------------');
+
+      const dp1Label = PATH_STEP_VALUE_LABELS[state.choices && state.choices.teamChoice] || null;
+      const dp2Label = PATH_STEP_VALUE_LABELS[state.choices && state.choices.dp2Choice]  || null;
+
+      lines.push('Decision Point 1 \u2014 Where Will You Begin?');
+      lines.push('  ' + (dp1Label ? '\u2713 ' + dp1Label : '(no choice recorded)'));
+      lines.push('');
+      lines.push('Decision Point 2 \u2014 Why Does Aurora-3 Stay in Orbit?');
+      lines.push('  ' + (dp2Label ? '\u2713 ' + dp2Label : '(no choice recorded)'));
 
       /* ------------------------------------------------
          JOURNAL ENTRIES — in the order students encounter
