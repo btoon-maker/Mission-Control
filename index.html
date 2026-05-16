@@ -496,6 +496,14 @@
       line-height: 1.8;
     }
 
+    /* Constrain prose to a comfortable reading measure while letting
+       images / content-cards inside the body remain full-width */
+    .reading-card-title,
+    .reading-card-body > p,
+    .reading-card-body > ul {
+      max-width: 680px;
+    }
+
     .reading-card-body p { margin-bottom: 14px; }
     .reading-card-body p:last-child { margin-bottom: 0; }
 
@@ -519,6 +527,7 @@
       font-size: 18px;
       line-height: 1.8;
       font-family: var(--font-body);
+      max-width: 680px;
     }
 
     /* ============================================================
@@ -737,6 +746,7 @@
       color: var(--text-body);
       line-height: 1.75;
       margin-bottom: 16px;
+      max-width: 680px;
     }
 
     .response-prompt p { margin-bottom: 10px; }
@@ -822,6 +832,7 @@
       color: var(--text-body);
       line-height: 1.75;
       margin-bottom: 16px;
+      max-width: 680px;
     }
 
     .journal-card textarea {
@@ -2052,7 +2063,6 @@
         <!-- Navigation -->
         <div class="nav-bar">
           <button class="btn-nav btn-back" onclick="goToPage('page-opening')">← Back</button>
-          <span class="section-progress">Section 1 of 3</span>
           <button class="btn-nav btn-continue" onclick="goToPage('page-section2')">Continue →</button>
         </div>
 
@@ -2124,7 +2134,6 @@
         <!-- Navigation -->
         <div class="nav-bar">
           <button class="btn-nav btn-back" onclick="goToPage('page-section1')">← Back</button>
-          <span class="section-progress">Section 2 of 3</span>
           <button class="btn-nav btn-continue" onclick="goToPage('page-section3')">Continue →</button>
         </div>
 
@@ -2214,7 +2223,6 @@
         <!-- Navigation — Continue is disabled; orange buttons navigate forward -->
         <div class="nav-bar">
           <button class="btn-nav btn-back" onclick="goToPage('page-section2')">← Back</button>
-          <span class="section-progress">Section 3 of 3</span>
           <!-- Spacer to keep layout balanced -->
           <div style="width:120px;"></div>
         </div>
@@ -2292,7 +2300,6 @@
       <div class="content-wrap">
         <div class="nav-bar">
           <button class="btn-nav btn-back" onclick="goToPage('page-section3')">← Back</button>
-          <span class="section-progress">Section 4a of 7</span>
           <button class="btn-nav btn-continue" onclick="goToPage('page-section5')">Continue →</button>
         </div>
       </div>
@@ -2359,7 +2366,6 @@
       <div class="content-wrap">
         <div class="nav-bar">
           <button class="btn-nav btn-back" onclick="goToPage('page-section3')">← Back</button>
-          <span class="section-progress">Section 4b of 7</span>
           <button class="btn-nav btn-continue" onclick="goToPage('page-section5')">Continue →</button>
         </div>
       </div>
@@ -2408,7 +2414,6 @@
       <div class="content-wrap">
         <div class="nav-bar">
           <button class="btn-nav btn-back" onclick="goBackFromSection5()">← Back</button>
-          <span class="section-progress">Section 5 of 7</span>
           <button class="btn-nav btn-continue" onclick="goToPage('page-section6')">Continue →</button>
         </div>
       </div>
@@ -2481,7 +2486,6 @@
 
         <div class="nav-bar">
           <button class="btn-nav btn-back" onclick="goToPage('page-section5')">← Back</button>
-          <span class="section-progress">Section 6 of 7</span>
           <div style="width:120px;"></div>
         </div>
       </div>
@@ -2545,7 +2549,6 @@
       <div class="content-wrap">
         <div class="nav-bar">
           <button class="btn-nav btn-back" onclick="goToPage('page-section6')">← Back</button>
-          <span class="section-progress">Section 7a of 7</span>
           <button class="btn-nav btn-continue" onclick="goToPage('page-section8')">Continue →</button>
         </div>
       </div>
@@ -2612,7 +2615,6 @@
       <div class="content-wrap">
         <div class="nav-bar">
           <button class="btn-nav btn-back" onclick="goToPage('page-section6')">← Back</button>
-          <span class="section-progress">Section 7b of 7</span>
           <button class="btn-nav btn-continue" onclick="goToPage('page-section8')">Continue →</button>
         </div>
       </div>
@@ -2690,7 +2692,6 @@
   <div class="content-wrap">
         <div class="nav-bar">
           <button class="btn-nav btn-back" onclick="goToPage('page-section6')">← Back</button>
-          <span class="section-progress">Section 8 of 9</span>
           <button class="btn-nav btn-continue" onclick="goToPage('page-section9')">Continue →</button>
         </div>
       </div>
@@ -2782,7 +2783,6 @@
 
         <div class="nav-bar">
           <button class="btn-nav btn-back" onclick="goToPage('page-section8')">← Back</button>
-          <span class="section-progress">Section 9 of 14</span>
           <button class="btn-nav btn-continue" onclick="goToPage('page-section10')">Continue →</button>
         </div>
       </div>
@@ -2838,7 +2838,6 @@
 
         <div class="nav-bar">
           <button class="btn-nav btn-back" onclick="goToPage('page-section9')">← Back</button>
-          <span class="section-progress">Section 10 of 14</span>
           <button class="btn-nav btn-continue" onclick="goToPage('page-section11')">Continue →</button>
         </div>
 
@@ -2904,7 +2903,6 @@
 
         <div class="nav-bar">
           <button class="btn-nav btn-back" onclick="goToPage('page-section10')">← Back</button>
-          <span class="section-progress">Section 11 of 14</span>
           <div style="width:120px;"></div>
         </div>
 
@@ -2987,7 +2985,6 @@
       <div class="content-wrap">
         <div class="nav-bar">
           <button class="btn-nav btn-back" onclick="goToPage('page-section11')">← Back</button>
-          <span class="section-progress">Section 12 of 14</span>
           <div id="orbit-challenge-lock-note" class="orbit-challenge-lock-note">
             Complete the interactive to continue.
           </div>
@@ -3084,7 +3081,6 @@
 
         <div class="nav-bar">
           <button class="btn-nav btn-back" onclick="goToPage('page-section12')">← Back</button>
-          <span class="section-progress">Section 14 of 14</span>
           <button class="btn-nav btn-continue" style="opacity:0.4;cursor:not-allowed;" disabled>Continue →</button>
         </div>
 
@@ -3708,7 +3704,13 @@
         updateOrbitChallengeContinue();
         setTimeout(() => {
           const f = document.getElementById('iframe-new-orbit-data');
-          if (f && f.contentWindow) f.contentWindow.postMessage({ type: 'new-orbit-data:request-height' }, '*');
+          if (f && f.contentWindow) {
+            // Ask the interactive to re-broadcast its height and current state.
+            // If a recommendation was already filed the state message will include
+            // a reason, which triggers markOrbitChallengeComplete() in the handler.
+            f.contentWindow.postMessage({ type: 'new-orbit-data:request-height' }, '*');
+            f.contentWindow.postMessage({ type: 'new-orbit-data:request-state' }, '*');
+          }
         }, 160);
       }
 
@@ -3787,6 +3789,13 @@
           lastReason:        data.reason            || null
         };
         saveState();
+
+        // If the interactive reports a filed reason it means the student has
+        // submitted a recommendation — treat that as completion. This covers
+        // resume/reload cases where new-orbit-data:complete isn't re-fired.
+        if (data.reason && !state.choices.orbitChallengeComplete) {
+          markOrbitChallengeComplete();
+        }
       }
     });
 
