@@ -496,13 +496,7 @@
       line-height: 1.8;
     }
 
-    /* Constrain prose to a comfortable reading measure while letting
-       images / content-cards inside the body remain full-width */
-    .reading-card-title,
-    .reading-card-body > p,
-    .reading-card-body > ul {
-      max-width: 680px;
-    }
+    /* Text spans the full card width — no prose max-width constraint */
 
     .reading-card-body p { margin-bottom: 14px; }
     .reading-card-body p:last-child { margin-bottom: 0; }
@@ -527,7 +521,6 @@
       font-size: 18px;
       line-height: 1.8;
       font-family: var(--font-body);
-      max-width: 680px;
     }
 
     /* ============================================================
@@ -746,7 +739,6 @@
       color: var(--text-body);
       line-height: 1.75;
       margin-bottom: 16px;
-      max-width: 680px;
     }
 
     .response-prompt p { margin-bottom: 10px; }
@@ -832,7 +824,6 @@
       color: var(--text-body);
       line-height: 1.75;
       margin-bottom: 16px;
-      max-width: 680px;
     }
 
     .journal-card textarea {
@@ -2000,14 +1991,14 @@
 
       </div>
 
-    </section><!-- /page-opening -->
+      <!-- ============================================================
+           COPYRIGHT — edit name and year here
+           ============================================================ -->
+      <div class="lesson-footer">
+        © 2026 Brooke Toon. All rights reserved. This lesson is part of the Stories in Science (SINS) Framework developed by the author. Generative AI tools were used to support the development of this instructional material. This content may not be reproduced, distributed, modified, or used for commercial purposes without permission.
+      </div>
 
-          <!-- ============================================================
-             COPYRIGHT — edit name and year here
-             ============================================================ -->
-        <div class="lesson-footer">
-          © 2026 Brooke Toon. All rights reserved. This lesson is part of the Stories in Science (SINS) Framework developed by the author. Generative AI tools were used to support the development of this instructional material. This content may not be reproduced, distributed, modified, or used for commercial purposes without permission.
-        </div>
+    </section><!-- /page-opening -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
          PAGE 1 — SECTION 1: Mission Control: Tracking Aurora-3
          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -2023,7 +2014,7 @@
           <!-- ============================================================
                SECTION 1 TITLE — edit here
                ============================================================ -->
-          <<div class="reading-card-title">Mission Control: Tracking Aurora-3</div>
+          <div class="reading-card-title">Mission Control: Tracking Aurora-3</div>
 
 <div class="reading-card-body">
   <p>
@@ -2411,6 +2402,25 @@
           <iframe id="iframe-evidence-briefing" class="evidence-briefing-frame" src="interactives/evidence-briefing.html"
             title="Mission Control Evidence Briefing — Aurora-3"
             sandbox="allow-scripts allow-same-origin" scrolling="no"></iframe>
+        </div>
+      </div>
+
+      <div class="content-wrap">
+        <div class="journal-card">
+          <div class="journal-title">Mission Journal: Team Briefing</div>
+
+          <label for="journal-team-briefing">
+            What patterns are beginning to emerge across Aurora-3's orbit system? Use evidence from both investigations. What are you starting to notice? What questions does the evidence raise for you?
+          </label>
+
+          <textarea
+            id="journal-team-briefing"
+            data-journal="team-briefing"
+            placeholder="Use evidence from both investigations to describe the patterns you are starting to notice..."
+            oninput="saveResponse('journal-team-briefing', this.value)"
+          ></textarea>
+
+          <div id="journal-team-briefing-saved" class="save-indicator">✓ Saved</div>
         </div>
       </div>
 
@@ -2991,16 +3001,16 @@
           <div id="orbit-challenge-lock-note" class="orbit-challenge-lock-note">
             Complete the interactive to continue.
           </div>
-          <button id="page12-continue-btn" class="btn-nav btn-continue page12-continue-hidden" onclick="goToPage('page-section14')">Continue →</button>
+          <button id="page12-continue-btn" class="btn-nav btn-continue page12-continue-hidden" onclick="goToPage('page-section13')">Continue →</button>
         </div>
       </div>
     </section><!-- /page-section12 -->
 
 
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-         PAGE 14 — FINAL PLACEHOLDER
+         PAGE 13 — MISSION COMPLETE / FINAL REFLECTION
          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    <section id="page-section14" class="page-section">
+    <section id="page-section13" class="page-section">
       <div class="content-wrap">
 
 <div class="reading-card">
@@ -3088,7 +3098,7 @@
         </div>
 
       </div>
-    </section><!-- /page-section14 -->
+    </section><!-- /page-section13 -->
 
 </main><!-- /app -->
 
@@ -3384,8 +3394,8 @@
       'page-section5':   { iframeId: 'iframe-evidence-briefing',     label: 'Mission Control Evidence Briefing (Section 5)' },
       'page-section7a':  { iframeId: 'iframe-earth-influence',       label: 'Earth Influence Investigation Lab (Section 7a)' },
       'page-section7b':  { iframeId: 'iframe-forward-motion',        label: 'Forward Motion Investigation Lab (Section 7b)' },
-      'page-section9':   { iframeId: 'iframe-putting-it-together',   label: 'Gravity and Motion Model (Section 9)' },
-      'page-section12':  { iframeId: 'iframe-', label: 'Orbit System Challenge (Section 12)' }
+      'page-section9':   { iframeId: 'iframe-putting-it-together',   label: 'Mission Control — Putting It Together (Section 9)' },
+      'page-section12':  { iframeId: 'iframe-new-orbit-data',        label: 'New Orbit Data Review (Section 12)' }
     };
 
     /* ============================================================
@@ -3479,7 +3489,10 @@
       if (!state.pageTotals)    state.pageTotals    = {};
       if (typeof state.totalSeconds !== 'number') state.totalSeconds = 0;
       if (!state.startedAt)     state.startedAt     = null;
-      if (!state.iframeResponses) state.iframeResponses = {};
+      if (!state.iframeResponses)     state.iframeResponses     = {};
+      if (!state.iframeRunCounts)     state.iframeRunCounts     = {};
+      if (!state.iframeScenarios)     state.iframeScenarios     = {};
+      if (!state.iframeStateSnapshots) state.iframeStateSnapshots = {};
       if (state.modelerConstraints === undefined) state.modelerConstraints = null;
     }
 
@@ -3593,6 +3606,7 @@
         const doc = frame.contentDocument;
         const out = [];
 
+        // 1. Textareas — primary journal/prompt responses
         doc.querySelectorAll('textarea').forEach(el => {
           const v = (el.value || '').trim();
           if (v) {
@@ -3602,6 +3616,8 @@
             });
           }
         });
+
+        // 2. Text inputs
         doc.querySelectorAll('input[type="text"], input:not([type])').forEach(el => {
           const v = (el.value || '').trim();
           if (v) {
@@ -3611,6 +3627,75 @@
             });
           }
         });
+
+        // 3. Selected scenarios / mission control runs —
+        //    Captures buttons with selected/active state so scenario choices are logged.
+        const scenarioSelectors = [
+          '[data-scenario].selected', '[data-scenario].active',
+          '.scenario-btn.selected', '.scenario-btn.active',
+          '.control-btn.active', '.control-btn.selected',
+          'button.active[data-label]', 'button.selected[data-label]',
+          '.mission-control-btn.selected', '.mission-control-btn.active',
+          '.scenario-option.selected', '.scenario-option.active',
+          '[data-control].selected', '[data-control].active'
+        ].join(', ');
+        try {
+          const selectedBtns = doc.querySelectorAll(scenarioSelectors);
+          if (selectedBtns.length > 0) {
+            const scenarioNames = [];
+            selectedBtns.forEach(btn => {
+              const t = (
+                btn.dataset.label   ||
+                btn.dataset.scenario ||
+                btn.dataset.control  ||
+                btn.textContent      ||
+                ''
+              ).replace(/\s+/g, ' ').trim();
+              if (t && !scenarioNames.includes(t)) scenarioNames.push(t);
+            });
+            if (scenarioNames.length) {
+              out.push({ label: 'Mission Control Selection', value: scenarioNames.join(', ') });
+            }
+          }
+        } catch(e) {}
+
+        // 4. Run count — look for any element that tracks how many times
+        //    a model / simulation was run.
+        try {
+          const runEl = doc.querySelector(
+            '[data-run-count], .run-count, #run-count, ' +
+            '.model-run-count, [data-runs], .runs-counter, ' +
+            '#model-run-count, .run-counter'
+          );
+          if (runEl) {
+            const count = (runEl.dataset.runCount || runEl.dataset.runs || runEl.textContent || '').trim();
+            if (count && count !== '0') {
+              out.push({ label: 'Model / Simulation Runs', value: count });
+            }
+          }
+        } catch(e) {}
+
+        // 5. Select (dropdown) elements
+        doc.querySelectorAll('select').forEach(el => {
+          if (!el.value) return;
+          const labelText = findInputLabel(el) || el.name || el.id;
+          if (!labelText) return;
+          const selectedOpt = el.options[el.selectedIndex];
+          out.push({ label: labelText, value: selectedOpt ? selectedOpt.text : el.value });
+        });
+
+        // 6. Radio buttons — capture the selected option per group
+        const radioGroups = {};
+        doc.querySelectorAll('input[type="radio"]:checked').forEach(el => {
+          const group = el.name || '_ungrouped';
+          radioGroups[group] = el;
+        });
+        Object.values(radioGroups).forEach(el => {
+          const labelText = findInputLabel(el) || el.name || el.id;
+          const v = el.value || el.dataset.label || '';
+          if (v) out.push({ label: labelText || 'Selection', value: v });
+        });
+
         return out.length ? out : null;
       } catch(e) {
         return null;
@@ -3637,7 +3722,7 @@
       'page-opening','page-section1','page-section2','page-section3',
       'page-section4a','page-section4b','page-section5','page-section6',
       'page-section7a','page-section7b','page-section8','page-section9',
-      'page-section10','page-section11','page-section12','page-section14'
+      'page-section10','page-section11','page-section12','page-section13'
     ];
 
     function pageIndex(pageId) {
@@ -3766,6 +3851,7 @@
       const data = event.data || {};
       if (!data || typeof data !== 'object') return;
 
+      // ---- Page 12: New Orbit Data iframe ----
       if (data.type === 'new-orbit-data:height') {
         const frame = document.getElementById('iframe-new-orbit-data');
         if (frame && data.height) {
@@ -3778,8 +3864,6 @@
         markOrbitChallengeComplete();
       }
 
-      // Modeler broadcasts its constraint choices, run count, and outcome
-      // here so the lesson can include them in the exported journal.
       if (data.type === 'new-orbit-data:state') {
         ensureTrackingFields();
         state.modelerConstraints = {
@@ -3793,12 +3877,61 @@
         };
         saveState();
 
-        // If the interactive reports a filed reason it means the student has
-        // submitted a recommendation — treat that as completion. This covers
-        // resume/reload cases where new-orbit-data:complete isn't re-fired.
         if (data.reason && !state.choices.orbitChallengeComplete) {
           markOrbitChallengeComplete();
         }
+      }
+
+      // ---- Page 9: Putting It Together — track Run Model clicks ----
+      // Accepts any of these type strings from the iframe:
+      //   'putting-it-together:run'  |  'model:run'  |  'run-model'
+      if (
+        data.type === 'putting-it-together:run' ||
+        data.type === 'model:run'               ||
+        data.type === 'run-model'
+      ) {
+        ensureTrackingFields();
+        if (!state.iframeRunCounts) state.iframeRunCounts = {};
+        state.iframeRunCounts['iframe-putting-it-together'] =
+          (state.iframeRunCounts['iframe-putting-it-together'] || 0) + 1;
+        saveState();
+      }
+
+      // ---- Pages 7a / 7b: Lab scenario run events ----
+      // Accepts: 'lab:run' | 'dp2-lab:run' | 'scenario:run'
+      // The iframe should send { type, iframeId, scenario, runCount }
+      if (
+        data.type === 'lab:run'     ||
+        data.type === 'dp2-lab:run' ||
+        data.type === 'scenario:run'
+      ) {
+        ensureTrackingFields();
+        if (!state.iframeRunCounts) state.iframeRunCounts = {};
+        const sourceId = data.iframeId || (
+          state.currentPage === 'page-section7a' ? 'iframe-earth-influence' :
+          state.currentPage === 'page-section7b' ? 'iframe-forward-motion'  : null
+        );
+        if (sourceId) {
+          state.iframeRunCounts[sourceId] = (state.iframeRunCounts[sourceId] || 0) + 1;
+
+          // Also store last scenario label if provided
+          if (data.scenario) {
+            if (!state.iframeScenarios) state.iframeScenarios = {};
+            state.iframeScenarios[sourceId] = data.scenario;
+          }
+          saveState();
+        }
+      }
+
+      // ---- Generic lab:state — iframes can broadcast a full state snapshot ----
+      if (data.type === 'lab:state' && data.iframeId && data.state) {
+        ensureTrackingFields();
+        if (!state.iframeStateSnapshots) state.iframeStateSnapshots = {};
+        state.iframeStateSnapshots[data.iframeId] = {
+          ...data.state,
+          lastUpdatedAt: Date.now()
+        };
+        saveState();
       }
     });
 
@@ -3944,7 +4077,9 @@
     function doExport() {
       // Flush any unsaved textarea contents (the saveResponse debounce
       // could otherwise drop a final keystroke right before export).
-      document.querySelectorAll('.journal-card textarea[data-journal], .response-textarea').forEach(el => {
+      document.querySelectorAll(
+        '.journal-card textarea[data-journal], .response-group textarea[data-journal], .response-textarea'
+      ).forEach(el => {
         if (el.id) state.responses[el.id] = el.value;
       });
 
@@ -3967,7 +4102,7 @@
         'page-opening':    'Opening Page',
         'page-section1':   'Section 1 — Mission Control: Tracking Aurora-3',
         'page-section2':   'Section 2 — Mission File: Aurora-3',
-        'page-section3':   'Section 3 — Initial Observation Data',
+        'page-section3':   'Section 3 — Where to Begin?',
         'page-section4a':  'Section 4a — Orbit Tracking Team',
         'page-section4b':  'Section 4b — Motion Analysis Team',
         'page-section5':   'Section 5 — Mission Control Team Briefing',
@@ -3979,17 +4114,17 @@
         'page-section10':  'Section 10 — Earth’s Pull',
         'page-section11':  'Section 11 — Mission Control Alert: New Orbit Data',
         'page-section12':  'Section 12 — Mission Control Data Review: Aurora-3',
-        'page-section14':  'Section 14 — Mission Complete'
+        'page-section13':  'Section 13 — Mission Complete'
       };
 
       /* ============================================================
          CHOICE LABELS — add new choice groups here as the lesson grows
          ============================================================ */
       const choiceLabels = {
-        'teamChoice': 'Investigation Team (Section 3)',
-        'dp2Choice': 'Next Investigation Choice (Section 6)',
-        'dp3Choice': 'Final Mission Choice (Section 11)',
-        'orbitChallengeComplete': 'Mission Control Data Review: Aurora-3 (Section 12)'
+        'teamChoice':             'Investigation Start — Team Choice (Section 3)',
+        'dp2Choice':              'Investigation Focus Choice (Section 6)',
+        'dp3Choice':              'Final Mission Choice (Section 11)',
+        'orbitChallengeComplete': 'New Orbit Data Review Completed (Section 12)'
       };
 
       const choiceValueLabels = {
@@ -4006,11 +4141,12 @@
          RESPONSE LABELS — fallback labels for textareas
          ============================================================ */
       const responseLabels = {
-        'journal-dp2-synthesis': 'Mission Journal: Synthesis (Section 8)',
+        'journal-team-briefing':       'Mission Journal: Team Briefing (Section 5)',
+        'journal-dp2-synthesis':       'Mission Journal: Synthesis (Section 8)',
         'journal-putting-it-together': 'Mission Journal: Putting It Together (Section 9)',
-        'journal-gravity-connection': 'Mission Journal: Gravity Connection (Section 10)',
-        'journal-final-reflection-1': 'Mission Debrief Reflection: Satellites in Orbit (Section 14)',
-        'journal-final-reflection-2': 'Mission Debrief Reflection: Evidence and Models (Section 14)'
+        'journal-gravity-connection':  'Mission Journal: Gravity Connection (Section 10)',
+        'journal-final-reflection-1':  'Mission Debrief Reflection: Satellites in Orbit (Section 13)',
+        'journal-final-reflection-2':  'Mission Debrief Reflection: Evidence and Models (Section 13)'
       };
 
       // Pull the full prompt text directly from the DOM <label> for each textarea
@@ -4083,11 +4219,12 @@
         orbitChallengeComplete: 'page-section12'
       };
       const responsePage = {
+        'journal-team-briefing':       'page-section5',
         'journal-dp2-synthesis':       'page-section8',
         'journal-putting-it-together': 'page-section9',
         'journal-gravity-connection':  'page-section10',
-        'journal-final-reflection-1':  'page-section14',
-        'journal-final-reflection-2':  'page-section14'
+        'journal-final-reflection-1':  'page-section13',
+        'journal-final-reflection-2':  'page-section13'
       };
       const iframePage = {};
       Object.entries(INTERACTIVE_MAP).forEach(([pageId, cfg]) => {
@@ -4133,7 +4270,7 @@
         'page-section5',  'page-section6',
         'page-section7a', 'page-section7b',
         'page-section8',  'page-section9',  'page-section10',
-        'page-section11', 'page-section12', 'page-section14'
+        'page-section11', 'page-section12', 'page-section13'
       ];
 
       lines.push('', '------------------------------------------------');
@@ -4147,7 +4284,15 @@
         const sectIframes   = Object.entries(state.iframeResponses || {}).filter(([k]) => iframePage[k]   === pageId);
         const showModeler   = (pageId === 'page-section12') && mcHasData;
 
-        if (!sectChoices.length && !sectResponses.length && !sectIframes.length && !showModeler) return;
+        // Run counts tracked via postMessage for this page's iframe(s)
+        const pageIframeId  = INTERACTIVE_MAP[pageId] ? INTERACTIVE_MAP[pageId].iframeId : null;
+        const runCount      = pageIframeId && state.iframeRunCounts && state.iframeRunCounts[pageIframeId];
+        const lastScenario  = pageIframeId && state.iframeScenarios && state.iframeScenarios[pageIframeId];
+        const stateSnapshot = pageIframeId && state.iframeStateSnapshots && state.iframeStateSnapshots[pageIframeId];
+
+        const hasRunData    = !!(runCount || lastScenario || stateSnapshot);
+
+        if (!sectChoices.length && !sectResponses.length && !sectIframes.length && !showModeler && !hasRunData) return;
 
         anySection = true;
         lines.push('', '  --- ' + (pageLabels[pageId] || pageId) + ' ---');
@@ -4175,6 +4320,23 @@
           }
         });
 
+        // Run counts and scenario data captured via postMessage
+        if (hasRunData) {
+          const interactiveLabel = pageIframeId ? interactiveLabelFor(pageIframeId) : (pageLabels[pageId] || pageId);
+          lines.push('', '  INTERACTIVE RUNS: ' + interactiveLabel);
+          if (runCount)     lines.push('    Model / Simulation Runs: ' + runCount);
+          if (lastScenario) lines.push('    Last Scenario Tested:     ' + lastScenario);
+          if (stateSnapshot) {
+            // Emit any key state fields as readable entries
+            Object.entries(stateSnapshot).forEach(([k, v]) => {
+              if (k === 'lastUpdatedAt') return;
+              if (v !== null && v !== undefined && v !== '') {
+                lines.push('    ' + k + ': ' + String(v));
+              }
+            });
+          }
+        }
+
         // Journal textarea responses on this page
         sectResponses.forEach(([k, v]) => {
           const fullPrompt = promptFor(k);
@@ -4193,6 +4355,9 @@
           lines.push('    Model Runs:                ' + (mc.modelRunCount || 0));
           if (mc.lastModelOutcome) {
             lines.push('    Last Model Outcome:        ' + (modelerOutcomeLabels[mc.lastModelOutcome] || mc.lastModelOutcome));
+          }
+          if (mc.lastReason) {
+            lines.push('    Recommendation Filed:      ' + mc.lastReason);
           }
         }
       });
@@ -4243,7 +4408,10 @@
         pageTotals:      {},
         totalSeconds:    0,
         startedAt:       null,
-        iframeResponses: {},
+        iframeResponses:      {},
+        iframeRunCounts:      {},
+        iframeScenarios:      {},
+        iframeStateSnapshots: {},
         modelerConstraints: null
       };
       saveState();
