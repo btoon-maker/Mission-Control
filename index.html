@@ -1952,6 +1952,10 @@
                  PLACEHOLDER — replace with real objectives when ready
                  ============================================================ -->
 <div class="placeholder-objectives">
+      <p>
+    <strong>Arizona Science Standard:</strong>
+     5.E2U1.8 — Obtain, analyze, and communicate evidence to support an explanation that the gravitational force of Earth on objects is directed toward the planet’s center.
+  </p>
   <p>
     <strong>Learning Objectives & Instructional Alignment:</strong>
     In this lesson, students investigate archived and new Aurora-3 orbit data to develop an evidence-based explanation for how Earth’s gravitational pull affects the motion of objects near Earth.
@@ -1959,32 +1963,25 @@
 
   <ul>
     <li>
-      <strong>Learning Objective 1:</strong> Students will be able to obtain and analyze orbit data to identify patterns in how Aurora-3 moves around Earth.
+    Students will be able to obtain and analyze orbit data to identify patterns in how Aurora-3 moves around Earth.
     </li>
 
     <li>
-      <strong>Learning Objective 2:</strong> Students will be able to use evidence from observations, simulations, and models to explain that Earth’s gravitational force pulls objects inward toward Earth’s center.
+    Students will be able to use evidence from observations, simulations, and models to explain that Earth’s gravitational force pulls objects inward toward Earth’s center.
     </li>
 
     <li>
-      <strong>Learning Objective 3:</strong> Students will be able to communicate a recommendation supported by evidence about how Earth’s pull and forward motion affect Aurora-3’s orbit path.
+    Students will be able to communicate a recommendation supported by evidence about how Earth’s pull and forward motion affect Aurora-3’s orbit path.
     </li>
+    <p>
+    <strong>Science and Engineering Practices:</strong>
+     Analyzing and Interpreting Data; Developing and Using Models; Constructing Explanations; Engaging in Argument from Evidence; Obtaining, Evaluating, and Communicating Information.
+  </p>
+    <p>
+    <strong>Arizona Science Standard:</strong>
+     Patterns; Cause and Effect; Systems and System Models; Stability and Change.
+  </p>
 
-    <li>
-      <strong>Arizona Science Standard:</strong> 5.E2U1.8 — Obtain, analyze, and communicate evidence to support an explanation that the gravitational force of Earth on objects is directed toward the planet’s center.
-    </li>
-
-    <li>
-      <strong>Science and Engineering Practices:</strong> Analyzing and Interpreting Data; Developing and Using Models; Constructing Explanations; Engaging in Argument from Evidence; Obtaining, Evaluating, and Communicating Information.
-    </li>
-
-    <li>
-      <strong>Crosscutting Concepts:</strong> Patterns; Cause and Effect; Systems and System Models; Stability and Change.
-    </li>
-
-    <li>
-      <strong>SINS Framework Alignment:</strong> Students enter the lesson through a narrative role as Junior Orbital Response Interns, choose investigation pathways, compare evidence during convergence points, use models for sensemaking, apply their understanding to new orbit data, and export a Mission Journal artifact.
-    </li>
   </ul>
 </div>
 
@@ -2747,7 +2744,7 @@
               <span class="monitor-dot" style="background:#fec833;color:#fec833"></span>
               <span class="monitor-dot" style="background:#29ce42;color:#29ce42"></span>
             </div>
-            <div class="monitor-title">◈ Mission Control · Gravity and Motion Model · Aurora-3</div>
+            <div class="monitor-title">◈ Mission Control · Earth Influence and Motion Model · Aurora-3</div>
             <div class="monitor-live">
               <span class="monitor-live-dot"></span>
               ARCHIVED
@@ -4494,7 +4491,7 @@
       // Reload every embedded interactive so its internal state is cleared.
       // Without this, iframes (e.g. page 12 new-orbit-data) keep their
       // selections, run counts, and generated boards across a restart.
-      document.querySelectorAll('iframe.interactive-frame').forEach(f => {
+      document.querySelectorAll('iframe[src]').forEach(f => {
         // Re-assigning src forces a fresh load even if the URL is unchanged.
         const src = f.getAttribute('src');
         if (src) f.setAttribute('src', src);
